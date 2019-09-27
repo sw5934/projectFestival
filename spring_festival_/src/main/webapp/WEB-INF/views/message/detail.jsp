@@ -9,27 +9,58 @@
 <body>
 <input type="hidden" id="sender"value="${list.m_sender_Id}"/>
 <input type="hidden" id="receiver"value="${list.m_receiver_Id}"/>
-<p>발신자 : ${list.m_sender_Nick }</p>
-<p>수신자 : ${list.m_receiver_Nick }</p>
-<p>발신일 : ${list.m_sendDate }</p>
-<p>내용 : ${list.m_content }</p>
+
+
+
+ 
+
+
+<div class="col-11 p-0" style="border:1px solid black; margin: 0 auto; height:330px; font-size:0.9em">
+<div class="col-12 pt-2 pb-1 pr-0 pl-0 m-0" style="background-color:#D8D8D8; border-bottom:1px solid black">
+<p class="m-0 ml-3">발신자 : ${list.m_sender_Nick }</p></div>
+<div class="col-12 pt-2 pb-1 pr-0 pl-0 m-0" style="background-color:#D8D8D8; border-bottom:1px solid black">
+<p class="m-0 ml-3">수신자 : ${list.m_receiver_Nick }</p></div>
+<div class="col-12 pt-2 pb-1 pr-0 pl-0 m-0" style="background-color:#D8D8D8; border-bottom:1px solid black">
+<p class="m-0 ml-3">발신일 : <fmt:formatDate value="${list.m_sendDate }" type="both"/></p></div>
+  
+<div class="col-12 p-2">
+ 
+<p>${list.m_content }</p>
+</div>
+
+</div>
+<div class="col-11" style="margin:0 auto;padding:0px; overflow:hidden;">
+
+
+<a  class="baminfont-Pro mt-2 float-sm-right" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">닫기</a>
+
 
 <c:if test="${loginUser.id!=list.m_sender_Id}">
-<form action="/festival/message/sendMessage" method="get">
-	<input type="hidden" name="m_sender_Nick" value="${list.m_sender_Nick}">
-	<input type="submit" value="답장">
-	</form>
-</c:if>
-
-<c:if test="${loginUser.id!=list.m_sender_Id}">
-	<a type="button" href="<%=request.getContextPath()%>/message/receiverDelete?m_no=${list.m_no }">삭제</a>
+	<a class="baminfont-Pro mt-2 mr-3 float-sm-right"  href="<%=request.getContextPath()%>/message/receiverDelete?m_no=${list.m_no }" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">삭제</a>
 </c:if>
 <c:if test="${loginUser.id!=list.m_receiver_Id}">
-	<a type="button" href="<%=request.getContextPath()%>/message/senderDelete?m_no=${list.m_no }">삭제</a>
+	<a  class="baminfont-Pro mt-2 mr-3  float-sm-right" href="<%=request.getContextPath()%>/message/senderDelete?m_no=${list.m_no }" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">삭제</a>
 </c:if>
 
 
-<button>닫기</button>
+
+<c:if test="${loginUser.id!=list.m_sender_Id}">
+	<input type="hidden" name="m_sender_Nick" value="${list.m_sender_Nick}">
+	
+	<a class="baminfont-Pro mt-2 mr-3  float-sm-right" href="<%=request.getContextPath()%>/message/sendMessage?m_sender_Nick=${list.m_sender_Nick}" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em"> 
+	답장</a>
+</c:if>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 
 

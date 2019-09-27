@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <decorators defaultdir="/WEB-INF/decorators">	
-	<decorator name="OpenWindow" page="my_decorator.jsp">		
+	<decorator name="OpenWindow" page="my_decorator.jsp">	
+	
+		<pattern>/message/*</pattern>	
 	</decorator>
 	
 	<decorator name="main" page="main_decorator.jsp">

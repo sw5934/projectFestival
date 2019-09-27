@@ -2,6 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
        
+        
+        .side-menu{
+            margin-top: 10px
+        }
+        
+        .main-footer{
+            font-size: 0.9em;
+        }
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
         .baminfont-menu {
             font-family: bamin-hanna-Air;
             color: white;
@@ -12,14 +31,6 @@
             font-family: bamin-hanna-Pro;
             font-size: 3em;
             padding: 35px
-        }
-        
-        .side-menu{
-            margin-top: 10px
-        }
-        
-        .main-footer{
-            font-size: 0.9em;
         }
     </style>
 
@@ -41,7 +52,7 @@
                 </div>
             </aside>
             <div style="position: absolute;right:0px;width: 75%; height: 100%">
-                <div style="height: 30%">
-                    <p class="baminfont-my-title">~님의 페이지</p>
+                <div style="height: 26%">
+                    <p class="baminfont-my-title">${loginUser.nickName} 님의 ${view}</p> 
                 </div>
                 <div style="height: 70%">

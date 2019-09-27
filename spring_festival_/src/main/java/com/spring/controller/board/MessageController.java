@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,6 +22,16 @@ import com.spring.service.MessageService;
 @RequestMapping("/message")
 public class MessageController {
 	
+
+	@ModelAttribute("category")
+	public String category() throws Exception{
+		return "message";		
+	}
+
+	@ModelAttribute("view")
+	public String view() throws Exception{
+		return "쪽지";		
+	}
 	@Autowired
 	private MessageService messageService;
 	
@@ -28,7 +39,7 @@ public class MessageController {
 	
 	@RequestMapping("/sendList")
 	public void sendList(SearchCriteria cri, Model model ,HttpServletRequest request)throws Exception{
-		cri.setPerPageNum(15);
+		cri.setPerPageNum(10);
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -38,7 +49,7 @@ public class MessageController {
 
 	@RequestMapping("/receiveList")
 	public void receiveList(SearchCriteria cri, Model model ,HttpServletRequest request)throws Exception{
-		cri.setPerPageNum(15);
+		cri.setPerPageNum(10);
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		Map<String,Object> data = messageService.MessageListFromReceiver(cri, loginUser.getId());
@@ -46,10 +57,15 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void readMessage(Model model ,int m_no)throws Exception{
-		
+	public void readMessage(Model model ,int m_no,HttpServletRequest request)throws Exception{
+		HttpSession session = request.getSession();
+		String loginUser = ((MemberVO)session.getAttribute("loginUser")).getId();
+
 		MessageVO message = messageService.MessageDetail(m_no);
-		messageService.updateCheck(m_no);
+		
+		if(message.getM_receiver_Id().equals(loginUser)) {
+		messageService.updateCheck(m_no);}
+		
 		model.addAttribute("message",message);
 	}
 	
