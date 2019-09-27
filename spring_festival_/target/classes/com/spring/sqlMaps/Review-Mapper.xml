@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Review-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'w'.toString()">
+			and writer like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'tc'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			writer like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<select id="selectSearchReviewList" resultType="review">
+		select
+		*
+		from
+		brd_review
+		where rno is not null
+		<include refid="search"/>
+		order by ${listSort} desc
+	</select>
+	
+	<select id="selectSearchReviewListByLike" resultType="review">
+		select
+		*
+		from
+		 ReviewLikeStatus
+		where rno is not null
+		<include refid="search"/>
+		order by r_like desc
+	</select>
+	
+	<select id="selectSearchReviewListCount" resultType="int">
+		select
+		count(*)
+		from
+		brd_review
+		where rno is not null
+		<include refid="search"/>
+		order by rno desc
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="selectReviewByRno" resultType="review">
+		select *
+		from brd_review
+		where rno=#{rno}
+	</select>
+	
+	<select id="selectReviewSeqNext" resultType="int">
+		select brd_review_seq.nextval from dual
+	</select>
+	
+	<select id="selectUnqSeqNext" resultType="int">
+		select three_board_seq.nextval from dual
+	</select>
+	<!--  -->
+	<update id="insertReview" parameterType="review">
+		insert
+		into
+		brd_review(rno,r_title,r_writer,r_content)
+		values
+		(#{rno},#{r_title},#{r_writer},#{r_content})
+	</update>
+	
+	<!--  -->
+	<update id="updateReview" parameterType="review">
+		update
+		brd_review
+		set
+		r_title=#{r_title}, r_content=#{r_content}
+		where rno=#{rno}
+	</update>
+	
+	<update id="deleteReview" parameterType="int">
+		delete
+		from brd_review
+		where rno=#{rno}
+	</update>	
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update
+		brd_review
+		set
+		r_viewcnt = r_viewcnt + 1
+		where rno=#{rno}
+	</update>
+	
+	
+	<!-- 좋아요 수 카운트,-->
+</mapper>
+
+    

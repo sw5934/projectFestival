@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Comments-Mapper">
+	<!-- 후기 -->
+	<select id="selectCommentsList" resultType="comments">
+		select *
+		from comments
+		where unq_id=#{unq_id}
+		order by c_no asc
+	</select>
+	
+	<select id="countComments" resultType="int">
+		select count(*)
+		from comments
+		where unq_id=#{unq_id}
+	</select>
+	
+	<update id="insertComments">
+		insert into comments(c_no,unq_id,c_content,c_writer)
+		values(comments_seq.nextval,#{unq_id},#{c_content},#{c_writer})
+	</update>
+	
+	<update id="updateComments">
+		update comments
+		set
+		content=#{c_content}
+		where unq_id=#{unq_id}
+	</update>
+	
+	<update id="deleteComments">
+		delete from comments
+		where c_no=#{c_no}
+	</update>
+</mapper>
+
+    

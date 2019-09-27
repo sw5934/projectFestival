@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+    <mapper namespace="Member">
+    
+    	<select id="selectMemberAuthority" resultType="int">
+    		select auth_no
+    		from has_authority
+    		where id=#{id}
+    	</select>
+    
+    	<select id="selectMemberList" resultType="member">
+    		select * 
+    		from member
+		</select>
+		
+		<select id="selectMemberByID" resultType="member">
+			select * 
+			from member 
+			where id=#{id}	<!-- #을쓸떄는 데이터타입이 들어오는 타입에 ''을 붙인다. // $는 ''를 붙이지않는다. -->
+			<!-- 벨류는 #, 쿼리문 $ 쓴다. -->
+		</select>
+		
+		<select id="findMemberID" resultType="str">
+			select id
+			from member
+			where name=#{name}, email=#{email}
+		</select>
+		
+		<select id="findMemberPwd" resultType="member">
+			select *
+			from member
+			where id=#{id}, name=#{name}, email=#{email}
+		</select>
+		
+		
+		<!-- 로그인 -->
+		<select id="loginFailSelect" resultType="int">
+			select fail_cnt
+			from login
+			where id=#{id}
+		</select>
+		
+		<update id="loginFailInsert">
+			insert
+			into login
+			values(#{id}, 1)
+		</update>
+		
+		<update id="loginFailUpdate">
+			update login
+			set fail_cnt=fail_cnt+1
+			where id=#{id}
+		</update>
+		
+		<update id="loginSuccessUpdate">
+			delete
+			from login
+			where id=#{id}
+		</update>
+		
+    	
+    	<!-- 회원 관리 -->
+    	<update id="insertMember">
+    		insert
+    		into member(id, pwd, name, nickName, tel, email, birth, sex, location, prtPattern, infoStatus)
+    		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{location}, #{prtPattern}, #{infoStatus})
+    	</update>	<!-- 세개는  결국 익스큐트업데이트로 가기때문에 구분이없다 -->
+    
+    	<update id="updateMember">
+    		update member
+    		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{location}, prtPattern=#{prtPattern}, infoStatus=#{infoStatus}
+    		where id=#{id}
+    	</update>
+    	
+    	<update id="deleteMember">
+    		delete 
+    		from member
+    		where id=#{id}
+    	</update>
+    
+    </mapper>
+    

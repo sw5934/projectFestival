@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Message-Mapper">
+	
+	<select id="selectMessageListFromSender" resultType="message">
+		select *
+		from message
+		where m_sender_Id = #{m_sender_Id} and M_SENDER_DEL_CHECK = 0
+	</select>
+	
+	<select id="selectMessageListFromReceiver" resultType="message">
+		select *
+		from message
+		where m_receiver_Id = #{m_receiver_Id} and M_RECEIVER_DEL_CHECK = 0
+	</select>
+	
+	<select id="selectMessageByMno" resultType="message">
+		select *
+		from message
+		where m_no=#{m_no}
+	</select>
+	
+	<select id="getMessageSeq" resultType="int">
+		select message_seq.nextval
+		from dual
+	</select>
+	
+	<update id="sendMessage">
+		insert into message values
+		(#{m_no},#{m_content},#{m_sender_Id},
+		(select id from member where nickname=#{m_receiver_Nick}),sysdate,0,0,0)
+	</update>
+	
+	<update id="deleteFromSender">
+		update message
+		set m_sender_del_check = 1
+		where m_no=#{m_no}
+	</update>
+	
+	<update id="deleteFromReceiver">
+		update message
+		set m_receiver_del_check = 1
+		where m_no=#{m_no}
+	</update>
+	
+	<update id="updateCheck">
+		update message
+		set m_status = 1
+		where m_no=#{m_no}
+	</update>
+	
+	<select id="selectReceiverNick" resultType="str">
+		select nickname
+		from member
+		where member.id = #{m_receiver_Id}
+	</select>
+	
+	
+	<select id="selectSenderNick" resultType="str">
+		select nickname
+		from member
+		where member.id = #{m_sender_Id}
+	</select>
+	
+</mapper>
