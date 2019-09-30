@@ -55,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public ReviewVO getReview(int rno) throws SQLException {
 		ReviewVO review = reviewDAO.selectReviewByRno(rno);
 		
-		List<AttachVO> attachList = attachDAO.selectAttachesByUnqId(rno);
+		List<AttachVO> attachList = attachDAO.selectAttachesByUnq_Id(rno);
 		review.setAttachList(attachList);
 		return review;
 	}
@@ -63,33 +63,30 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public void regist(ReviewVO review) throws SQLException {
 		int rno = reviewDAO.getSeqNextValue();		
-		int unqId = reviewDAO.getUnqSeqNextValue();
+		int unq_Id = reviewDAO.getUnqSeqNextValue();
 		
 		review.setRno(rno);
-		review.setUnq_Id(unqId);
+		review.setUnq_Id(unq_Id);
 		reviewDAO.insertReview(review);		
 		
-		List<AttachVO> attachList = review.getAttachList();
+	/*	List<AttachVO> attachList = review.getAttachList();
 		if(attachList !=null) {
 			for(AttachVO attach:attachList) {
 				attach.setUnqId(unqId);			
 				attachDAO.insertAttach(attach);				
 			}
-		}
+		}*/
 	}
 
 	@Override
-	public void modify(ReviewVO review) throws SQLException {
-		int rno = reviewDAO.getSeqNextValue();		
-		int unqId = reviewDAO.getUnqSeqNextValue();
-		
+	public void modify(ReviewVO review) throws SQLException {		
 		reviewDAO.updateReview(review);
 		
 		
 		List<AttachVO> attachList = review.getAttachList();
 		if(attachList !=null) {
 			for(AttachVO attach:attachList) {
-				attach.setUnqId(unqId);			
+				attach.setUnq_Id(review.getUnq_Id());			
 				attachDAO.insertAttach(attach);				
 			}
 		}
@@ -105,7 +102,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public Map<String, Object> read(int rno, SearchCriteria cri) throws SQLException {
 		ReviewVO review = reviewDAO.selectReviewByRno(rno);
 		
-		List<AttachVO> attachList = attachDAO.selectAttachesByUnqId(review.getUnq_Id());
+		List<AttachVO> attachList = attachDAO.selectAttachesByUnq_Id(review.getUnq_Id());
 		review.setAttachList(attachList);
 		
 		review.setCommentsList(commentsDAO.selectCommentsListPage(review.getUnq_Id(), cri));
@@ -125,10 +122,10 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Override
 	public ReviewVO get(int rno) throws SQLException {	
-		int unqId = reviewDAO.getUnqSeqNextValue();
 		ReviewVO review = reviewDAO.selectReviewByRno(rno);
+		int unq_Id = review.getUnq_Id();
 		
-		List<AttachVO> attachList = attachDAO.selectAttachesByUnqId(unqId);
+		List<AttachVO> attachList = attachDAO.selectAttachesByUnq_Id(unq_Id);
 		review.setAttachList(attachList);
 		
 		return review;

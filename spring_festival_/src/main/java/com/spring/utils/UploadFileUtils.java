@@ -20,28 +20,28 @@ public class UploadFileUtils {
 	private static final Logger logger=	LoggerFactory.getLogger(UploadFileUtils.class);
 	
 	//uploadFile 저장
-	public static AttachVO uploadFile(String uploadPath, String originalName, int unqId, byte[] filedata) throws Exception{
+	public static AttachVO uploadFile(String a_uploadPath, String originalName, int unq_Id, byte[] filedata) throws Exception{
 		
 		AttachVO attach = new AttachVO();
 		
-		attach.setUnqId(unqId);
+		attach.setUnq_Id(unq_Id);
 		
 		//중복파일명 해결
 		UUID uid = UUID.randomUUID();
 		
-		attach.setUuid(uid.toString().replace("-", ""));
+		attach.setA_uuid(uid.toString().replace("-", ""));
 		
 		String saveName = uid.toString().replace("-", "") + "$$" + originalName;
 		
 		//저장경로
-		String savePath = calcPath(uploadPath, unqId);
+		String savePath = calcPath(a_uploadPath, unq_Id);
 		
-		attach.setUploadPath(savePath);
-		attach.setFileType(originalName.substring(originalName.lastIndexOf(".")+1));
-		attach.setFilename(originalName);
+		attach.setA_uploadPath(savePath);
+		attach.setA_fileType(originalName.substring(originalName.lastIndexOf(".")+1));
+		attach.setA_filename(originalName);
 		
 		//해당경로에 해당파일명으로 저장
-		File target = new File(uploadPath + savePath, saveName);
+		File target = new File(a_uploadPath + savePath, saveName);
 		FileCopyUtils.copy(filedata, target);
 		logger.info(target.getAbsolutePath());
 		
@@ -51,16 +51,16 @@ public class UploadFileUtils {
 		if(MediaUtils.getMediaType(formatName) !=null) {
 			//이미지 썸네일 생성.
 			//uploadFileName = 썸네일 이미지 파일명(경로포함)
-			makeThumbnail(uploadPath, savePath, saveName);			
+			makeThumbnail(a_uploadPath, savePath, saveName);			
 		}else {
 			//=저장된 원본 파일명(경로포함)
-			makeIcon(uploadPath, savePath, saveName);
+			makeIcon(a_uploadPath, savePath, saveName);
 		}
 		return attach;		
 	}
 	
 	//날짜를 계산하고 폴더를 만듦
-	private static String calcPath(String uploadPath, int unqId) throws Exception{
+	private static String calcPath(String uploadPath, int unq_Id) throws Exception{
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -68,7 +68,7 @@ public class UploadFileUtils {
 		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
 		String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 		
-		String savePath = File.separator + unqId + datePath;
+		String savePath = File.separator + unq_Id + datePath;
 		File path = new File(uploadPath + savePath);
 		
 		if(!path.exists()) {

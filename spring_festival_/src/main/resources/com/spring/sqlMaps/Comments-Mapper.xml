@@ -20,15 +20,15 @@
 	</select>
 	
 	<update id="insertComments">
-		insert into comments(c_no,unq_id,c_content,c_writer)
-		values(comments_seq.nextval,#{unq_id},#{c_content},#{c_writer})
+		insert into comments(c_no,unq_Id,c_content,c_regdate,c_writer)
+		values(COMMENTS_SEQ.nextVal,#{unq_Id},#{c_content},sysdate,#{c_writer})
 	</update>
 	
 	<update id="updateComments">
 		update comments
 		set
 		content=#{c_content}
-		where unq_id=#{unq_id}
+		where unq_id=#{unq_Id}
 	</update>
 	
 	<update id="deleteComments">
