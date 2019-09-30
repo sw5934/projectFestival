@@ -35,11 +35,11 @@
  	                
  	                <img src='<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/<c:if test="${message.m_status == 0 }">non</c:if>read.png'
  	                style="width:20px;height:20px;"> 
-                    <td style="width: 125px; border-bottom:1px solid gray; font-size:0.9em">${message.m_sender_Nick }</td>
+                    <td style="cursor:default;width: 125px; border-bottom:1px solid gray; font-size:0.9em">${message.m_sender_Nick }</td>
                     <td style="width: 410px; border-bottom:1px solid gray;  font-size:0.9em">
-                        <a href="detail?m_no=${message.m_no }" style="color: darkslategrey;">${message.m_content }</a>  
+                        <a href="detail?m_no=${message.m_no }&pageNum=${page}" style="text-overflow: ellipsis;color: darkslategrey;">${message.m_content }</a>  
                     </td>
-                    <td style="width: 100px; border-bottom:1px solid gray;  font-size:0.9em">
+                    <td style="cursor:default;width: 100px; border-bottom:1px solid gray;  font-size:0.9em">
                         <fmt:formatDate value="${message.m_sendDate }"/>
                     </td>
                 </tr>
@@ -52,32 +52,32 @@
             
                 <c:if test="${pageMaker.prev }">
                 	<li class="page-item">
-                    	<a class="" href="<%=request.getContextPath()%>/message/sendList?page=1">&lt;&lt;</a>
+                    	<a class="" href="<%=request.getContextPath()%>/message/receiveList?page=1">&lt;&lt;</a>
                     </li>
                 </c:if> 
                     
                 <c:if test="${pageMaker.prev }"> 
                 	<li class="page-item">
-                		<a class="" href="<%=request.getContextPath()%>/message/sendList?page=${pageMaker.startPage-1 }">&lt;</a>
+                		<a class="" href="<%=request.getContextPath()%>/message/receiveList?page=${pageMaker.startPage-1 }">&lt;</a>
                 	</li>
                 </c:if>
                 
                 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
                     <li class="page-item <c:out value=" ${pageMaker.cri.page==pageNum ?'active':''}" />"  style="width:20px;">
-                    <a class="" "href="<%=request.getContextPath()%>/message/sendList?page=${pageNum }"> ${pageNum } </a>
+                    <a class=""href="<%=request.getContextPath()%>/message/receiveList?page=${pageNum }"> ${pageNum } </a>
                     </li>
                 </c:forEach> 
                 
                 <c:if test="${pageMaker.next }">
 	                <li class="page-item">
-	                    <a class="" href="<%=request.getContextPath()%>/message/sendList?page=${pageMaker.endPage+1 }">&gt;
+	                    <a class="" href="<%=request.getContextPath()%>/message/receiveList?page=${pageMaker.endPage+1 }">&gt;
 	                    </a>
 	                </li>
                 </c:if>
                 
                  <c:if test="${pageMaker.next }">
 	                <li class="page-item">
-	                    <a class="" href="<%=request.getContextPath()%>/message/sendList?page=${pageMaker.realEndPage }">
+	                    <a class="" href="<%=request.getContextPath()%>/message/receiveList?page=${pageMaker.realEndPage }">
 	                        &gt;&gt;
 	                    </a>
 	                </li>

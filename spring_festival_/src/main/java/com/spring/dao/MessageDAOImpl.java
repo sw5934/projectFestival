@@ -89,4 +89,8 @@ public class MessageDAOImpl implements MessageDAO{
 		return session.selectOne("Message-Mapper.selectSenderNick", m_sender_Id);
 	}
 
+	public int checkNick(String nickname) throws SQLException{
+		return session.selectOne("Message-Mapper.checkNick",nickname);
+	};
+
 }

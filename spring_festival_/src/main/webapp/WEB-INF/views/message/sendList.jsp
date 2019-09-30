@@ -28,13 +28,13 @@
                 </td>
             </tr>
         </c:if>
-        <c:if test="${!empty list }">
+        <c:if test="${!empty list }"> 
             <c:forEach items="${list }" var="message">
                 <tr style="border-bottom: 0px solid black;">
  	                <td style="width: 30px; border-bottom:1px solid gray;  font-size:0.9em">
                     <td style="width: 125px; border-bottom:1px solid gray; font-size:0.9em">${message.m_receiver_Nick }</td>
-                    <td style="width: 410px; border-bottom:1px solid gray;  font-size:0.9em">
-                        <a href="detail?m_no=${message.m_no }" style="color: darkslategrey;">${message.m_content }</a>  
+                    <td style="width: 410px; border-bottom:1px solid gray;  font-size:0.9em;">
+                        <a href="detail?m_no=${message.m_no }&pageNum=${page}" style="color: darkslategrey;height:21px;width: 300px;text-overflow: ellipsis;overflow:hidden;display:block;white-space: nowrap;">${message.m_content }</a>  
                     </td>
                     <td style="width: 100px; border-bottom:1px solid gray;  font-size:0.9em">
                         <fmt:formatDate value="${message.m_sendDate }"/>
@@ -43,9 +43,9 @@
             </c:forEach>
         </c:if>
     </table>
-    <div class="mt-1 col-10" style="margin:0 auto  position:absolute; bottom:0px">
+    <div class="mt-1 col-10" style="margin:0 auto; position:absolute; bottom:0px">
         <div class="text-center">
-            <ul class="pagination" style="font-size:1.2em">    
+            <ul class="pagination" style="font-size:1.2em">   
             
                 <c:if test="${pageMaker.prev }">
                 	<li class="page-item">
@@ -61,7 +61,7 @@
                 
                 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
                     <li class="page-item <c:out value=" ${pageMaker.cri.page==pageNum ?'active':''}" />"  style="width:20px;">
-                    <a class="" "href="<%=request.getContextPath()%>/message/sendList?page=${pageNum }"> ${pageNum } </a>
+                    <a class="" href="<%=request.getContextPath()%>/message/sendList?page=${pageNum }"> ${pageNum } </a>
                     </li>
                 </c:forEach> 
                 

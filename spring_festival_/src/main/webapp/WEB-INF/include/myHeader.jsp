@@ -47,12 +47,12 @@
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 팔로우 현황 보기</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 내가 찜한 축제</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 내가 쓴 글/댓글</a></li>
-                        <li class="side-menu"><a class="baminfont-menu" href="#">@ 내 쪽지 보기</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/message/sendList">@ 내 쪽지 보기</a></li>
                     </ul>
                 </div>
-            </aside>
+            </aside> 
             <div style="position: absolute;right:0px;width: 75%; height: 100%">
                 <div style="height: 26%">
-                    <p class="baminfont-my-title">${loginUser.nickName} 님의 ${view}</p> 
+                    <p class="baminfont-my-title" style="cursor:pointer;" onClick='self.location.href="${request.getContextPath()}${categoryMain}"'>${loginUser.nickName} 님의 ${view}</p> 
                 </div>
                 <div style="height: 70%">

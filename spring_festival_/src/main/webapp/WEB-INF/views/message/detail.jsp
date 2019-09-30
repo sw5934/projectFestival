@@ -31,9 +31,12 @@
 </div>
 <div class="col-11" style="margin:0 auto;padding:0px; overflow:hidden;">
 
-
-<a  class="baminfont-Pro mt-2 float-sm-right" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">닫기</a>
-
+<c:if test="${loginUser.id!=list.m_sender_Id}">
+<a  class="baminfont-Pro mt-2 float-sm-right" href="<%=request.getContextPath()%>/message/receiveList?page=${pageNum }" style="cursor:pointer;color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">닫기</a>
+</c:if>
+<c:if test="${loginUser.id!=list.m_receiver_Id}">
+<a  class="baminfont-Pro mt-2 float-sm-right" href="<%=request.getContextPath()%>/message/sendList?page=${pageNum }" style="cursor:pointer;color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">닫기</a>
+</c:if>
 
 <c:if test="${loginUser.id!=list.m_sender_Id}">
 	<a class="baminfont-Pro mt-2 mr-3 float-sm-right"  href="<%=request.getContextPath()%>/message/receiverDelete?m_no=${list.m_no }" style="color: darkslategrey; border: 1px solid black; padding: 6px 23px; font-size:1.2em">삭제</a>
