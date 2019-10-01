@@ -2,6 +2,7 @@ package com.spring.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import com.spring.dao.MemberDAO;
 import com.spring.dto.MemberVO;
@@ -34,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMember(String id) throws SQLException {
+	public MemberVO getMemberByID(String id) throws SQLException {
 		
 		MemberVO member = memberDAO.selectMemberByID(id);
 		
@@ -42,6 +43,14 @@ public class MemberServiceImpl implements MemberService {
 			List<Integer> authority = memberDAO.selectMemberAuthority(id);
 			member.setAuthority(authority);
 		}
+		
+		return member;
+	}
+	
+	@Override
+	public MemberVO getMemberByNickName(String nickName) throws SQLException {
+		
+		MemberVO member = memberDAO.selectMemberByNickName(nickName);
 		
 		return member;
 	}
@@ -78,12 +87,13 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public List<MemberVO> getMemberPwd(String id, String name, String email) throws SQLException {
+	public MemberVO getMemberPwd(String id, String name, String email) throws SQLException {
 		
-		List<MemberVO> pwd_member = memberDAO.findMemberPwd(id, name, email);
+		MemberVO pwd_member = memberDAO.findMemberPwd(id, name, email);
+		String temp_pwd = UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(0, 5);
 		
 		if(pwd_member != null) {
-			
+			pwd_member.setPwd(temp_pwd);
 		}
 		
 		return pwd_member;

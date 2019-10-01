@@ -37,6 +37,10 @@
 		  class="com.spring.service.MemberServiceImpl"
 		  p:memberDAO-ref="memberDAO"
 		  />
+	<bean id="mailService"
+		  class="com.spring.service.MailService"
+		  p:memberDAO-ref="memberDAO"
+		  />
 	<bean id="reviewService" class="com.spring.service.ReviewServiceImpl"
 		p:reviewDAO-ref="reviewDAO"
 		p:attachDAO-ref="attachDAO"
