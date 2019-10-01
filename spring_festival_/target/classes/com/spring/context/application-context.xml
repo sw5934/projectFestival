@@ -30,6 +30,8 @@
 		p:session-ref="sqlSession"/>	
 	<bean id="messageDAO" class="com.spring.dao.MessageDAOImpl"
 		p:session-ref="sqlSession"/>	
+	<bean id="reportDAO" class="com.spring.dao.ReportDAOImpl"
+		p:session-ref="sqlSession"/>
 		  
 		  
 	<!-- service -->	
@@ -45,5 +47,7 @@
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="messageService" class="com.spring.service.MessageServiceImpl"
 		p:messageDAO-ref="messageDAO"/>
+	<bean id="manageService" class="com.spring.service.ManageServiceImpl"
+		p:reportDAO-ref="reportDAO"/>
 	
 </beans>

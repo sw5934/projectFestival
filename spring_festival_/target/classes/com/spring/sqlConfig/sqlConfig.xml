@@ -16,6 +16,8 @@
   		<typeAlias type="com.spring.dto.TogetherVO" alias="together"/>
   		<typeAlias type="com.spring.dto.LikeVO" alias="like"/>
   		<typeAlias type="com.spring.dto.MessageVO" alias="message"/>
+  		<typeAlias type="com.spring.dto.ReportVO" alias="report"/>
+  		<typeAlias type="com.spring.dto.Report_CVO" alias="reportC"/>
   	</typeAliases>
   	
   </configuration>
