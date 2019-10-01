@@ -1,14 +1,10 @@
 package com.spring.controller.board;
 
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,19 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dao.AttachDAO;
-import com.spring.dto.AttachVO;
-import com.spring.dto.CommentsVO;
 import com.spring.dto.MemberVO;
 import com.spring.dto.ReviewVO;
 import com.spring.service.ReviewService;
-import com.spring.utils.DeleteFileUtils;
-import com.spring.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/review")
@@ -69,7 +60,11 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/reviewRegist", method = RequestMethod.GET)
-	public void registGET() throws Exception {
+	public void registGET(Model model) throws Exception {
+		ReviewVO review = new ReviewVO();
+		
+		review.setUnq_Id(reviewService.getNextUnq_Id());
+		model.addAttribute("review",review);
 	}
 
 	@RequestMapping(value = "/reviewRegist", method = RequestMethod.POST)

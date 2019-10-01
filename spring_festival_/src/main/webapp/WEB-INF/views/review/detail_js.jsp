@@ -207,7 +207,7 @@ function onSubmit(category, form, url, method) {
 		$('.timeline').on('click','.commentsLi',function(event){
 			var comments=$(this);
 			$('#c_content').val(comments.find('.timeline-body').text());
-			$('.modal-title').html(comments.attr('data-c_no'));
+			$('.modal-title').html(comments.attr('data-c_no')); 
 		});
 	
 		$('ul.timeline').on('click','#DeleteCommentsBtn',function(event){

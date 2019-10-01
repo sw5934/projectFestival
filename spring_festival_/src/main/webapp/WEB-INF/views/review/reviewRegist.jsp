@@ -20,7 +20,7 @@
 					</div><!--end card-header  -->
 					<div class="card-body">
 						<form role="form" method="post" action="reviewRegist" name="registForm">
-
+						<input type="hidden" name="unq_Id" value="${review.unq_Id}">
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">제 목</label> 
 								<input class="col-sm-10 form-control" type="text" id="r_title"
@@ -29,10 +29,14 @@
 							<div class="col-md-12">
 								<textarea name="r_content" id="r_content"
 										placeholder="1000자 내외로 작성하세요."></textarea>
-							</div>	
+							</div>								
 
 						</form>
 					</div><!--end card-body  -->
+					
+					<div class="box-footer fileInput">
+					</div>
+					
 					<div class="card-footer">
 						<button type="button" class="btn btn-primary" id="registBtn" onclick="onSubmit('${category}',document.registForm,'reviewRegist','post');">등 록</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;

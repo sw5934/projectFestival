@@ -78,11 +78,11 @@
                 </td>
             </tr>
         </c:if>
-        <c:if test="${!empty reviewList }">
+         <c:if test="${!empty reviewList }">
             <c:forEach items="${reviewList }" var="review">
                 <tr style="border-bottom: 0px solid black;">
                     <td style="width: 7%;  text-align: center">${review.rno }</td>
-                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/bootstrap/dist/img/credit/mastercard.png"></td>
+                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/${review.id }/${review.unq_Id }.jpg"></td>
                     <td style="width: 56%;">
                         <a href="detail?rno=${review.rno }">${review.r_title } <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
                         <p>${review.r_regDate } ${review.id }</p>
@@ -105,13 +105,13 @@
             
                 <c:if test="${pageMaker.prev }">
                 	<li class="page-item">
-                    	<a class="page-link" href="${pageMaker.makeQuery(1)}">&lt;&lt;</a>
+                    	<a class="page-link" href="list${pageMaker.makeQuery(1)}">&lt;&lt;</a>
                     </li>
                 </c:if>
                     
                 <c:if test="${pageMaker.prev }"> 
                 	<li class="page-item">
-                		<a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage-1) }">&lt;</a>
+                		<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage-1) }">&lt;</a>
                 	</li>
                 </c:if>
                 

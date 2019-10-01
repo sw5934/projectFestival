@@ -36,32 +36,33 @@ public class CustomAuthentication implements AuthenticationProvider {
 			e.printStackTrace();
 			throw new BadCredentialsException("Internal server error!");
 		}
-		
-		if(member != null && login_pwd.equals(member.getPwd())) {
-			List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-			
-			List<Integer> authority = member.getAuthority();
-			
-			for(int i = 0; authority != null && i < authority.size(); i++) {
-				// 사용자에게 권한 부여
-				roles.add(new SimpleGrantedAuthority(authority.get(i).toString()));
+		//임시적으로 admin role 부여
+				if(member != null && login_pwd.equals(member.getPwd())) {
+					List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+					roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+					
+				/*	List<Integer> authority = member.getAuthority();
+					
+					for(int i = 0; authority != null && i < authority.size(); i++) {
+						// 사용자에게 권한 부여
+						roles.add(new SimpleGrantedAuthority(authority.get(i).toString()));
+					}*/
+					
+					// 스프링 시큐리티 내부 클래스로 인증 토큰 생성한다.
+					UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member.getId(), member.getPwd(), roles);
+					
+					// 전달할 내용을 설정한 후
+					result.setDetails(new User(member));
+					
+					// 리턴한다. default-target-url로 전송된다.
+					return result;
+					
+				} else {
+					// 실패시 예외처리
+					throw new BadCredentialsException("아이디 혹은 비밀번호가 일치하지 않습니다.");
+					
+				}
 			}
-			
-			// 스프링 시큐리티 내부 클래스로 인증 토큰 생성한다.
-			UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member.getId(), member.getPwd(), roles);
-			
-			// 전달할 내용을 설정한 후
-			result.setDetails(new User(member));
-			
-			// 리턴한다. default-target-url로 전송된다.
-			return result;
-			
-		} else {
-			// 실패시 예외처리
-			throw new BadCredentialsException("아이디 혹은 비밀번호가 일치하지 않습니다.");
-			
-		}
-	}
 
 	@Override
 	public boolean supports(Class<?> arg) {

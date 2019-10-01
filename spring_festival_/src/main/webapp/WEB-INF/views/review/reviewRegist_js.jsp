@@ -2,21 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 
-<!-- jQuery -->
-<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-<script>
-    $.widget.bridge('uibutton', $.ui.button) 
-    $.widget.bridge('uitooltip', $.ui.tooltip);
-</script>
-<!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Summernote -->
-<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- summernote -->
-
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote-bs4.css">
 <script>
 <!-- 글등록 내용 스마트에디터 적용 -->
 $('#r_content').summernote({	
@@ -57,6 +45,7 @@ $('#r_content').summernote({
 	});
 
 
+
 /* onSubmit */
 
 function onSubmit(category, form, url, method) {
@@ -71,6 +60,37 @@ function onSubmit(category, form, url, method) {
 	form.submit();
 }
 
+function deleteFile(src){
+
+	var splitSrc = src.split("/");
+	var fileName = splitSrc[splitSrc.length-1];
+	$.ajax({
+		data: {fileName : fileName, id : '${loginUser.id}'},
+		type: "POST",
+		url: "<%=request.getContextPath() %>/deleteImg",
+		cache: false,
+		success: function(resp){
+			console.log(resp);
+		}
+	});
+}
+
+function sendFile(file, el){
+	var form_data = new FormData();
+	form_data.append("file", file);
+	form_data.append("id", "${loginUser.id}");
+	form_data.append("unq_Id","${review.unq_Id}");
+	$.ajax({
+		data: form_data,
+		type: "POST",
+		url: '<%=request.getContextPath() %>/uploadImg',
+		contentType: false,
+		processData: false,
+		success: function(img_url){
+			$(el).summernote('editor.insertImage', img_url);
+		}
+	});
+}
 
 
 $('#registBtn').on('click',function(e){

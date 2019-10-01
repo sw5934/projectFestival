@@ -80,18 +80,17 @@ public class UploadFileUtils {
 		return savePath;
 	}
 	//재미있는 썸네일이미지 만들기^^(원본 이미지, 썸네일이미지 두개로 저장)
-	private static void makeThumbnail(String uploadPath, String path, String fileName) throws Exception{
-		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,70);
+		public void makeThumbnail(String savePath, String fileName, String unq_Id) throws Exception{
+			BufferedImage sourceImg = ImageIO.read(new File(savePath, fileName));
+			BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,70);
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+			String thumbnailName = savePath + File.separator + unq_Id + ".jpg";
+			File newFile = new File(thumbnailName);
+			ImageIO.write(destImg, formatName.toUpperCase(), newFile);
+		}
 		
-		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
-		File newFile = new File(thumbnailName);
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		ImageIO.write(destImg, formatName.toUpperCase(), newFile);
+		//원본파일형태로 저장(attach에 실어놔서 큰 의미 X)
+		public static void makeIcon(String uploadPath, String path, String fileName) throws Exception{
+			String iconName = uploadPath + path + File.separator + fileName;
+		}
 	}
-	
-	//원본파일형태로 저장(attach에 실어놔서 큰 의미 X)
-	public static void makeIcon(String uploadPath, String path, String fileName) throws Exception{
-		String iconName = uploadPath + path + File.separator + fileName;
-	}
-}

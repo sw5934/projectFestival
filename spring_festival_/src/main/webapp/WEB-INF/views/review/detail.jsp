@@ -132,7 +132,8 @@
 						</div>
 					</div>	
 				</div>				
-			</div><!-- end col-md-12 -->
+			<!-- end col-md-12 -->
+	
 
 
 <script>

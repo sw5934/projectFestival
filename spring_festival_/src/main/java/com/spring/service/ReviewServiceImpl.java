@@ -62,11 +62,8 @@ public class ReviewServiceImpl implements ReviewService{
 	//첨부파일 하나하나에 번호부여 추가할것
 	@Override
 	public void regist(ReviewVO review) throws SQLException {
-		int rno = reviewDAO.getSeqNextValue();		
-		int unq_Id = reviewDAO.getUnqSeqNextValue();
-		
+		int rno = reviewDAO.getSeqNextValue();
 		review.setRno(rno);
-		review.setUnq_Id(unq_Id);
 		reviewDAO.insertReview(review);		
 		
 	/*	List<AttachVO> attachList = review.getAttachList();
@@ -129,6 +126,10 @@ public class ReviewServiceImpl implements ReviewService{
 		review.setAttachList(attachList);
 		
 		return review;
+	}
+	
+	public int getNextUnq_Id() throws SQLException{
+		return reviewDAO.getUnqSeqNextValue();
 	}
 
 }
