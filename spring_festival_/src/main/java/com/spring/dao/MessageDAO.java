@@ -30,5 +30,6 @@ public interface MessageDAO {
 	public String selectReceiverNick(String m_receiver_Id) throws SQLException;
 
 	public String selectSenderNick(String m_sender_Id) throws SQLException;
-
+	
+	public int checkNick(String nickname) throws SQLException;
 }

@@ -8,6 +8,7 @@ public class CommentsVO {
 	private String c_content;
 	private Date c_regDate;
 	private int unq_Id;
+	
 	public int getC_no() {
 		return c_no;
 	}

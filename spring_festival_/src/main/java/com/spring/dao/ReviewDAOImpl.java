@@ -98,33 +98,33 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public int getLikeCount(int unq_id) throws SQLException {
-		int count = session.selectOne("Utils-Mapper.selectLikeCount",unq_id);
+	public int getLikeCount(int unq_Id) throws SQLException {
+		int count = session.selectOne("Utils-Mapper.selectLikeCount",unq_Id);
 		return count;
 	}
 
 	@Override
-	public int getLikeHistory(String id, int unq_id) throws SQLException {
+	public int getLikeHistory(String id, int unq_Id) throws SQLException {
 		LikeVO like = new LikeVO();
 		like.setId(id);
-		like.setUnq_id(unq_id);
+		like.setUnq_Id(unq_Id);
 		int count = session.selectOne("Utils-Mapper.selectLikeHistory",like);
 		return count;
 	}
 
 	@Override
-	public void addLike(String id, int unq_id) throws SQLException {
+	public void addLike(String id, int unq_Id) throws SQLException {
 		LikeVO like = new LikeVO();
 		like.setId(id);
-		like.setUnq_id(unq_id);
+		like.setUnq_Id(unq_Id);
 		session.update("Utils-Mapper.addLike", like);
 	}
 
 	@Override
-	public void deleteLike(String id, int unq_id) throws SQLException {
+	public void deleteLike(String id, int unq_Id) throws SQLException {
 		LikeVO like = new LikeVO();
 		like.setId(id);
-		like.setUnq_id(unq_id);
+		like.setUnq_Id(unq_Id);
 		session.update("Utils-Mapper.deleteLike", like);
 	}
 

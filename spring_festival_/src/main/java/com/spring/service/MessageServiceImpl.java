@@ -87,4 +87,9 @@ public class MessageServiceImpl implements MessageService {
 	public int getNextMno() throws SQLException {
 		return messageDAO.getMessageSeq();
 	}
+	
+	@Override
+	public int searchNickname(String nickname) throws SQLException{
+		return messageDAO.checkNick(nickname);
+	};
 }
