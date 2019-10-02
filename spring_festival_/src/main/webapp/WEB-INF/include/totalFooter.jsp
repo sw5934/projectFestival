@@ -5,7 +5,7 @@
 </div>
 </div>
 </div>
-<footer class="main-footer p-5  baminfont-Air" style="text-align: center">
+<footer class="main-footer p-5  baminfont-Air" style="text-align: center; margin:0px;">
     <strong>대표자 : bryan kim 전화번호 : 070-1234-1234<br>
         주소 : 대전광역시 서구 둔산서로 17 양호빌딩 6층<br>
         Copyright &copy; 축제의 민족 All rights reserved.</strong><br>

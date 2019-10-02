@@ -3,29 +3,33 @@ package com.spring.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.dao.MemberDAO;
+import com.spring.dto.MemberVO;
+import com.spring.service.MailService;
+import com.spring.service.MemberService;
 
 @Controller
 @RequestMapping("/")
 public class CommonController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);	
+		
 	
 	@Autowired
-	private MemberDAO memberDAO;
+	private MemberService memberService;
+	
+	@Autowired
+    private MailService mailService;
 		
 	@RequestMapping("/main.htm")
 	public void main() {
-		logger.info("request url : /main");
 	}
 	
 	
@@ -41,6 +45,29 @@ public class CommonController {
 				
 	}
 	
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public String signUpPost(MemberVO member,String birthM,String birthD,String birthY, String mailAddress,String location1, String location2) throws Exception {
+		System.out.println(mailAddress);
+		
+		member.setEmail(mailAddress);
+		
+		if(birthM.length()<2)
+			birthM = "0"+birthM;
+		if(birthD.length()<2)
+			birthD = "0"+birthD;
+		String address = location1 
+				+ location2;
+		member.setAddress(address);
+
+		System.out.println("!!!!!!!!!!!!!!!"+member.toString());
+		System.out.println(birthY+birthM+birthD);
+		int birth = Integer.parseInt(birthY+birthM+birthD);
+		 member.setBirth(birth);
+		memberService.regist(member);
+		
+		return "review/list";
+	}
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET) 
 	public String loginGET() throws Exception {
@@ -51,69 +78,129 @@ public class CommonController {
 				
 	}
 	
-	@RequestMapping("/idCheck.do")
-	@ResponseBody
-	public Map<Object, Object> idCheck(@RequestBody String id) {
-		
-		int count = 0;
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		
-		count = signUpService.idCheck(id);
-		map.put("cnt", count);
-		
-		return map;
-	}
-	
-//	리스폰스나 리퀘스트가 없으면 화면을 결정할수있는 인자가 없다 그래서 메소드에서 리턴되는 녀석을
-//	뷰리졸버에게 넘긴다.
-//	밑에는 리스폰스가 있어서 뷰리졸버에게 반환된 스트링을 넘기지않는다. 
-	
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void loginPOST(String id, String pwd, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		logger.info("request url : /login (post)");
-		logger.info("id : " + id + ", pwd : " + pwd);
-		
-		String message = "";
-		String url = "";
-		
-		MemberVO member = memberDAO.selectMemberByID(id);
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,String>> loginPOST(@RequestBody Map<String,String> ajaxData) throws Exception {
 		
 		
-		if(member != null) {	//아이디가 있는경우
+		ResponseEntity<Map<String,String>> entity = null;
+		Map<String,String> data = new HashMap<String,String>();
+		String id = ajaxData.get("id");
+		String pwd = ajaxData.get("pwd");
+		System.out.println("QQQQQQQQQ" + id + pwd);
+		
+		MemberVO member = memberService.getMemberByID(id);
+		
+		System.out.println("@@@@@@@@@@@@@"+member.getFailCnt());
+		
+		int failCnt = memberService.loginFail(id);
+System.out.println("failCnt:"+failCnt);
+		if(member != null) {
 			if(pwd.equals(member.getPwd())) {	// 로그인 성공
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", member);
-				
-				message = "로그인 성공했습니다.";
-				url = "main.htm";
-				
-			} else { //패스워드 불일치
-				message = "패스워드가 틀렸습니다.";
-				url = "login";
+				if(member.getFailCnt() > 5) {
+					// 비밀번호 변경창
+					
+				}
+				data.put("status", "loginSuccess");
+				data.put("id", id);
+				data.put("pwd", pwd);
+				data.put("url", "/festival/review/list");
+				entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
+			} else {	// 비밀번호 틀림
+				if(member.getFailCnt() == 5) {
+					member = memberService.getMemberPwd(id, member.getName(), member.getEmail());
+					mailService.sendMail(member.getEmail(),"임시 비밀번호","임시 비밀번호 : " + member.getPwd());
+					data.put("status", "loginFail");
+				} else if(member.getFailCnt() != 5) {
+					memberService.loginFail(id);
+					data.put("status", "loginFail");
+				}
+				data.put("status", "else");
+				data.put("id", id);
+				data.put("pwd", pwd);
+				data.put("url", "login");
+				/*entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);*/
 			}
 			
-		} else { //아이디가 없는 경우
-			message = "아이디가 존재하지 않습니다.";
-			url = "login";
+		} else {
+			System.out.println(member.getFailCnt());
+			data.put("status", "~~~~");
+			data.put("id", id);
+			data.put("pwd", pwd);
+			data.put("url", "login");
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		
-//		response.getWriter().println(new Scanner(System.in).nextLine());
+		System.out.println(data + "\n\n\n" + entity);
 		
-		response.setContentType("text/html; charset=utf-8");
-		
-		PrintWriter out = response.getWriter();
-		
-		out.println("<script>");
-		out.println("alert('"+message+"');");
-		out.println("self.location='"+url+"';");
-		out.println("</script>");
-		
-				
-		
-	}*/
+		return entity;
+	}
 	
+	@RequestMapping(value = "/findID", method = RequestMethod.GET) 
+	public String findIDGET() throws Exception {
+		
+		String url = "common/findID";
+		
+		return url;
+				
+	}
+	@RequestMapping(value = "/findID.do", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,String>> findIdCheck(String name, String email) throws Exception {
+		ResponseEntity<Map<String,String>> entity = null;
+		Map<String,String> data = new HashMap<String,String>();
+		
+		String id = memberService.getMemberID(name, email);
+		
+		if(memberService.getMemberID(name, email)!=null) {
+			data.put("data", "아이디 찾기 성공!");
+			data.put("id", id);
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
+			}
+		else {
+			data.put("data", "아이디 찾기 실패!");
+			data.put("id", id);
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/findPassword", method = RequestMethod.GET) 
+	public String findPasswordGET() throws Exception {
+		
+		String url = "common/findPassword";
+		
+		return url;
+	}
+	
+	@RequestMapping(value = "/findPassword.do", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,String>> findPasswordCheck(@RequestBody Map<String, String> params, HttpServletRequest request) throws Exception {
+		String id = params.get("id");
+		String name = params.get("name");
+		String email = params.get("email");
+
+		ResponseEntity<Map<String,String>> entity = null;
+		Map<String,String> data = new HashMap<String,String>();
+		
+		
+		
+		if(memberService.getMemberPwd(id, name, email)!=null) {
+			MemberVO member = memberService.getMemberPwd(id, name, email);
+			System.out.println("member:"+member);
+			
+			String pwd = member.getPwd();
+			member.setFailCnt(6);
+			memberService.modify(member);
+			System.out.println("@@@@@@@@@@@@@@"+member);
+			
+			data.put("data", "비밀번호 찾기 성공!");
+			data.put("pwd", pwd);
+			mailService.sendMail(email,"임시 비밀번호","임시 비밀번호 : " + pwd);
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
+			}
+		else {
+			data.put("data", "비밀번호 찾기 실패!");
+			data.put("pwd", "pwd");
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);}
+		return entity;
+	}
 	
 }
