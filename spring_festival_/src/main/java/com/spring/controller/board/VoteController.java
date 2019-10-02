@@ -1,11 +1,12 @@
 package com.spring.controller.board;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.dto.VoteVO;
+import com.spring.dto.MemberVO;
 import com.spring.service.VoteService;
 
 
@@ -30,9 +31,15 @@ public class VoteController {
 	
 
 	@RequestMapping("/voteList")
-	public String voteList(Second_Criteria cri,Model model) throws SQLException {
-		String id="id473@festival.com";
-		cri.setStr(id);
+	public String voteList(HttpServletRequest request, HttpServletResponse response,
+			Second_Criteria cri,Model model) throws SQLException {
+		
+		
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		cri.setStr(loginUser.getId());
 		
 		
 		Map<String, Object> voteListMap = voteService.selectVoteList(cri);

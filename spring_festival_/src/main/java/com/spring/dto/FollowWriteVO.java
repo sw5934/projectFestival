@@ -7,6 +7,7 @@ public class FollowWriteVO {
 	private String title;
 	private String nickName;
 	private Date writeDate;
+	private int bno;
 	
 	
 	public String getBoardType() {
@@ -32,5 +33,11 @@ public class FollowWriteVO {
 	}
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
+	}
+	public int getBno() {
+		return bno;
+	}
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 }

@@ -50,10 +50,6 @@ public class Second_Criteria extends SearchCriteria {
 		System.out.println("\n\nSecond_Criteria(int, int, int) - super.setPerPageNum() 호출");
 		super.setPerPageNum(perPageNum);
 		System.out.println("Second_Criteria(int, int, int) - super.setPerPageNum() 복귀\n\n");
-		System.out.println("Criteria(int 1, int 1, int 5) 생성자 실행"
-				+"\n└>> first_page = " + first_page
-				+"\n└>> second_page = " + second_page
-				+"\n└>> perPageNum = " + super.getPerPageNum());
 	}
 	
 	

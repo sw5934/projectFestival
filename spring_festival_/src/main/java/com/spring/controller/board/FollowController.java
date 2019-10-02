@@ -2,12 +2,12 @@ package com.spring.controller.board;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.dto.FollowWriteVO;
+import com.spring.dto.MemberVO;
 import com.spring.service.FollowService;
 
 @Controller
@@ -45,10 +45,12 @@ public class FollowController {
 		
 		response.setContentType("text/html;charset=utf-8");
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-
-		String id = "id260@festival.com";
-		cri.setStr(id);
 		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		cri.setStr(loginUser.getId());
+		System.out.println("로그인 아이디 : "+cri.getStr());
 		
 		
 		if( (null != request.getParameter("first_page")) && (null != request.getParameter("second_page"))) {			
@@ -108,10 +110,11 @@ public class FollowController {
 			cri.setSecond_page(Integer.parseInt(request.getParameter("second_page")));
 		}
 		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
-		String id = "id260@festival.com";
-		cri.setStr(id);
-		
+		cri.setStr(loginUser.getId());
+		System.out.println("로그인 아이디 : "+cri.getStr());
 
 		// 팔로워가 3개의 게시판에 작성한 글들의 리스트 + 가고싶어요 리스트를 반환한다.
 		Map<String, Object> dataMap = new HashMap<String, Object>();

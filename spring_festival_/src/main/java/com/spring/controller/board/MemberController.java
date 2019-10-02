@@ -25,6 +25,7 @@ public class MemberController {
 	private MemberService memberService;
 	
 	
+	
 	// 회원 본인의 마이페이지 회원정보 조회 // 닉네임 , 연락처, 이메일, 생년월일, 성별, 지역, 여행타입, 정보공개여부
 	@RequestMapping(value="/memInfo", method=RequestMethod.POST)
 	public String memInfo(Model model,

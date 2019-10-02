@@ -39,7 +39,7 @@
 		<div class="col-md-6">
            <div class="card">
               <div class="card-header">
-                <h3 class="card-title">나의 리뷰 목록a, ${pageMaker}</h3>
+                <h3 class="card-title">나의 리뷰(후기) 목록</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -51,7 +51,6 @@
                       <th style="width: 40px">글 번호</th>
                       <th style="width: 40px">제  목</th>
                       <th style="width: 40px">작성일자</th>
-                      <th style="width: 40px">아이디</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -63,12 +62,11 @@
 							</tr>
 						</c:if>
 						<c:if test="${!empty reviewList }">
-							<c:forEach items="${reviewList }" var="rList" begin="0" end="10" step="1">
+							<c:forEach items="${reviewList }" var="rList"> <!--  begin="0" end="10" step="1" -->
 				                    <tr  align="center">
-				                      	<td>${rList.rno}</td>
-				                      	<td>${rList.r_title}</td>
-				                      	<td>${rList.r_regDate}</td>
-				                      	<td>${rList.r_writer}</td>
+				                      	<td width="120px">${rList.rno}</td>
+				                      	<td width="300px">${rList.r_title}</td>
+				                      	<td width="200px">${rList.r_regDate}</td>
 				                    </tr>
 			    			</c:forEach>
 			    		</c:if>

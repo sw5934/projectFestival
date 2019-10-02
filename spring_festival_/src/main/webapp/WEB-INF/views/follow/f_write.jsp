@@ -72,7 +72,14 @@
 							<c:forEach items="${three_board_list }" var="vl">   <!-- begin="0" end="4" step="1" -->
 				                    <tr  align="center">
 				                      <td>${vl.boardType}</td>
-				                      <td>${vl.title}</td>
+				                      <td><a href='
+				                      <c:if test="${vl.boardType=='후기' }">
+				                      <%= request.getContextPath()%>/review/detail/?rno=${vl.bno }
+				                      </c:if>
+				                      <c:if test="${vl.boardType!='후기' }">
+				                      #
+				                      </c:if>
+				                      '>${vl.title}</a></td>
 				                      <td>${vl.nickName}</td>
 				                      <td>${vl.writeDate}</td>
 				                    </tr>
@@ -152,7 +159,6 @@
                 <table class="table table-condensed" border=" 0px black">
                   <thead>                  
                     <tr  align="center">
-                      <th >카테고리aa</th>
                       <th >글 제목</th>
                       <th >닉네임</th>
                       <th >작성일</th>
@@ -169,7 +175,6 @@
 						<c:if test="${!empty wantGoList }">
 							<c:forEach items="${wantGoList }" var="vl">  <!-- begin="0" end="4" step="1" -->
 				                    <tr  align="center">
-				                      <td>${vl.boardType}</td>
 				                      <td>${vl.title}</td>
 				                      <td>${vl.nickName}</td>
 				                      <td>${vl.writeDate}</td>

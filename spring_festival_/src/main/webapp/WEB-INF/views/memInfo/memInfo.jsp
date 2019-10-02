@@ -33,15 +33,15 @@
 	생년월일 : ${myInfo.birth}</br>
 	성별 : ${myInfo.sex }</br>
 	지역 : ${myInfo.location}</br>
-	여행타입 : ${myInfo.prt_pattern } </br>
+	여행타입 : ${myInfo.prtPattern } </br>
 	
 	
-	<c:if test="${myInfo.info_status==1 }">
+	<c:if test="${myInfo.infoStatus==1 }">
 	정보 공개 여부 : 동의함</br>
 	</c:if>
 	
 	
-	<c:if test="${myInfo.info_status==2 }">
+	<c:if test="${myInfo.infoStatus==2 }">
 	정보 공개 여부 : 동의 안함</br>
 	</c:if>
 </body>

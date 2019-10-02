@@ -9,7 +9,7 @@ import java.util.Map;
 import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.Second_Criteria;
 import com.spring.dao.BoardDAO;
-import com.spring.dto.SecondReviewVO;
+import com.spring.dto.ReviewAndTogetherVO;
 
 public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> myReviewList(Second_Criteria cri) throws SQLException {
 		System.out.println("BoardServiceImpl.myReviewList() 시작");
 		
-		List<SecondReviewVO> myReviewList = new ArrayList<SecondReviewVO>();
+		List<ReviewAndTogetherVO> myReviewList = new ArrayList<ReviewAndTogetherVO>();
 		myReviewList = boardDAO.myReviewList(cri);
 		
 		int totalCount = boardDAO.myReviewTotalCount(cri);

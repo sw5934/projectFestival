@@ -2,7 +2,7 @@ package com.spring.dto;
 
 import java.sql.Date;
 
-public class SecondReviewVO {
+public class ReviewAndTogetherVO {
 	private int rno;
 	private String r_title;
 	private Date r_regDate;
