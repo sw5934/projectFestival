@@ -7,12 +7,14 @@ public class Report_CVO {
 
 	private int rpt_no_c;
 	private String reporter;
+	private String reporterNick;
 	private Date rpt_date;
 	private int unq_id;
 	private String type;
 	private int c_no;
 	private int bno;
 	private String id;
+	private String nickName;
 	private String contents;
 	private String title;
 	public int getRpt_no_c() {
@@ -74,6 +76,18 @@ public class Report_CVO {
 	}
 	public void setBno(int bno) {
 		this.bno = bno;
+	}
+	public String getReporterNick() {
+		return reporterNick;
+	}
+	public void setReporterNick(String reporterNick) {
+		this.reporterNick = reporterNick;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	@Override
 	public String toString() {

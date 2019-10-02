@@ -51,17 +51,17 @@
     <div class="col-10 mt-3 reviewHeader" style="overflow: hidden; margin: 0 auto;">
         <!-- 정렬 이벤트, 글 작성 이벤트 넣기 -->
         <div class="float-sm-left col-8">　</div>
-        <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=r_viewcnt">신고 게시글</a></div>
-        <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=r_like">신고 댓글</a></div>
-    </div>
-    <table class="mt-5 col-10" style=" margin: 0 auto;">
+        <div class="float-sm-left col-2 reviewHeaderSort"><a href="<%=request.getContextPath()%>/manage/reportList">신고 게시글</a></div>
+        <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="<%=request.getContextPath()%>/manage/reportCommentList">신고 댓글</a></div>
+    </div> 
+    <table class="mt-5 col-12" style=" margin: 0 auto;">
     		<tr style="border-bottom: 0px solid black; font-size:0.9em">
                     <td style="width: 8%;  text-align: center">신고번호</td>
                     <td style="width: 8%;  text-align: center">글 위치</td>
-                    <td style="width: 17%;">제목</td> 
-                    <td style="width: 17%;">댓글 내용</td> 
-                    <td style="width: 15%;">작성자</td>
-                    <td style="width: 15%;">신고자</td>
+                    <td style="width: 20%;">제목</td> 
+                    <td style="width: 20%;">댓글 내용</td> 
+                    <td style="width: 12%;">작성자</td>
+                    <td style="width: 12%;">신고자</td>
                     <td style="width: 16%;">신고일시</td>
                 </tr>
         <c:if test="${empty reportList }">
@@ -76,7 +76,7 @@
                 <tr style="border-bottom: 0px solid black;">
                     <td style="width: 8%;  text-align: center">${report.rpt_no_c}</td>
                     <td style="width: 8%;  text-align: center">${report.type}</td>
-                    <td style="width: 17%;">
+                    <td style="width: 20%;">
                     <c:if test="${report.type=='후기'}">
                     <a href="<%=request.getContextPath()%>/review/detail?rno=${report.bno } ">
                     </c:if>
@@ -89,7 +89,7 @@
                     ${report.title}
                     </a>
                     </td> 
-                    <td style="width: 17%;"> <c:if test="${report.type=='후기'}">
+                    <td style="width: 20%;"> <c:if test="${report.type=='후기'}">
                     <a href="<%=request.getContextPath()%>/review/detail?rno=${report.bno } ">
                     </c:if>
                     <c:if test="${report.type=='같이가요'}">
@@ -100,8 +100,8 @@
                     </c:if>
                     ${report.contents}
                     </a></td> 
-                    <td style="width: 15%;">${report.id}</td>
-                    <td style="width: 15%;">${report.reporter}</td>
+                    <td style="width: 12%;">${report.nickName}</td>
+                    <td style="width: 12%;">${report.reporterNick}</td>
                     <td style="width: 20%;"><fmt:formatDate value="${report.rpt_date}"/></td>
                 </tr>
             </c:forEach>

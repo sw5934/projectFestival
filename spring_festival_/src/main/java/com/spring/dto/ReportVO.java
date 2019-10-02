@@ -7,11 +7,13 @@ public class ReportVO {
 
 	private int rpt_no;
 	private String reporter;
+	private String reporterNick;
 	private Date rpt_date;
 	private int unq_id;
 	private String type;
 	private int bno;
 	private String id;
+	private String nickName;
 	private String title;
 	public int getRpt_no() {
 		return rpt_no;
@@ -60,6 +62,18 @@ public class ReportVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getReporterNick() {
+		return reporterNick;
+	}
+	public void setReporterNick(String reporterNick) {
+		this.reporterNick = reporterNick;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	@Override
 	public String toString() {

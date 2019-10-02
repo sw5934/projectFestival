@@ -48,6 +48,7 @@
 	<bean id="messageService" class="com.spring.service.MessageServiceImpl"
 		p:messageDAO-ref="messageDAO"/>
 	<bean id="manageService" class="com.spring.service.ManageServiceImpl"
-		p:reportDAO-ref="reportDAO"/>
+		p:reportDAO-ref="reportDAO"
+		p:memberDAO-ref="memberDAO"/>
 	
 </beans>
