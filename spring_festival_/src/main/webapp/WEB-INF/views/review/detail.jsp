@@ -84,7 +84,7 @@
     
     
     <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-4" id="inven" style="cursor: pointer;">목록</div>	    
+	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
 	   		<div class="float-sm-left col-1">${review.r_like }</div>
 	  		<div class="float-sm-left col-1">신고</div>	    	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
@@ -139,7 +139,7 @@
 <script>
 function onModify(){ 
 	if("${loginUser.id eq review.id }"){
-	self.location.href="<%=request.getContextPath()%>/review/modify?rno=${review.rno}";
+	self.location.href="<%=request.getContextPath()%>/review/modify?rno=${review.rno}&listSort=${dataMap.listSort}&page=${dataMap.page}";
 	return;}
 	alert("수정할 수 없습니다.")
 }

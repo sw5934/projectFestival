@@ -12,14 +12,14 @@
 
 	<div class="col-md-12">
 	
-			<!-- 작성자 -->
-			<input type="hidden" id="writer" value="${loginUser.id}">							
+			<!-- 작성자 -->					
 				<div class="card ">
 					<div class="card-header">
 						<h4>후기 등록</h4>
 					</div><!--end card-header  -->
 					<div class="card-body">
 						<form role="form" method="post" action="reviewRegist" name="registForm">
+						<input type="hidden" name="id" id="writer" value="${loginUser.id}">		
 						<input type="hidden" name="unq_Id" value="${review.unq_Id}">
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">제 목</label> 

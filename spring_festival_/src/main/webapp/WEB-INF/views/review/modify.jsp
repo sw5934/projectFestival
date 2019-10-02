@@ -20,6 +20,8 @@
 						<form role="form" method="post" action="modify" name="registForm">
 
 								<input type="hidden" name="rno" value="${review.rno }"/>
+								<input type="hidden" name="listSort" value="${listSort }"/>
+								<input type="hidden" name="page" value="${page }"/>
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">제 목</label> 
 								<input class="col-sm-10 form-control" type="text" id="title"

@@ -27,9 +27,6 @@
 
 <script>
 /* 목록가기 */
-$("#inven").click(function(){
-    history.go(-1)();
-});
 
 
  
