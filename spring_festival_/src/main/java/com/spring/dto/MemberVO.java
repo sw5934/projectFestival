@@ -96,7 +96,7 @@ public class MemberVO {
 	public int getFailCnt() {
 		return failCnt;
 	}
-	public void setFail_cnt(int failCnt) {
+	public void setFailCnt(int failCnt) {
 		this.failCnt = failCnt;
 	}
 	

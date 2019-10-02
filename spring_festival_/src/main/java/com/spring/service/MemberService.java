@@ -27,4 +27,8 @@ public interface MemberService {
 	
 	public void remove(String id) throws SQLException;
 	
+//	로그인
+	public int loginFail(String id) throws SQLException;
+	public void loginSuccess(String id) throws SQLException;
+	
 }

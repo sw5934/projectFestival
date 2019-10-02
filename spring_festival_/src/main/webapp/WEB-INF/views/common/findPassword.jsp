@@ -11,7 +11,7 @@
     <!-- /.login-logo -->
     <div class="findPasswordPro" id="findPasswordPro">
       
-        <form action="findIdPost" id="findIdPost" method="post">
+        <form action="findPasswordPost" id="findPasswordPost" method="post">
           <p class="login-box-msg baminfont-Air" style="font-size: 1.2em">아이디, 이름, 이메일을 입력하세요.</p>
         
             <div class="float-sm-left col-12">
@@ -46,7 +46,7 @@
 
     </div>
         <p class="mb-1 ml-5 baminfont-Air" style="font-size: 1.1em">
-            <a href="#">아이디 찾기</a>|<a href="#"> 비밀번호 찾기</a>|<a href="<%=request.getContextPath()%>/signUp" class="text-center"> 회원가입</a>
+            <a href="<%=request.getContextPath()%>/findID">아이디 찾기</a>|<a href="<%=request.getContextPath()%>/findPassword"> 비밀번호 찾기</a>|<a href="<%=request.getContextPath()%>/signUp" class="text-center"> 회원가입</a>
         </p>
     
 

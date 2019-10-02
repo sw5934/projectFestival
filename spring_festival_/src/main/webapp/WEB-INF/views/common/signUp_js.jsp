@@ -388,19 +388,22 @@ function findPasswordCheck() {
 		url : "findPassword.do",
 		success : function(data) {
 				alert("pwd:"+data.pwd);
-				/* 
-				$('#findIdPost').remove();
+				alert(data);
+				
+				$('#findPasswordPost').remove();
 				$('#login-logo').remove();
-				$('#findIdPro').append("<p class='login-box-msg baminfont-Air' style='font-size: 1.2em'>아이디를 찾았습니다!</p>");
-				$('#findIdPro').append("<div class='float-sm col-12'><div class='float-sm-right col-8'>");
-				$('#findIdPro').append("<p>회원님의 아이디는");
-				$('#findIdPro').append(data.id);
-				$('#findIdPro').append("입니다.</div><br><br><br>");
-				$('#findIdPro').append("<div class='float-sm-right col-8'><div class='baminfont-Air' style='font-size: 1.1em'>");
-				$('#findIdPro').append("</div></div></div>");	 */
+				$('#findPasswordPro').append("<p class='login-box-msg baminfont-Air' style='font-size: 1.2em'>임시 비밀번호를 메일로 전송했습니다.</p>");
+				$('#findPasswordPro').append("<div class='float-sm col-12'><div class='float-sm-right col-8'>");
+				$('#findPasswordPro').append("</div></div>");
+				/* $('#findPasswordPro').append("<p>회원님의 아이디는");
+				$('#findPasswordPro').append(data.id);
+				$('#findPasswordPro').append("입니다.</div><br><br><br>");
+				$('#findPasswordPro').append("<div class='float-sm-right col-8'><div class='baminfont-Air' style='font-size: 1.1em'>");
+				$('#findPasswordPro').append("</div></div></div>"); */
 		},
 		error : function(data) {
-			
+			alert(data);
+			alert("비밀번호 찾기 실패!");
 		}
 	});
 }

@@ -44,6 +44,8 @@ public class MemberServiceImpl implements MemberService {
 			member.setAuthority(authority);
 		}
 		
+		System.out.println("서비스:"+member);
+		
 		return member;
 	}
 	
@@ -104,6 +106,40 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getMemberAuthority(String id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public int loginFail(String id) throws SQLException {
+		
+		MemberVO loginMember = null;
+		
+		if(memberDAO.loginFailSelect(id) != null) {
+			loginMember = memberDAO.loginFailSelect(id);
+		} else {
+			loginMember = memberDAO.selectMemberByID(id);
+		}
+		
+		
+		int failCnt;
+		
+		if(loginMember == null) {
+			memberDAO.loginFailInsert(loginMember);
+		} else if(loginMember.getFailCnt() > 5) {
+			
+		} else {
+			memberDAO.loginFailUpdate(loginMember);
+		}
+		
+		failCnt = loginMember.getFailCnt();
+		
+		return failCnt;
+	}
+	
+	@Override
+	public void loginSuccess(String id) throws SQLException {
+		
+		memberDAO.loginSuccessUpdate(id);
+		
 	}
 
 }
