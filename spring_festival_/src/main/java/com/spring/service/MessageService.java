@@ -24,4 +24,6 @@ public interface MessageService {
 	
 	public int getNextMno() throws SQLException;
 
+	public int searchNickname(String nickname) throws SQLException;
+
 }

@@ -30,7 +30,7 @@ import com.spring.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/review")
-public class ReviewController {
+public class ReviewController { 
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -74,7 +74,7 @@ public class ReviewController {
 		List<AttachVO> attachList = new ArrayList<AttachVO>();
 		System.out.println(review);
 		for(MultipartFile file : uploadFile) {
-			AttachVO attach = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), review.getUnqId(), file.getBytes());
+			AttachVO attach = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), review.getUnq_Id(), file.getBytes());
 			
 			attachList.add(attach);
 		}
@@ -123,7 +123,7 @@ public class ReviewController {
 			if(uploadFile != null) {
 				for(MultipartFile file : uploadFile) {
 					
-					AttachVO attach = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), review.getUnqId(), file.getBytes());
+					AttachVO attach = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), review.getUnq_Id(), file.getBytes());
 					
 					attachList.add(attach);
 				}

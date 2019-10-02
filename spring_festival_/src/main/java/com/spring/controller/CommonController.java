@@ -116,4 +116,12 @@ public class CommonController {
 	}*/
 	
 	
+	
+	
+	@RequestMapping("/memInfoCall")
+	public String memInfoCall() {
+		System.out.println("CommonController.memInfoCall(), memInfoCall.jsp를 리턴.");
+		return "/memInfo/memInfoCall";
+	}
+	
 }

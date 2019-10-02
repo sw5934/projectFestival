@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+    
+<mapper namespace="Board-Mapper">
+	<select id="reviewBoard" resultType="reviewTogether">
+		select distinct rno, r_title, r_regDate, r_writer
+		from brd_review
+		where r_writer=#{str}
+		order by rno desc
+	</select>
+	
+	
+	<select id="myReviewTotalCount" resultType="int">
+		select distinct count(*)
+		from brd_review
+		where r_writer=#{str}
+	</select>
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+	<select id="togetherBoard" resultType="reviewTogether">
+		select distinct tno, t_title, t_regDate, t_writer
+		from brd_together
+		where t_writer=#{str}
+		order by tno desc		
+	</select>
+	<select id="myTogetherTotalCount" resultType="int">
+		select distinct count(*)
+		from brd_together
+		where t_writer=#{str}
+	</select>
+</mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
