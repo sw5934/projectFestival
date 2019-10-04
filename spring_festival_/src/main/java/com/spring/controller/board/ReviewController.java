@@ -30,7 +30,7 @@ import com.spring.service.ReviewService;
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
-
+	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -72,6 +72,7 @@ public class ReviewController {
 	public void registGET(Model model) throws Exception {
 		ReviewVO review = new ReviewVO();
 		
+
 		review.setUnq_Id(reviewService.getNextUnq_Id());
 		model.addAttribute("review",review);
 	}
@@ -176,11 +177,11 @@ public class ReviewController {
 
 		reviewService.modify(review);
 		
-
 		System.out.println(review.toString());
 
 		return "redirect:detail?rno=" + review.getRno() + "&listSort="+listSort + "&page="+page;
 	}
+
 
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String removeReview(int rno) throws Exception {
