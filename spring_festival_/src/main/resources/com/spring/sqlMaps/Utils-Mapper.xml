@@ -28,4 +28,31 @@
 		where id = #{id} and unq_Id = #{unq_Id}
 	</update>
 	
+	<select id="selectReportList" resultType="report">
+		select rpt_no,reporter,rpt_date,r.unq_id,type,bno,id,title
+		from report r, totalboard t
+		where r.unq_id=t.unq_id
+	</select>
+	<update id="doReport">
+		insert into report
+		values(rpt_seq.nextval,#{reporter},#{unq_id},sysdate)
+	</update>
+	<update id="deleteReport">
+		delete from report
+		where unq_id=#{unq_id}
+	</update>
+	
+	<select id="selectReportCommentList" resultType="reportC">
+		select *
+		from report_comment r, totalcomments c
+		where r.c_no=c.c_no
+	</select>
+	<update id="doReportComment">
+		insert into report
+		values(rpt_comment_seq.nextval,#{reporter},#{c_no},sysdate)
+	</update>
+	<update id="deleteReportComment">
+		delete from report
+		where unq_id=#{c_no}
+	</update>
 </mapper>
