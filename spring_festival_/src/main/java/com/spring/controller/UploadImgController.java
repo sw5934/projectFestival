@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.utils.UploadFileUtils;
+
 @RestController
 public class UploadImgController {
 	
@@ -21,7 +23,7 @@ public class UploadImgController {
 	
 	//ResponseEntity: 자료가 잘 전송되었는지 확인을 위한 응답코드도 같이 발송
 	@RequestMapping("/uploadImg")
-	public ResponseEntity<String> uploadImg(MultipartFile file, String id, HttpServletRequest request) throws Exception{
+	public ResponseEntity<String> uploadImg(MultipartFile file, String id, HttpServletRequest request, String unq_Id) throws Exception{
 		ResponseEntity<String> result = null;
 		
 		int fileSize = 5 * 1024 * 1024;				//5MB 제한
@@ -45,6 +47,12 @@ public class UploadImgController {
 		
 		try {
 			file.transferTo(saveFile);
+
+			UploadFileUtils thumb = new UploadFileUtils();
+//			int unq = Integer.parseInt(unq_id);
+			thumb.makeThumbnail(savePath,fileName, unq_Id);
+			
+			
 			result = new ResponseEntity<String>(request.getContextPath() + imgPath + id + "/" + fileName, HttpStatus.OK);
 		} catch (Exception e) {
 			result = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);

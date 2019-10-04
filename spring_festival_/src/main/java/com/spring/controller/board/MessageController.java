@@ -27,7 +27,7 @@ import com.spring.service.MessageService;
 @RequestMapping("/message")
 public class MessageController {
 	
-
+ 
 	@ModelAttribute("category")
 	public String category() throws Exception{
 		return "message";		

@@ -12,7 +12,7 @@ public class MemberVO {
 	private String email;
 	private int birth;
 	private String sex;
-	private String location;
+	private String address;
 	private String prtPattern;
 	private int infoStatus;
 	
@@ -67,11 +67,11 @@ public class MemberVO {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public String getLocation() {
-		return location;
+	public String getAddress() {
+		return address;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getPrtPattern() {
 		return prtPattern;
@@ -96,14 +96,14 @@ public class MemberVO {
 	public int getFailCnt() {
 		return failCnt;
 	}
-	public void setFail_cnt(int failCnt) {
+	public void setFailCnt(int failCnt) {
 		this.failCnt = failCnt;
 	}
 	
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", nickName=" + nickName + ", tel=" + tel
-				+ ", email=" + email + ", birth=" + birth + ", sex=" + sex + ", location=" + location + ", prtPattern="
+				+ ", email=" + email + ", birth=" + birth + ", sex=" + sex + ", address=" + address + ", prtPattern="
 				+ prtPattern + ", infoStatus=" + infoStatus + ", authority=" + authority + ", failCnt=" + failCnt
 				+ "]";
 	}

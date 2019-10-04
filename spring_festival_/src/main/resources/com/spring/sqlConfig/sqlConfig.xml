@@ -9,13 +9,18 @@
   	<typeAliases>
   		<typeAlias type="java.lang.Integer" alias="int"/>
   		<typeAlias type="java.lang.String" alias="str" />
-  		<typeAlias type="com.spring.dto.MemberVO" alias="member"/> 
+  		<typeAlias type="com.spring.dto.MemberVO" alias="member"/>
+  		<typeAlias type="com.spring.dto.FollowWriteVO" alias="followBoard"/>
+  		<typeAlias type="com.spring.dto.VoteVO" alias="vote"/>
   		<typeAlias type="com.spring.dto.ReviewVO" alias="review"/>
+  		<typeAlias type="com.spring.dto.ReviewAndTogetherVO" alias="reviewTogether"/>
   		<typeAlias type="com.spring.dto.AttachVO" alias="attach"/>
   		<typeAlias type="com.spring.dto.CommentsVO" alias="comments"/>
   		<typeAlias type="com.spring.dto.TogetherVO" alias="together"/>
   		<typeAlias type="com.spring.dto.LikeVO" alias="like"/>
   		<typeAlias type="com.spring.dto.MessageVO" alias="message"/>
+  		<typeAlias type="com.spring.dto.ReportVO" alias="report"/>
+  		<typeAlias type="com.spring.dto.Report_CVO" alias="reportC"/>
   	</typeAliases>
   	
   </configuration>
