@@ -7,9 +7,9 @@ import com.spring.controller.board.Criteria;
 import com.spring.dto.CommentsVO;
 
 public interface CommentsDAO {
-	public List<CommentsVO> selectCommentsListPage(int unq_id, Criteria cri) throws SQLException;
+	public List<CommentsVO> selectCommentsListPage(int unq_Id, Criteria cri) throws SQLException;
 
-	public int countComments(int unq_id) throws SQLException;
+	public int countComments(int unq_Id) throws SQLException;
 
 	public void insertComments(CommentsVO comments) throws SQLException;
 

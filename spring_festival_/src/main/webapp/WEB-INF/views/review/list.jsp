@@ -6,6 +6,8 @@
 
 <c:set var="reviewList" value="${dataMap.reviewList }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="listSort" value="${dataMap.listSort }" />
+<c:set var="page" value="${dataMap.page }" />
 <!DOCTYPE html>
 <html>
 
@@ -64,7 +66,7 @@
     </div>
     <div class="col-10 mt-3 reviewHeader" style="overflow: hidden; margin: 0 auto;">
         <!-- 정렬 이벤트, 글 작성 이벤트 넣기 -->
-        <div class="float-sm-left col-6 mt-1 p-0">
+         <div class="float-sm-left col-6 mt-1 p-0">
             <button id="newBtn" class="reviewRegist ml-2" onclick="location.href='reviewRegist'">글 작성</button></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=rno">최신 일자</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=r_viewcnt">조회 수</a></div>
@@ -82,9 +84,9 @@
             <c:forEach items="${reviewList }" var="review">
                 <tr style="border-bottom: 0px solid black;">
                     <td style="width: 7%;  text-align: center">${review.rno }</td>
-                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/bootstrap/dist/img/credit/mastercard.png"></td>
-                    <td style="width: 56%;">
-                        <a href="detail?rno=${review.rno }">${review.r_title } <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
+                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/${review.id }/${review.unq_Id }.jpg" style="width:93px;height:70px"></td>
+                    <td style="width: 56%;"> 
+                        <a href="detail?rno=${review.rno }&listSort=${listSort}&page=${page}">${review.r_title } <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
                         <p>${review.r_regDate } ${review.id }</p>
                     </td>
                     <td style=";width: 25%">
@@ -105,19 +107,19 @@
             
                 <c:if test="${pageMaker.prev }">
                 	<li class="page-item">
-                    	<a class="page-link" href="${pageMaker.makeQuery(1)}">&lt;&lt;</a>
+                    	<a class="page-link" href="list${pageMaker.makeQuery(1)}">&lt;&lt;</a>
                     </li>
                 </c:if>
                     
                 <c:if test="${pageMaker.prev }"> 
                 	<li class="page-item">
-                		<a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage-1) }">&lt;</a>
+                		<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage-1) }">&lt;</a>
                 	</li>
                 </c:if>
                 
                 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
                     <li class="page-item <c:out value=" ${pageMaker.cri.page==pageNum ?'active':''}" />">
-                    <a class="page-link" href="${pageMaker.makeQuery(pageNum) }">
+                    <a class="page-link" href="list${pageMaker.makeQuery(pageNum) }">
                         ${pageNum }
                     </a>
                     </li>
@@ -125,21 +127,21 @@
                 
                 <c:if test="${pageMaker.next }">
 	                <li class="page-item">
-	                    <a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage+1) }">&gt;
+	                    <a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage+1) }">&gt;
 	                    </a>
 	                </li>
                 </c:if>
                 
                  <c:if test="${pageMaker.next }">
 	                <li class="page-item">
-	                    <a class="page-link" href="${pageMaker.makeQuery(pageMaker.realEndPage) }">
+	                    <a class="page-link" href="list${pageMaker.makeQuery(pageMaker.realEndPage) }">
 	                        &gt;&gt;
 	                    </a>
 	                </li>
                 </c:if>
             </ul>
         </div>
-    </div>
+    </div>    
 </body>
 
 </html>
