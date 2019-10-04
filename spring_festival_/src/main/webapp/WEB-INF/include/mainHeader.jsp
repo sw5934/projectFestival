@@ -15,8 +15,7 @@
                     <c:if test="${loginUser==null}">
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/login">로그인</a>
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/signUp">회원가입</a>
-                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findPassword">PW찾기</a>
-                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findId">ID찾기</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findID">ID/PW찾기</a>
                     </c:if>
                     <c:if test="${loginUser!=null}">
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
