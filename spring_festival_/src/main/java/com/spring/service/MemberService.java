@@ -29,6 +29,10 @@ public interface MemberService {
 	
 //	로그인
 	public int loginFail(String id) throws SQLException;
-	public void loginSuccess(String id) throws SQLException;
+	public String loginSuccess(String id) throws SQLException;
+	public int getLoginFailCnt(String id) throws SQLException;
+	public int getLoginFailRecord(String id) throws SQLException;
+	public void setLoginFailRecord(String id) throws SQLException;
+	public void setNewPassword(String id,String pwd) throws SQLException;
 	
 }

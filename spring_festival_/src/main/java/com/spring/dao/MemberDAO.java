@@ -22,17 +22,21 @@ public interface MemberDAO {
 	
 	public List<Integer> selectMemberAuthority(String id) throws SQLException;
 	
-	public MemberVO loginFailSelect(String id) throws SQLException;
+	public int loginFailSelect(String id) throws SQLException;
 	
-	public void loginFailInsert(MemberVO member) throws SQLException;
+	public void setLoginFailRecord(String id) throws SQLException;
 	
-	public void loginFailUpdate(MemberVO member) throws SQLException;
+	public void loginFailUpdate(String id) throws SQLException;
 	
 	public void loginSuccessUpdate(String id) throws SQLException;
+	
+	public int loginFailRecord(String id) throws SQLException;
 	
 	public void insertMember(MemberVO member) throws SQLException;
 	
 	public void updateMember(MemberVO member) throws SQLException;
 	
 	public void deleteMember(String id) throws SQLException;
+	
+	public void newPassword(String id,String pwd) throws SQLException;
 }

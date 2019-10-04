@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +29,17 @@ public class VoteController {
 	private VoteService voteService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(VoteController.class);
+	
+	@ModelAttribute("category")
+	public String category() throws Exception{
+		return "vote";		
+	}
+
+	@ModelAttribute("view")
+	public String view() throws Exception{
+		return "찜 목록";		
+	}
+	
 	
 
 	@RequestMapping("/voteList")

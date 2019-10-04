@@ -17,6 +17,7 @@ public class ReviewVO {
 	private List<CommentsVO> commentsList;
 	private List<AttachVO> attachList;
 	private int commentcount;
+	private String nickName;
 
 	public String getR_title() {
 		return r_title;
@@ -96,6 +97,12 @@ public class ReviewVO {
 	}
 	public void setUnq_Id(int unq_Id) {
 		this.unq_Id = unq_Id;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 }

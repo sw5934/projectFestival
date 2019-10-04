@@ -37,7 +37,7 @@
 </head>
 
 <body class="skin-blue fixed sidebar-mini sidebar-mini-expand-feature">
-    <div class="wrapper" style="width: 1000px; height:700px;">
+    <div class="wrapper" style="width: 1000px; height:700px; overflow:hidden;resize:none;">
         <div class="card" style="height:525px;margin:0px;" id="temp">
             <aside class="main-sidebar" style="background-color: #65ddda; width: 25%;">
                 <div style="border: white solid 7px; width:80%; left:10%; top: 5%; position: relative"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" style="width: 100%"></div>
@@ -45,7 +45,7 @@
                     <ul class="" style="padding: 5px;">
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 내 정보 수정</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 팔로우 현황 보기</a></li>
-                        <li class="side-menu"><a class="baminfont-menu" href="#">@ 내가 찜한 축제</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/vote/voteList">@ 내가 찜한 축제</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="#">@ 내가 쓴 글/댓글</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/message/sendList">@ 내 쪽지 보기</a></li>
                     </ul>

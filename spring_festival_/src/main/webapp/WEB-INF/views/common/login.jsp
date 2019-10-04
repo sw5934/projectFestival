@@ -17,7 +17,7 @@
     <div class="">
         <p class="login-box-msg baminfont-Air" style="font-size: 1.2em">아이디와 비밀번호로 로그인하세요.</p>
 
-        <form action="loginPost" method="post" id="loginForm">
+        <form method="post" id="loginForm">
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     <div class="mb-3">
