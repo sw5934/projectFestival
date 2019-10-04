@@ -17,20 +17,20 @@
     <div class="">
         <p class="login-box-msg baminfont-Air" style="font-size: 1.2em">아이디와 비밀번호로 로그인하세요.</p>
 
-        <form action="loginPost" method="post">
+        <form action="loginPost" method="post" id="loginForm">
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     <div class="mb-3">
-                        <input type="email" class="form-control" placeholder="ID" name="id" value="chun@naver.com">
+                        <input type="email" class="form-control" placeholder="ID" id="id" name="id" value="chun@naver.com">
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" placeholder="PASSWORD" name="pwd" value="chun">
+                        <input type="password" class="form-control" placeholder="PASSWORD" id="pwd" name="pwd" value="chun">
                     </div>
                 </div>
                 <div class="float-sm-left col-3">
                     <div class="row">
                         <div class="">
-                            <button type="submit" class="btn btn-block pt-0"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/login_btn.png" style="border-radius: 9%"></button>
+                            <button type="button" id="loginBtn" class="btn btn-block pt-0"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/login_btn.png" style="border-radius: 9%"></button>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -40,11 +40,12 @@
 
         <br />
         <p class="mb-1 ml-5 baminfont-Air" style="font-size: 1.1em">
-            <a href="#">아이디 찾기</a>|<a href="#"> 비밀번호 찾기</a>|<a href="register.html" class="text-center"> 회원가입</a>
+            <a href="<%=request.getContextPath()%>/findID">아이디 찾기</a>|<a href="<%=request.getContextPath()%>/findPassword"> 비밀번호 찾기</a>|<a href="<%=request.getContextPath()%>/signUp" class="text-center"> 회원가입</a>
         </p>
 
     </div>
     <!-- /.login-card-body -->
 </div>
 
+<%@ include file="./common_js.jsp" %>
 <% session.invalidate(); %>

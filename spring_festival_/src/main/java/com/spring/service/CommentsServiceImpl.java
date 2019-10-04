@@ -17,12 +17,12 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 
 	@Override
-	public Map<String, Object> getCommentsList(int unq_id, Criteria cri) throws Exception {
+	public Map<String, Object> getCommentsList(int unq_Id, Criteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<CommentsVO> commentsList = commentsDAO.selectCommentsListPage(unq_id, cri);
+		List<CommentsVO> commentsList = commentsDAO.selectCommentsListPage(unq_Id, cri);
 		
-		int count = commentsDAO.countComments(unq_id);
+		int count = commentsDAO.countComments(unq_Id);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

@@ -30,4 +30,6 @@ public interface ReviewService {
 	// 글 가져오기
 	public ReviewVO get(int rno) throws SQLException;
 
-}
+	public int getNextUnq_Id() throws SQLException;
+	
+	}
