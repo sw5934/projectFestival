@@ -110,14 +110,17 @@ public class PageMaker {
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
 	
-	
-	
-	
+	public String makeNonSearchQuery() {
+		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum();
+		return query;
+	}
 
+	public String makeNonSearchQuery(int page) {
+		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum();
+		return query;
+	}
 	
-	// starPage,endPage, prev, next 설정. by totalCount
 	private void calcData(String seperator) {
-		
 		
 		if (seperator.equals("follow") || seperator.equals("threeBoard") || seperator.equals("wantGo") ) {
 			endPage = (int) (Math.ceil(((Second_Criteria) cri).getFirst_page() / (double) displayPageNum) * displayPageNum);
@@ -127,25 +130,16 @@ public class PageMaker {
 			// cri.getSecond_page() / (double) displayPageNum)     
 			// =>>  1~10		    /      10.0				= 0.1~1     
 			// =>>  11~20		    /      10.0    			= 1.1~2
-			// =>>  21~30		    /      10.0				= 2.1~3
-			// =>>  31~40		    /      10.0    			= 3.1~4
 
 			// Math.ceil(cri.getSecond_page() / (double) displayPageNum))     
 			// =>>  1~10		    /      10.0				= Math.ceil(0.1~1) = 1     
 			// =>>  11~20		    /      10.0    			= Math.ceil(1.1~2) = 2
-			// =>>  21~30		    /      10.0				= Math.ceil(2.1~3) = 3
-			// =>>  31~40		    /      10.0    			= Math.ceil(3.1~4) = 4
 						
 			// Math.ceil(cri.getSecond_page() / (double) displayPageNum)) * displayPageNum     
 			// =>>  1~10		    /      10.0				= Math.ceil(0.1~1) = 1	* 10 = 10 
 			// =>>  11~20		    /      10.0    			= Math.ceil(1.1~2) = 2	* 10 = 20
-			// =>>  21~30		    /      10.0				= Math.ceil(2.1~3) = 3	* 10 = 30
-			// =>>  31~40		    /      10.0    			= Math.ceil(3.1~4) = 4	* 10 = 40
 		}
-		
-		
-		
-		
+
 		// (10,20,30, 40, 50 - 10) + 1 = 01, 11, 21, 31, 41
 		startPage = (endPage - displayPageNum) + 1;
 
@@ -156,13 +150,9 @@ public class PageMaker {
 		}
 
 		prev = startPage == 1 ? false : true;
-		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
-		
-		
+		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;		
 	}
 
-	
-	
 
 	public String makeQuery() {
 		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum()
@@ -196,8 +186,6 @@ public class PageMaker {
 		this.first_endPage = first_endPage;
 	}
 
-	
-	
 	// 인성
 	public void setTotalCount(int totalCount, String seperator) {
 	

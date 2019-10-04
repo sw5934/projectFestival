@@ -4,7 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
     
-<mapper namespace="Board-Mapper">
+<mapper namespace="MyPage-Mapper">
+
 	<select id="reviewBoard" resultType="reviewTogether">
 		select distinct rno, r_title, r_regDate, r_writer
 		from brd_review

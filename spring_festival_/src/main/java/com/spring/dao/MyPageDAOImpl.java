@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.spring.controller.board.Criteria;
 import com.spring.dto.ReviewAndTogetherVO;
 
-public class BoardDAOImpl implements BoardDAO {
+public class MyPageDAOImpl implements MyPageDAO {
 	private SqlSession session;
 	
 	public void setSession(SqlSession session) {
@@ -20,7 +20,6 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	
 	public List<ReviewAndTogetherVO> myReviewList(Criteria cri) throws SQLException {
-		System.out.println("BoardDAOImpl.myReviewList() 시작");
 
 		int offset=cri.getPageStartRowNum();
 		int limit=cri.getPerPageNum();
@@ -30,20 +29,13 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		
 		List<ReviewAndTogetherVO> myReviewList = new ArrayList<ReviewAndTogetherVO>();
-		myReviewList = session.selectList("Board-Mapper.reviewBoard", cri, rowBounds);
-		
-		for(int i=0; i<myReviewList.size(); i++) {
-			System.out.println("BoardDAOImpl.myReviewList(),        reviewVO.get(" + i + ") = " + myReviewList.get(i));
-		}
-		
-		
-		System.out.println("BoardDAOImpl.myReviewList() 종료");
+		myReviewList = session.selectList("MyPage-Mapper.reviewBoard", cri, rowBounds);
 		return myReviewList;
 	}
 	
 	
 	public int myReviewTotalCount(Criteria cri) throws SQLException {
-		int count = session.selectOne("Board-Mapper.myReviewTotalCount",cri);
+		int count = session.selectOne("MyPage-Mapper.myReviewTotalCount",cri);
 		return count;
 	}
 	
@@ -58,7 +50,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	@Override
 	public int myTogetherTotalCount(Criteria cri) throws SQLException {
-		int count = session.selectOne("Board-Mapper.myTogetherTotalCount", cri);
+		int count = session.selectOne("MyPage-Mapper.myTogetherTotalCount", cri);
 		return count;
 	}
 

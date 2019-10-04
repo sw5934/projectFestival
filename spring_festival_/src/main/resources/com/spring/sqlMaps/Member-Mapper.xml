@@ -13,27 +13,39 @@
     	</select>
     
     	<select id="selectMemberList" resultType="member">
-    		select * 
+    		select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
     		from member
 		</select>
 		
 		<select id="selectMemberByID" resultType="member">
-			select * 
+			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
 			from member 
 			where id=#{id}	<!-- #을쓸떄는 데이터타입이 들어오는 타입에 ''을 붙인다. // $는 ''를 붙이지않는다. -->
 			<!-- 벨류는 #, 쿼리문 $ 쓴다. -->
 		</select>
 		
+		<select id="selectMemberByNickName" resultType="member">
+			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
+			from member 
+			where nickName=#{nickName}
+		</select>
+		
+		<select id="selectMemberByEmail" resultType="int">
+			select count(*) 
+			from member 
+			where email=#{email}
+		</select>
+		
 		<select id="findMemberID" resultType="str">
 			select id
 			from member
-			where name=#{name}, email=#{email}
+			where name=#{name} AND email=#{email}
 		</select>
 		
 		<select id="findMemberPwd" resultType="member">
-			select *
+			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus
 			from member
-			where id=#{id}, name=#{name}, email=#{email}
+			where id=#{id} AND name=#{name} AND email=#{email}
 		</select>
 		
 		
@@ -66,13 +78,13 @@
     	<!-- 회원 관리 -->
     	<update id="insertMember">
     		insert
-    		into member(id, pwd, name, nickName, tel, email, birth, sex, location, prtPattern, infoStatus)
-    		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{location}, #{prtPattern}, #{infoStatus})
+    		into member(id, pwd, name, nickName, tel, email, birth, sex, location, prt_Pattern, info_Status)
+    		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{address}, #{prtPattern}, #{infoStatus})
     	</update>	<!-- 세개는  결국 익스큐트업데이트로 가기때문에 구분이없다 -->
     
     	<update id="updateMember">
     		update member
-    		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{location}, prtPattern=#{prtPattern}, infoStatus=#{infoStatus}
+    		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{address}, prt_Pattern=#{prtPattern}, info_Status=#{infoStatus}
     		where id=#{id}
     	</update>
     	

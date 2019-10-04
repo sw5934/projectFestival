@@ -15,14 +15,14 @@ public class AttachDAOImpl implements AttachDAO {
 	}
 
 	@Override
-	public List<AttachVO> selectAttachesByUnqId(int unqId) throws SQLException {
-		List<AttachVO> attachList = session.selectList("Attach-Mapper.selectAttachByUnqId", unqId);
+	public List<AttachVO> selectAttachesByUnq_Id(int unq_Id) throws SQLException {
+		List<AttachVO> attachList = session.selectList("Attach-Mapper.selectAttachByUnqId", unq_Id);
 		return attachList;
 	}
 
 	@Override
-	public AttachVO selectAttachByAno(int ano) throws SQLException {
-		AttachVO attach = session.selectOne("Attach-Mapper.selectAttachByAno", ano);
+	public AttachVO selectAttachByA_no(int a_no) throws SQLException {
+		AttachVO attach = session.selectOne("Attach-Mapper.selectAttachByAno", a_no);
 		return attach;
 	}
 
@@ -38,8 +38,8 @@ public class AttachDAOImpl implements AttachDAO {
 	}
 
 	@Override
-	public void deleteAllAttach(int unqId) throws SQLException {
-		session.update("Attach-Mapper.deleteAllAttach",unqId);
+	public void deleteAllAttach(int unq_Id) throws SQLException {
+		session.update("Attach-Mapper.deleteAllAttach",unq_Id);
 	}
 
 }

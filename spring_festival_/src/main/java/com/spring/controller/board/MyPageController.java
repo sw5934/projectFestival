@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.dto.MemberVO;
-import com.spring.service.BoardService;
+import com.spring.service.MyPageService;
 
 @Controller
-@RequestMapping("/board")
-public class BoardController {
-	@Resource(name="boardService")
-	private BoardService bs;
+@RequestMapping("/MyPage")
+public class MyPageController {
+	@Resource(name="myPageService")
+	private MyPageService bs;
 	
 	// 마이페이지 -> '후기게시판'에 작성한 나의 글 리스트업
 	@RequestMapping("/review")
 	public ModelAndView myReviewList(ModelAndView modelnView, Second_Criteria cri,
 			HttpServletRequest request,	HttpServletResponse response) throws SQLException {
-		System.out.println("BoardController.reviewBoard() 시작");
+		System.out.println("MyPageController.reviewBoard() 시작");
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -47,9 +47,9 @@ public class BoardController {
 		
 
 		modelnView.addObject("dataMap",dataMap);		
-		modelnView.setViewName("/board/review");
+		modelnView.setViewName("myPage/review");
 		
-		System.out.println("BoardController.reviewBoard() 종료");
+		System.out.println("MyPageController.reviewBoard() 종료");
 		return modelnView;
 	}
 	

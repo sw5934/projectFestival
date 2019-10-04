@@ -21,32 +21,32 @@ public class AttachController {
 	private AttachDAO attachDAO;
 	
 	@Resource(name = "uploadPath")
-	private String uploadPath;
+	private String a_uploadPath;
 	
 	@RequestMapping("/get")
-	public ResponseEntity<byte[]> getAttach(int ano) throws Exception{
+	public ResponseEntity<byte[]> getAttach(int a_no) throws Exception{
 		
 		ResponseEntity<byte[]> entity = null;
 		
-		AttachVO attach = attachDAO.selectAttachByAno(ano);
-		String fileName = attach.getUuid() + "$$" + attach.getFilename();
-		String filePath = attach.getUploadPath();
+		AttachVO attach = attachDAO.selectAttachByA_no(a_no);
+		String fileName = attach.getA_uuid()+ "$$" + attach.getA_filename();
+		String filePath = attach.getA_uploadPath();
 		
-		filePath = uploadPath + filePath + File.separator + fileName;
+		filePath = a_uploadPath + filePath + File.separator + fileName;
 		
 		return DownloadFileUtils.download(filePath);
 	}
 	
 	@RequestMapping("/thumb")
-	public ResponseEntity<byte[]> getThumbnail(int ano) throws Exception{
+	public ResponseEntity<byte[]> getThumbnail(int a_no) throws Exception{
 		
 		ResponseEntity<Byte[]> entity = null;
 		
-		AttachVO attach = attachDAO.selectAttachByAno(ano);
-		String fileName = "s_" + attach.getUuid() + "$$" + attach.getFilename();
-		String filePath = attach.getUploadPath();
+		AttachVO attach = attachDAO.selectAttachByA_no(a_no);
+		String fileName = "s_" + attach.getA_uuid() + "$$" + attach.getA_filename();
+		String filePath = attach.getA_uploadPath();
 		
-		filePath = uploadPath + filePath + File.separator + fileName;
+		filePath = a_uploadPath + filePath + File.separator + fileName;
 		
 		return DownloadFileUtils.download(filePath);
 	}

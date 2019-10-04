@@ -8,28 +8,26 @@ import java.util.Map;
 
 import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.Second_Criteria;
-import com.spring.dao.BoardDAO;
+import com.spring.dao.MyPageDAO;
 import com.spring.dto.ReviewAndTogetherVO;
 
-public class BoardServiceImpl implements BoardService {
-	private BoardDAO boardDAO;
+public class MyPageServiceImpl implements MyPageService {
+	private MyPageDAO myPageDAO;
 	
-	public void setBoardDAO(BoardDAO boardDAO) {
-		this.boardDAO = boardDAO;
+	public void setMyPageDAO(MyPageDAO myPageDAO) {
+		this.myPageDAO = myPageDAO;
 	}
 	
 	
 	
 	
 	public Map<String, Object> myReviewList(Second_Criteria cri) throws SQLException {
-		System.out.println("BoardServiceImpl.myReviewList() 시작");
 		
 		List<ReviewAndTogetherVO> myReviewList = new ArrayList<ReviewAndTogetherVO>();
-		myReviewList = boardDAO.myReviewList(cri);
+		myReviewList = myPageDAO.myReviewList(cri);
 		
-		int totalCount = boardDAO.myReviewTotalCount(cri);
+		int totalCount = myPageDAO.myReviewTotalCount(cri);
 
-		System.out.println("BoardServiceImpl.myReviewList() ,   totalCount = " + totalCount);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -41,7 +39,6 @@ public class BoardServiceImpl implements BoardService {
 		dataMap.put("pageMaker",pageMaker);
 		
 
-		System.out.println("BoardServiceImpl.myReviewList() 종료");
 		return dataMap;
 	}
 	

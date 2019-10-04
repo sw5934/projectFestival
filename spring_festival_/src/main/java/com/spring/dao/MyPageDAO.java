@@ -6,7 +6,7 @@ import java.util.List;
 import com.spring.controller.board.Criteria;
 import com.spring.dto.ReviewAndTogetherVO;
 
-public interface BoardDAO {
+public interface MyPageDAO {
 	public List<ReviewAndTogetherVO> myReviewList(Criteria cri) throws SQLException;
 	public List<ReviewAndTogetherVO> myTogetherList(Criteria cri) throws SQLException;
 	public int myReviewTotalCount(Criteria cri) throws SQLException;
