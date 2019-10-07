@@ -7,7 +7,7 @@
 <mapper namespace="MyPage-Mapper">
 
 	<select id="reviewBoard" resultType="reviewTogether">
-		select distinct rno, r_title, r_regDate, r_writer
+		select distinct rno "bno", r_title "title", to_date(to_char(r_regDate, 'yy-mm-dd')) "regDate", r_writer "writer", unq_id "unq_id"
 		from brd_review
 		where r_writer=#{str}
 		order by rno desc
@@ -21,7 +21,7 @@
 	</select>
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 	<select id="togetherBoard" resultType="reviewTogether">
-		select distinct tno, t_title, t_regDate, t_writer
+		select distinct tno "bno", t_title "title", to_date(to_char(t_regDate, 'yy-mm-dd')) "regDate", t_writer "writer", unq_id "unq_id"
 		from brd_together
 		where t_writer=#{str}
 		order by tno desc		
@@ -30,6 +30,108 @@
 		select distinct count(*)
 		from brd_together
 		where t_writer=#{str}
+	</select>
+	
+	
+<!-- ///////////////////////////////////////////////////////////////// -->
+	<select id="reviewComments" resultType="int">
+		select distinct count(*)
+		from comments c
+		where c.unq_id=${unq_id}
+		and c.unq_id != 0
+	</select>
+	
+	<select id="togetherComments" resultType="int">
+		select distinct count(*)
+		from comments c
+		where c.unq_id=${unq_id}
+		and c.unq_id != 0
+	</select>
+<!-- //////////////////////////////////////////////////////////////////////// -->
+	<select id="commentsBoard" resultType="commentsBoard">
+		select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+		from comments c, brd_festival bf, festival fe
+		where c.C_WRITER = #{str}
+		and c.UNQ_ID = bf.UNQ_ID
+		and bf.F_NO= fe.F_NO
+		
+		union
+		
+		select '같이가요' "category", c.unq_id "unq_id", bt.tNO "bno", bt.T_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+		from comments c, brd_together bt
+		where c.C_WRITER = #{str}
+		and c.UNQ_ID = bt.UNQ_ID
+		
+		union
+		
+		select '후기' "category", c.unq_id "unq_id", br.rNO "bno", br.r_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+		from comments c, brd_review br
+		where c.C_WRITER = #{str}
+		and c.UNQ_ID = br.UNQ_ID
+		order by "regDate" desc
+	</select>
+	
+	<select id="commentsTotalCount" resultType="int">
+		select distinct count(*)
+		from (
+			select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+			from comments c, brd_festival bf, festival fe
+			where c.C_WRITER = #{str}
+			and c.UNQ_ID = bf.UNQ_ID
+			and bf.F_NO= fe.F_NO
+			
+			union
+			
+			select '같이가요' "category", c.unq_id "unq_id", bt.tNO "bno", bt.T_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+			from comments c, brd_together bt
+			where c.C_WRITER = #{str}
+			and c.UNQ_ID = bt.UNQ_ID
+			
+			union
+			
+			select '후기' "category", c.unq_id "unq_id", br.rNO "bno", br.r_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+			from comments c, brd_review br
+			where c.C_WRITER = #{str}
+			and c.UNQ_ID = br.UNQ_ID
+			order by "regDate" desc
+		)
+	</select>
+
+
+
+	<select id="holdingList" resultType="holding">
+		select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id", m.id "id"
+		from member m, organization og, brd_festival bf, festival fe, hashtag hs
+		where m.id = #{str}
+		and m.id = og.id
+		and og.id = bf.f_writer
+		and bf.f_no = fe.f_no
+		and fe.f_no = hs.f_no
+	</select>
+
+
+
+	<select id="holdingTotalCount" resultType="int">
+		select distinct count(*)
+		from (	
+			select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id"
+			from member m, organization og, brd_festival bf, festival fe, hashtag hs
+			where m.id = #{str}
+			and m.id = og.id
+			and og.id = bf.f_writer
+			and bf.f_no = fe.f_no
+			and fe.f_no = hs.f_no
+		)
+	</select>
+
+
+
+	<select id="holdingCommentsCount" resultType="int">
+		select distinct count(*)
+		from brd_festival bf, comments c
+		where bf.unq_id = #{unq_id}
+		and bf.unq_id = c.unq_id
+		and bf.F_WRITER = #{id}
 	</select>
 </mapper>
     
