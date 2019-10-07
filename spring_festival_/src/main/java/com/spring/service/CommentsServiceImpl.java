@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.spring.controller.board.Criteria;
 import com.spring.controller.board.PageMaker;
+import com.spring.controller.board.SearchCriteria;
 import com.spring.dao.CommentsDAO;
 import com.spring.dto.CommentsVO;
 
@@ -17,7 +17,7 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 
 	@Override
-	public Map<String, Object> getCommentsList(int unq_Id, Criteria cri) throws Exception {
+	public Map<String, Object> getCommentsList(int unq_Id, SearchCriteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		List<CommentsVO> commentsList = commentsDAO.selectCommentsListPage(unq_Id, cri);

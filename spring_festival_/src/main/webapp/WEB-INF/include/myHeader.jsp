@@ -43,11 +43,11 @@
                 <div style="border: white solid 7px; width:80%; left:10%; top: 5%; position: relative"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" style="width: 100%"></div>
                 <div style="border: white solid 7px; width:80%; left:10%; top: 10%; position: relative; padding: 0px;">
                     <ul class="" style="padding: 5px;">
-                        <li class="side-menu"><a class="baminfont-menu" href="#">@ 내 정보 수정</a></li>
-                        <li class="side-menu"><a class="baminfont-menu" href="#">@ 팔로우 현황 보기</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/member/myInfo?id=${loginUser.id}">@ 내 정보 수정</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/follow/followList">@ 팔로우 현황 보기</a></li>
                         <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/vote/voteList">@ 내가 찜한 축제</a></li>
-                        <li class="side-menu"><a class="baminfont-menu" href="#">@ 내가 쓴 글/댓글</a></li>
-                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/message/sendList">@ 내 쪽지 보기</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/MyPage/review">@ 내가 쓴 글/댓글</a></li>
+                        <li class="side-menu"><a class="baminfont-menu" href="<%=request.getContextPath() %>/message/receiveList">@ 내 쪽지 보기</a></li>
                     </ul>
                 </div>
             </aside> 

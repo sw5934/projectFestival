@@ -34,5 +34,6 @@ public interface MemberService {
 	public int getLoginFailRecord(String id) throws SQLException;
 	public void setLoginFailRecord(String id) throws SQLException;
 	public void setNewPassword(String id,String pwd) throws SQLException;
+	public void removeLoginRecord(String id) throws SQLException;
 	
 }

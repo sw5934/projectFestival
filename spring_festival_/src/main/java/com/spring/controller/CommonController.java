@@ -97,8 +97,10 @@ public class CommonController {
 		
 		if(member != null) {							//ID존재
 			
-
-			if(memberService.getLoginFailRecord(id)==0) {
+			int recordCount = memberService.getLoginFailRecord(id);
+			if(recordCount!=1) {
+				if(recordCount>1)
+					memberService.removeLoginRecord(id);
 				memberService.setLoginFailRecord(id);
 			};
 			

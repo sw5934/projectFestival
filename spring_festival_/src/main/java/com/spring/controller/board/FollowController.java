@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,20 +26,23 @@ public class FollowController {
 	@Resource(name="followService")
 	private FollowService followService;
 	
+
+	@ModelAttribute("category")
+	public String category() throws Exception{
+		return "follow";		
+	}
+
+	@ModelAttribute("view")
+	public String view() throws Exception{
+		return "팔로우 현황";		
+	}
 	
-	
-	// page, perPageNum을 받아냄.
-	// 
 	@RequestMapping(value="/followList")
 	public ModelAndView myFollow(ModelAndView model,
 							Second_Criteria cri,
 							HttpServletRequest request,
 							HttpServletResponse response) throws SQLException {
-		System.out.println("FollowController.myFollow() 시작");
-		
-		System.out.println("FollowController.myFollow,  Criteria(1,1,5) 호출");
 		cri = new Second_Criteria(1,1,5);
-		System.out.println("FollowController.myFollow,  Criteria(1,1,5) 복귀\n");
 		
 		
 		
@@ -50,7 +54,6 @@ public class FollowController {
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
-		System.out.println("로그인 아이디 : "+cri.getStr());
 		
 		
 		if( (null != request.getParameter("first_page")) && (null != request.getParameter("second_page"))) {			
@@ -58,36 +61,13 @@ public class FollowController {
 			cri.setSecond_page(Integer.parseInt(request.getParameter("second_page")));
 		}
 		
-
-		
-		
 		cri.setPerPageNum(5);
 
-		System.out.println("FollowController -  followService.followList(cri) 호출");
 		dataMap = followService.followList(cri);
-		System.out.println("FollowController -  followService.followList(cri) 복귀\n");
 	
-		
-		
-		// dataMap = followList <- follow, followed, pageMaker, pageMakered
-		
-		System.out.println("-------- Result ---------");
-		System.out.println("follow = " + dataMap.get("follow"));
-		System.out.println("followed = " + dataMap.get("followed"));
-		System.out.println("pageMaker = " + dataMap.get("pageMaker"));
-		System.out.println("pageMakered = " + dataMap.get("pageMakered"));
-
-		
-		
-		
-
-		System.out.println("FollowController - dataMap = " + dataMap);
-	
-		
 		model.addObject("dataMap",dataMap);		
 		model.setViewName("/follow/followList");
 
-		System.out.println("FollowController.myFollow() 종료");
 		return model;
 	}
 	

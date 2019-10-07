@@ -147,4 +147,8 @@ public class MemberServiceImpl implements MemberService {
 	public void setNewPassword(String id, String pwd) throws SQLException{
 		memberDAO.newPassword(id,pwd);
 	}
+	@Override
+	public void removeLoginRecord(String id) throws SQLException{
+		memberDAO.loginSuccessUpdate(id);
+	}
 }

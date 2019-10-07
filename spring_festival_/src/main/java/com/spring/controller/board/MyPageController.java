@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,16 @@ public class MyPageController {
 	@Resource(name="myPageService")
 	private MyPageService bs;
 	
+
+	@ModelAttribute("category")
+	public String category() throws Exception{
+		return "MyPage";		
+	}
+
+	@ModelAttribute("view")
+	public String view() throws Exception{
+		return "작성 글/갯글";		
+	}
 	// 마이페이지 -> '후기게시판'에 작성한 나의 글 리스트업
 	@RequestMapping("/review")
 	public ModelAndView myReviewList(ModelAndView modelnView, Second_Criteria cri,
