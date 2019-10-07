@@ -39,13 +39,13 @@
 <a id="hlist" href=""></a>
 
  <div class="wrapper">
-		<div class="col-md-6">
-           <div class="card">
-              <div class="card-header">
+		<div class="col-md-6" style="width:700px">
+           <div class="card" style="width:700px">
+              <div class="card-header" >
                 <h3 class="card-title">나를 팔로우 한 사람,  총 ${pageMakered.totalCount}명 ,  출력 ${ followedList.size() }명</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="width:700px">
                 <table class="table table-condensed">
                 
                 
@@ -78,7 +78,7 @@
 
 
 
-					<div class="card-footer clearfix"  >
+					<div class="card-footer clearfix"  style="width:700px">
 						<div class="text-center">															
 						<ul class="pagination pagination-sm m-0 float-right"> 							
 							<li class="page-item">
@@ -124,14 +124,14 @@
 
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////  -->
-
-           <div class="card">
+		</br></br></br>
+           <div class="card" style="width:700px">
               <div class="card-header">
                 <h3 class="card-title">내가 팔로우 한 사람,  총 ${pageMaker.totalCount}명,  출력 ${ followList.size() }명</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-condensed">
+              <div class="card-body" style="width:700px">
+                <table class="table table-condensed" > <!-- border="solid 1px black" -->
                 
                 
                   <thead>                  
@@ -169,7 +169,7 @@
 
 
 
-					<div class="card-footer clearfix"  >
+					<div class="card-footer clearfix"  style="width:700px">
 						<div class="text-center">															
 						<ul class="pagination pagination-sm m-0 float-right"> 
 							
