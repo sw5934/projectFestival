@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Festival-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and r_title like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'w'.toString()">
+			and r_writer like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'c'.toString()">
+			and r_content like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'tc'.toString()">
+			and (
+			r_title like '%'||#{keyword}||'%'
+			or
+			r_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			r_title like '%'||#{keyword}||'%'
+			or
+			r_writer like '%'||#{keyword}||'%'
+			or
+			r_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<select id="selectSearchFestivalList" resultType="festival">
+		select
+		*
+		from
+		brd_festival
+		where unq_id is not null
+		<include refid="search"/>
+		order by ${listSort} desc
+	</select>
+	
+	<select id="selectSearchFestivalListByVote" resultType="festival">
+		select distinct f.*,v.vote
+		from brd_festival f,
+			(select v.unq_id,count(v.unq_id)as vote
+			from brd_festival f, vote v
+			where f.f_no=v.unq_id and v.f_seperate=1 group by v.unq_id) v
+		where f.f_no=v.unq_id
+		order by vote desc;
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="selectFestival" resultType="festival">
+		select 
+		*
+		from brd_festival
+		where unq_id=#{unq_id}
+	</select>
+	
+	<select id="selectFestivalSeqNext" resultType="int">
+		select brd_festival_seq.nextval from dual
+	</select>
+	
+	<select id="selectUnqSeqNext" resultType="int">
+		select three_board_seq.nextval from dual
+	</select>
+	<!--  -->
+	<update id="insertFestival" parameterType="festival">
+		insert into brd_festival
+		values
+		(#{unq_id}, #{f_no},#{f_writer},#{f_title},sysdate,#{f_viewCnt}, #{f_content}, #{f_name}, #{f_location1}, #{f_location2},#{f_period}, #{f_org}, #{f_type})
+	</update>
+	
+	<!--  -->
+	<update id="updateFestival" parameterType="festival">
+		update
+		brd_festival
+		set
+		f_title=#{f_title}, f_content=#{f_content},  f_name=#{f_name},  f_location1=#{f_location1},  f_location2=#{f_location2},  f_period=#{f_period},  f_org=#{f_org},  f_type=#{f_type} 
+		where f_no=#{f_no}
+	</update>
+	
+	<update id="deleteFestival" parameterType="int">
+		delete
+		from brd_festival
+		where f_no=#{f_no}
+	</update>	
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update
+		brd_festival
+		set
+		f_viewcnt = f_viewcnt + 1
+		where f_no=#{f_no}
+	</update>
+	
+	
+	<!-- 좋아요 수 카운트,-->
+</mapper>
+
+    

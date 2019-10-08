@@ -49,79 +49,34 @@
 	</select>
 <!-- //////////////////////////////////////////////////////////////////////// -->
 	<select id="commentsBoard" resultType="commentsBoard">
-		select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-		from comments c, brd_festival bf, festival fe
-		where c.C_WRITER = #{str}
-		and c.UNQ_ID = bf.UNQ_ID
-		and bf.F_NO= fe.F_NO
-		
-		union
-		
-		select '같이가요' "category", c.unq_id "unq_id", bt.tNO "bno", bt.T_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-		from comments c, brd_together bt
-		where c.C_WRITER = #{str}
-		and c.UNQ_ID = bt.UNQ_ID
-		
-		union
-		
-		select '후기' "category", c.unq_id "unq_id", br.rNO "bno", br.r_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-		from comments c, brd_review br
-		where c.C_WRITER = #{str}
-		and c.UNQ_ID = br.UNQ_ID
-		order by "regDate" desc
+		select type as category,unq_id,bno,title,contents "COMMENT",id as writer,regdate       
+        from totalcomments
+        where id=#{str}
+        order by regdate
 	</select>
 	
 	<select id="commentsTotalCount" resultType="int">
-		select distinct count(*)
-		from (
-			select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-			from comments c, brd_festival bf, festival fe
-			where c.C_WRITER = #{str}
-			and c.UNQ_ID = bf.UNQ_ID
-			and bf.F_NO= fe.F_NO
-			
-			union
-			
-			select '같이가요' "category", c.unq_id "unq_id", bt.tNO "bno", bt.T_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-			from comments c, brd_together bt
-			where c.C_WRITER = #{str}
-			and c.UNQ_ID = bt.UNQ_ID
-			
-			union
-			
-			select '후기' "category", c.unq_id "unq_id", br.rNO "bno", br.r_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-			from comments c, brd_review br
-			where c.C_WRITER = #{str}
-			and c.UNQ_ID = br.UNQ_ID
-			order by "regDate" desc
-		)
+		select count(*)       
+        from totalcomments
+        where id=#{str}
 	</select>
 
 
-
+	<!-- 해시태그는 일대다 관계이므로 따로 호출해서 서비스에서 붙여줘야함. fno에 맞는 해시태그 '리스트'를 불러오는 쿼리 추가 작성하여 적용시킬것. -->
 	<select id="holdingList" resultType="holding">
-		select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id", m.id "id"
-		from member m, organization og, brd_festival bf, festival fe, hashtag hs
+		select bf.f_title "title", bf.unq_id "unq_id", m.id "id"
+		from member m,brd_festival bf
 		where m.id = #{str}
-		and m.id = og.id
-		and og.id = bf.f_writer
-		and bf.f_no = fe.f_no
-		and fe.f_no = hs.f_no
+		and m.id = bf.f_writer
 	</select>
 
 
 
 	<select id="holdingTotalCount" resultType="int">
 		select distinct count(*)
-		from (	
-			select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id"
-			from member m, organization og, brd_festival bf, festival fe, hashtag hs
-			where m.id = #{str}
-			and m.id = og.id
-			and og.id = bf.f_writer
-			and bf.f_no = fe.f_no
-			and fe.f_no = hs.f_no
-		)
+		from member m,brd_festival bf
+		where m.id = #{str}
+		and m.id = bf.f_writer
 	</select>
 
 
@@ -131,17 +86,6 @@
 		from brd_festival bf, comments c
 		where bf.unq_id = #{unq_id}
 		and bf.unq_id = c.unq_id
-		and bf.F_WRITER = #{id}
 	</select>
 </mapper>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     

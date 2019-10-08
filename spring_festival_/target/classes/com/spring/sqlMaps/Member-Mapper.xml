@@ -50,18 +50,24 @@
 		
 		
 		<!-- 로그인 -->
+		<select id="loginFailRecord" resultType="int">
+			select count(fail_cnt)
+			from login
+			where id=#{id}
+		</select>
+		
+		<update id="setLoginFailRecord">
+			insert
+			into login
+			values(#{id}, 0)
+		</update>
+		
 		<select id="loginFailSelect" resultType="int">
 			select fail_cnt
 			from login
 			where id=#{id}
 		</select>
-		
-		<update id="loginFailInsert">
-			insert
-			into login
-			values(#{id}, 1)
-		</update>
-		
+	
 		<update id="loginFailUpdate">
 			update login
 			set fail_cnt=fail_cnt+1
@@ -85,6 +91,12 @@
     	<update id="updateMember">
     		update member
     		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{address}, prt_Pattern=#{prtPattern}, info_Status=#{infoStatus}
+    		where id=#{id}
+    	</update>
+    	
+    	<update id="newPassword">
+    		update member
+    		set pwd=#{pwd}
     		where id=#{id}
     	</update>
     	
