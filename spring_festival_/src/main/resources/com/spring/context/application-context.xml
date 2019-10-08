@@ -38,6 +38,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="myPageDAO" class="com.spring.dao.MyPageDAOImpl"
 		p:session-ref="sqlSession"/>
+	<bean id="festivalDAO" class="com.spring.dao.FestivalDAOImpl"
+		p:session-ref="sqlSession"/>
 		  
 		  
 	<!-- service -->	
@@ -72,5 +74,10 @@
 	<bean id="myPageService"
 		  class="com.spring.service.MyPageServiceImpl"
 		  p:myPageDAO-ref="myPageDAO"
+		  />
+	<bean id="festivalService"
+		  class="com.spring.service.FestivalServiceImpl"
+		  p:festivalDAO-ref="festivalDAO"
+		  p:commentsDAO-ref="commentsDAO"
 		  />
 </beans>
