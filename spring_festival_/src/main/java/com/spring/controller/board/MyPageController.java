@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,17 @@ public class MyPageController {
 	// xml에 설정해놓은 빈들중 <bean id="myPageService">인 빈을 ms에 주입시킨다.
 	@Resource(name="myPageService")
 	MyPageService ms;
+
+	@ModelAttribute("category")
+	public String category() throws Exception{
+		return "myPage";		
+	}
+
+	@ModelAttribute("view")
+	public String view() throws Exception{
+		return "작성 글/댓글";		
+	}
+	// 마이페이지 -> '후기게시판'에 작성한 나의 글 리스트업
 	
 	@RequestMapping("/review")
 	public String myReviewList(Model model, Second_Criteria cri,
@@ -90,8 +102,7 @@ public class MyPageController {
 		cri.setStr(loginUser.getId());
 		cri.setPerPageNum(10);
 		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap = ms.holdingList(cri); 
+		Map<String, Object> dataMap = ms.holdingList(cri); 
 		// dataMap = { "holdingList", "pageMaker" }
 
 		model.addAttribute("dataMap", dataMap);

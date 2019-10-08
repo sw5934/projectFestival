@@ -8,7 +8,7 @@
 <mapper namespace="Vote-Mapper">
 	<!-- f_seperate = 1 가고싶어요 -->
 	<select id="WantGoVoteList" resultType="vote">
-		select v.id, v.unq_id, bf.f_content, v.chkdate, v.f_seperate
+		select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
 		from vote v, brd_festival bf, member m
 		where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
                 and v.f_seperate=1
@@ -19,7 +19,7 @@
 	
 	<!-- f_seperate = 2(다녀왔어요) -->
 	<select id="GoAndBackVoteList" resultType="vote">
-		select v.id, v.unq_id, bf.f_content, v.chkdate, v.f_seperate
+		select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
 		from vote v, brd_festival bf, member m
 		where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
                 and v.f_seperate=2
@@ -32,7 +32,7 @@
 	<select id="WantGoTotalCount" resultType="int">
 		select count(*)
 		from (	
-			select v.id, bf.f_content, v.chkdate, v.f_seperate, v.unq_id
+			select v.id, bf.f_title, v.chkdate, v.f_seperate, v.unq_id
 			from vote v, brd_festival bf, member m
 			where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
 	                and v.f_seperate=1
@@ -45,7 +45,7 @@
 	<select id="GoAndBackTotalCount" resultType="int">
 		select count(*)
 		from (
-			select v.id, bf.f_content, v.chkdate, v.f_seperate, v.unq_id
+			select v.id, bf.f_title, v.chkdate, v.f_seperate, v.unq_id
 			from vote v, brd_festival bf, member m
 			where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
 	                and v.f_seperate=2

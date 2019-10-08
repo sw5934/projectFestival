@@ -25,7 +25,7 @@ public class CommentsController {
 	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("unq_Id") int unq_Id, @PathVariable("page") int page) throws Exception{
 		ResponseEntity<Map<String, Object>> entity = null;
 		
-		Criteria cri = new Criteria();
+		SearchCriteria cri = new SearchCriteria();
 		cri.setPage(page);
 		
 		try {

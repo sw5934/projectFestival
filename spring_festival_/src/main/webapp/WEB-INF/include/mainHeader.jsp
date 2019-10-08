@@ -61,9 +61,10 @@
                                         <li class="nav-item d-none d-sm-inline-block">
                                             <a href="#" class="nav-link">같이가요</a>
                                         </li>
+                                        <c:if test="${loginUser!=null}">
                                         <li class="nav-item d-none d-sm-inline-block">
-                                            <a href="#" class="nav-link">마이페이지</a>
-                                        </li>
+                                            <a class="nav-link" onClick="window.open('<%=request.getContextPath()%>/message/sendList', '마이 페이지', 'height=700,width=1000,resizable=0');">마이페이지</a>
+                                        </li></c:if>
                                     </ul>
                                 </nav>
                             </div>
