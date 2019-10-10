@@ -6,12 +6,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.dto.MemberVO;
 import com.spring.service.MemberService;
@@ -23,40 +24,33 @@ public class MemberController {
 	@Resource(name="memberService")
 	private MemberService memberService;
 	
-
-	@ModelAttribute("category")
-	public String category() throws Exception{
-		return "member";		
-	}
-
-	@ModelAttribute("view")
-	public String view() throws Exception{
-		return "프로필";		
-	}
+	
 	
 	// 회원 본인의 마이페이지 회원정보 조회 // 닉네임 , 연락처, 이메일, 생년월일, 성별, 지역, 여행타입, 정보공개여부
-	@RequestMapping("/myInfo")
-	public String myInfo(Model model, String id,HttpServletRequest request) throws SQLException {
+	@RequestMapping(value="/memInfo", method=RequestMethod.POST)
+	public String memInfo(Model model,
+							@RequestParam("id") String id,
+							@RequestParam("pwd") String pwd,
+							HttpServletRequest request,
+							HttpServletResponse response) throws SQLException {
+		response.setContentType("text/html;charset=utf-8");
 
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+		System.out.println("MemberController.memInfo(),  idweqrqwe="+id);
+		System.out.println("MemberController.memInfo(),   pwd="+pwd);
+
 		
-		if(loginUser.getId().equals(id))
-		{	
-			String birth = loginUser.getBirth()+"";
-			String year = birth.substring(0,4);
-			String month = birth.substring(4,6);
-			String date = birth.substring(6,8);
-			Map<String,String> birthData = new HashMap<String,String>();
-			birthData.put("year", year);
-			birthData.put("month", month);
-			birthData.put("date", date);
-			model.addAttribute("loginUser",loginUser); 
-			model.addAttribute("birthData",birthData); 
-			return "/memInfo/myInfo";
-		}
+		MemberVO memberVO = memberService.getMember(id);
+		System.out.println("MemberController.memInfo(),   memberVO = " + memberVO);
 		
-		else
-			return "redirect:main.htm";
+		
+		Map<String, Object> dataMap=new HashMap<String, Object>();
+		
+
+		dataMap.put("myInfo", memberVO);
+		model.addAttribute("dataMap",dataMap);
+		
+		
+		return "/memInfo/memInfo";
 	}
 }

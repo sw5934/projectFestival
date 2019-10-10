@@ -1,7 +1,6 @@
 package com.spring.dao;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,21 +103,21 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int loginFailSelect(String id) throws SQLException {
-		int failCount = session.selectOne("Member.loginFailSelect", id);
+	public MemberVO loginFailSelect(String id) throws SQLException {
+		MemberVO member = session.selectOne("Member.loginFailSelect", id);
 		
-		return failCount;
+		return member;
 	}
 
 	@Override
-	public void setLoginFailRecord(String id) throws SQLException {
-		session.update("Member.setLoginFailRecord", id);
+	public void loginFailInsert(MemberVO member) throws SQLException {
+		session.update("Member.loginFailInsert", member);
 		
 	}
 
 	@Override
-	public void loginFailUpdate(String id) throws SQLException {
-		session.update("Member.loginFailUpdate", id);
+	public void loginFailUpdate(MemberVO member) throws SQLException {
+		session.update("Member.loginFailUpdate", member);
 		
 	}
 
@@ -126,18 +125,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public void loginSuccessUpdate(String id) throws SQLException {
 		session.update("Member.loginSuccessUpdate", id);
 		
-	}
-	
-	@Override
-	public int loginFailRecord(String id) throws SQLException{
-		return session.selectOne("Member.loginFailRecord",id);
-	}
-	
-	public void newPassword(String id,String pwd) throws SQLException{
-		Map<String,String> data = new HashMap<String,String>();
-		data.put("id", id);
-		data.put("pwd", pwd);
-		session.update("Member.newPassword",data);
 	}
 
 }

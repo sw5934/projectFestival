@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMemberPwd(String id, String name, String email) throws SQLException {
 		
 		MemberVO pwd_member = memberDAO.findMemberPwd(id, name, email);
-		String temp_pwd = UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(0, 6);
+		String temp_pwd = UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(0, 5);
 		
 		if(pwd_member != null) {
 			pwd_member.setPwd(temp_pwd);
@@ -111,44 +111,35 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int loginFail(String id) throws SQLException {
 		
-			memberDAO.loginFailUpdate(id);
+		MemberVO loginMember = null;
 		
-		int failCnt=memberDAO.loginFailSelect(id);
-		
-		if(failCnt>5) {
-			failCnt=6;
+		if(memberDAO.loginFailSelect(id) != null) {
+			loginMember = memberDAO.loginFailSelect(id);
+		} else {
+			loginMember = memberDAO.selectMemberByID(id);
 		}
+		
+		
+		int failCnt;
+		
+		if(loginMember == null) {
+			memberDAO.loginFailInsert(loginMember);
+		} else if(loginMember.getFailCnt() > 5) {
+			
+		} else {
+			memberDAO.loginFailUpdate(loginMember);
+		}
+		
+		failCnt = loginMember.getFailCnt();
+		
 		return failCnt;
 	}
 	
 	@Override
-	public String loginSuccess(String id) throws SQLException {
-		if(memberDAO.loginFailSelect(id)<5) {
-			memberDAO.loginSuccessUpdate(id);
-			return "no";}
-		else {
-			memberDAO.loginSuccessUpdate(id);
-			return "yes";
-		}
-	}
-	@Override
-	public int getLoginFailCnt(String id) throws SQLException {
-		return memberDAO.loginFailSelect(id);
-	}
-	@Override
-	public int getLoginFailRecord(String id) throws SQLException {
-		return memberDAO.loginFailRecord(id);
-	}
-	@Override
-	public void setLoginFailRecord(String id) throws SQLException {
-		memberDAO.setLoginFailRecord(id);
-	}
-	@Override
-	public void setNewPassword(String id, String pwd) throws SQLException{
-		memberDAO.newPassword(id,pwd);
-	}
-	@Override
-	public void removeLoginRecord(String id) throws SQLException{
+	public void loginSuccess(String id) throws SQLException {
+		
 		memberDAO.loginSuccessUpdate(id);
+		
 	}
+
 }

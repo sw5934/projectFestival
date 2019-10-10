@@ -17,24 +17,27 @@
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     
+                    <label class="col-sm-4 control-label">아이디</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="inputId" placeholder="아이디">
+                        <input type="text" class="form-control" id="inputId">
                         <input type="hidden" id="realId"  name="inputId" value=""></input>
                     </div>
+                    <label class="col-sm-4 control-label">이름</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="비밀번호">
+                        <input type="text" class="form-control" id="name" name="name">
                     </div>
+                    <label class="col-sm-4 control-label">이메일</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+                        <input type="text" class="form-control" id="email" name="email">
                     </div>
                 </div>
                 <div class="float-sm-left col-3">
                     <div class="row">
                         <div class="">
-                            <button type="button" class="btn btn-primary baminfont-Air" id="findPasswordBtn" onclick="findPasswordCheck()" style="font-size:1.2em; width:93px;">비밀번호 <br> 찾기</button>
+                            <button type="button" class="btn btn-primary" id="findPasswordBtn" onclick="findPasswordCheck()" >비밀번호 찾기</button>
                         </div>
                     </div>
-                    <!-- /.col --> 
+                    <!-- /.col -->
                 </div>
             </div>
         </form>

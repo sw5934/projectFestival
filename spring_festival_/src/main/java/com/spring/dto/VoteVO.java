@@ -5,7 +5,7 @@ import java.sql.Date;
 public class VoteVO {
 	private String id;
 	private String unq_id;
-	private String f_title;
+	private String f_content;
 	private Date chkdate;
 	private int f_seperate;
 	
@@ -20,7 +20,7 @@ public class VoteVO {
 		System.out.println("VoteVO.toString()");
 		
 		return "VoteVO [id=" + id + 
-				", title=" + f_title + 
+				", content=" + f_content + 
 				", chkdate=" + chkdate + 
 					"]";
 	}
@@ -42,15 +42,15 @@ public class VoteVO {
 
 
 
-	public String getF_title() {
-		return f_title;
+	public String getF_content() {
+		return f_content;
 	}
 
 
 
 
-	public void setF_content(String f_title) {
-		this.f_title = f_title;
+	public void setF_content(String f_content) {
+		this.f_content = f_content;
 	}
 
 

@@ -38,39 +38,51 @@
 <body>
 <a id="hlist" href=""></a>
 
-<div class="col-11 mt-3 mb-1" style="margin: 0 auto;padding: 0px; overflow:hidden; height:50px;"> 
-<div class="col-7 float-sm-left" style="padding: 0px; top: 5px;">
-<div class="col-6 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
-<a class="baminfont-Pro" href="<%=request.getContextPath()%>/follow/followList" style="color: darkslategrey;">팔로우 목록</a></div>
-<div class="col-6 float-sm-left" style="padding: 0px; text-align:center; font-size:1.4em">
-<a class="baminfont-Pro" href="<%=request.getContextPath()%>/follow/f_write" style="color: darkslategrey;">팔로워 활동</a></div></div>
-<div class="col-5 float-sm-left">　</div></div>
- 	<div class="col-11 mt-1 pt-4 pb-2" style="margin:0 auto;overflow:hidden; border: 1px solid #D8D8D8;">
- 		<div class="col-6 float-sm-left"> 
- 			<div class="baminfont-Pro col-6 mb-2 ml-1" style="border-left:2px solid black;border-right:2px solid black;font-size:1.2em;text-align:center;">내 팔로워</div>
- 			<div style="border:1px solid #D8D8D8;overflow:hidden;height:220px;">
-                <table class="ml-3 mr-3 col-11" style="margin: 0 auto;">               
-                    <tr align="center" style="border-bottom: 1px solid #B9B9B9;">
-                      <td class="baminfont-Air" style="width: 40px; font-size:1.2em">닉네임</td>
+ <div class="wrapper">
+		<div class="col-md-6">
+           <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">나를 팔로우 한 사람,  총 ${pageMakered.totalCount}명 ,  출력 ${ followedList.size() }명</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-condensed">
+                
+                
+                  <thead>                  
+                    <tr  align="center">
+                      <th style="width: 40px">닉네임</th>
                     </tr>
+                  </thead>
+                  <tbody>
 						<c:if test="${empty followedList }">
 							<tr>
-								<td colspan="5" class="text-center" style="border-bottom: 1px solid #B9B9B9;">
+								<td colspan="5" class="text-center">
 									<strong>회원님을 팔로우 한 사람이 없습니다.</strong>
 								</td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty followedList }">
 							<c:forEach items="${followedList }" var="vl" begin="0" end="4" step="1">
-				                    <tr align="center">
-				                      	<td style="border-bottom: 1px solid #B9B9B9;height:28px; font-size:0.8em;">${vl.nickName}</td>
+				                    <tr  align="center">
+				                      	<td>${vl}</td>
 				                    </tr>
 			    			</c:forEach>
 			    		</c:if>
-                </table>													
-						<ul class="pagination pagination-sm m-0 float-right" style="position:absolute; margin:0 auto; bottom:10px"> 							
+                  </tbody>
+                </table>
+              </div>
+           </div>
 
+
+
+
+
+					<div class="card-footer clearfix"  >
+						<div class="text-center">															
+						<ul class="pagination pagination-sm m-0 float-right"> 							
 							<li class="page-item">
+								<!-- 제일 첫번째 페이지로 이동하기 위한 href이다. makeQuery()를 통해 url을 반환받고, 클릭시 수행된다. -->
 								<input type="button" value="&lt;&lt;" class="page-link" 
 									onclick="pageMove(1, 'followed' )"/>
 							</li>
@@ -81,11 +93,13 @@
 							</li>
 							<c:forEach begin="${pageMakered.startPage }" 
 							           end="${pageMakered.endPage }" var="pageNum">
-							<li class="page-item <c:out value="${pageMakered.cri.second_page == pageNum ?'active':''}"/>">
+							<li class="page-item <c:out value="${pageMakered.cri.second_page == pageNum ?'active':''}"/>"`>
 							 <input type="button" id="followedBtn" value="${pageNum }"
 									 class="page-link" onclick="pageMove($(this).val(), 'followed')"/>
 							</li>
 							</c:forEach>	
+							
+							
 							<li class="page-item">
 								<input type="button" value="&gt;" class="page-link" 
 									onclick='
@@ -104,36 +118,60 @@
 							</li>
 					
 						</ul>
-					</div>
- 		</div>
- 		
- 		<div class="col-6 float-sm-left"> 	
- 			<div class="baminfont-Pro col-6 mb-2 ml-1" style="border-left:2px solid black;border-right:2px solid black;font-size:1.2em;text-align:center;">나의 팔로잉</div>
- 			<div style="border:1px solid #D8D8D8;overflow:hidden; height:220px;">
-                <table class="ml-3 mr-3 col-11" style="margin: 0 auto;">               
-                    <tr  align="center" style="border-bottom: 1px solid #B9B9B9;">
-                      <td class="baminfont-Air" style="width: 65px;font-size:1.2em;">닉네임</td>
-                      <td class="baminfont-Air" style="width: 15px;font-size:1.2em;">취소</td>
-                    </tr>  
+						</div>
+					</div>			
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////  -->
+
+           <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">내가 팔로우 한 사람,  총 ${pageMaker.totalCount}명,  출력 ${ followList.size() }명</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-condensed">
+                
+                
+                  <thead>                  
+                    <tr  align="center">
+                      <th style="width: 40px">닉네임</th>
+                      <th style="width: 40px">팔로우 취소</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 						<c:if test="${empty followList }">
 							<tr>
-								<td colspan="5" class="text-center" style="border-bottom: 1px solid #B9B9B9;">
+								<td colspan="5" class="text-center">
 									<strong>회원님이 팔로우 한 사람이 없습니다.</strong>
 								</td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty followList }">
 							<c:forEach items="${followList }" var="vl" begin="0" end="4" step="1">
-				                    <tr align="center">
-				                      	<td style="border-bottom: 1px solid #B9B9B9; font-size:0.8em;">${vl.nickName}</td>
-				                      <td style="border-bottom: 1px solid #B9B9B9;"><button class="badge bg-danger" onclick='unFollow("${vl}","${myId }")'>X</button></td>
+				                    <tr  align="center">
+				                      <td>${vl}</td>
+				                      <td><button class="badge bg-danger" onclick='unFollow("${vl}","${myId }")'>X</button></td>
 				                    </tr>
 			    			</c:forEach>
 			    		</c:if>
                   </tbody>
-                </table>														
-						<ul class="pagination pagination-sm m-0 float-right" style="position:absolute; margin:0 auto; bottom:10px"> 
+                </table>
+              </div>
+           </div>
 
+              
+
+
+
+
+
+
+
+					<div class="card-footer clearfix"  >
+						<div class="text-center">															
+						<ul class="pagination pagination-sm m-0 float-right"> 
 							
 							<li class="page-item">
 								<input type="button" value="&lt;&lt;" class="page-link" 
@@ -150,9 +188,10 @@
 							</li>
 							<c:forEach begin="${pageMaker.startPage }" 
 							           end="${pageMaker.endPage }" var="pageNum">
-							<li class="page-item <c:out value="${pageMaker.cri.first_page == pageNum ?'active':''}"/>">
+							<li class="page-item <c:out value="${pageMaker.cri.first_page == pageNum ?'active':''}"/>"`>
 								<input type="button" id="followBtn" value="${pageNum }" 
 									class="page-link" onclick="pageMove($(this).val(), 'follow')" />
+								</input>
 							</li>
 							</c:forEach>	
 							
@@ -173,9 +212,29 @@
 								 onclick='pageMove(${pageMaker.realEndPage}, "follow")'/>
 							</li>
 					
-						</ul>	
-        </div>
- </div>
+						</ul>
+						</div>
+					</div>			
+		
+
+
+
+
+
+
+
+
+<!-- jQuery -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/demo.js"></script>
+
+
+  
   <script>
   	function pageMove(this_page , type) {
    		var followed_now_page = ${pageMakered.cri.second_page};  // 나를 팔로우한 사람의 기존 페이지
@@ -183,12 +242,20 @@
    		var click_page = this_page; // 클릭한 페이지
    		
   		
+		/* 
+   		alert('나를 팔로워한 사람 - 기존페이지 : '+followed_now_page);
+   		alert('내가 팔로우한 사람 - 기존페이지 : '+follow_now_page);
+   		alert('내가 클릭한 페이지 : '+click_page);
+   		alert('클릭 타입 : '+type); 
+   		 */
    		
    		if (type=='follow') { // 클릭한 페이지가 follow라면 follow는 클릭한 페이지를,  followed는 기존 페이지를 로딩한다.
+   				// alert('if == follow');
    				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+click_page
 				+'&second_page='+followed_now_page
 				+'&perPageNum=5';
 		} else if(type=='followed') {
+				// alert('if == followed');
 				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+follow_now_page
 				+'&second_page='+click_page
 				+'&perPageNum=5';
@@ -202,7 +269,15 @@
   	
   	
   	function unFollow(nName, myId) {  		
+  		<%-- 
+  		alert('unFollow버튼을 클릭하셨습니다.');
+  		alert('<%= request.getContextPath()%>');
+  		alert('nName = ' + nName + '___ id = ' + myId);
+		 --%>
+  		
+  		// key : value의 형태로 data에 값을 저장함으로 한번에 데이터를 컨트롤러에게 넘긴다.
   		var data={nName:nName, myId:myId};
+ 
   		
   		$.ajax({
 			url:"<%= request.getContextPath()%>/follow/unFollow",
@@ -210,13 +285,16 @@
 			data:JSON.stringify(data),
 			contentType:'application/json',
 			success:function(data){ /* data에는 menu.csv로부터 읽어들인 정보가 저장되어 있음 */
+				//alert('unFollow 성공하였습니다.');
 				location.reload();
 			},
 			error:function() {
+				//alert('unFollow 실패하였습니다.');
 			}
 		});
   	}
   </script>
+</div>
 </div>
 </body>
 </html>

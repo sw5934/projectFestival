@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.controller.board.Criteria;
 import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.SearchCriteria;
 import com.spring.dao.CommentsDAO;

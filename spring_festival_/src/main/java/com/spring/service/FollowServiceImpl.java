@@ -13,29 +13,39 @@ public class FollowServiceImpl implements FollowService {
 	private FollowDAO followDAO;
 
 	public void setFollowDAO(FollowDAO followDAO) {
+		System.out.println("FollowServiceImpl.setFollowDAO()");
 		this.followDAO = followDAO;
 	}
 	
 	
 	
+	
 	public Map<String,Object> followList(Second_Criteria cri) throws SQLException {
 
-		Map<String, Object> followList = followDAO.followList(cri);
+		Map<String, Object> followList = new HashMap<String, Object>();
+		followList = followDAO.followList(cri); // followList <- dataMap { follow, followed }
+
+
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		int totalCount = followDAO.followTotalCount(cri);
 		pageMaker.setTotalCount(totalCount, "follow");
 		
+
+		
 		PageMaker pageMakered = new PageMaker();
 		pageMakered.setCri(cri);
 		totalCount = followDAO.followedTotalCount(cri);
 		pageMakered.setTotalCount(totalCount, "followed");
+		
+
 
 		followList.put("pageMaker", pageMaker);
 		followList.put("pageMakered", pageMakered);
 		followList.put("myId", cri.getStr());
 		// followList <- follow, followed, pageMaker, pageMakered
+		
 
 		System.out.println("FollowService.selectFollow() 종료\n" + cri.getStr());
 		return followList;
@@ -54,6 +64,7 @@ public class FollowServiceImpl implements FollowService {
 		PageMaker threeBoardPM = new PageMaker();
 		threeBoardPM.setCri(cri);
 		int totalCount = followDAO.f_WriteTotalCount(cri);
+		System.out.println("게시판3개의 모든 글 갯수 = " + totalCount);
 		threeBoardPM.setTotalCount(totalCount, "threeBoard"); // First_page
 		// 두번째 인자는 "follow", "followed", "threeBaord", "wnatGo"를 구분하기 위함이다.
 		
@@ -61,11 +72,14 @@ public class FollowServiceImpl implements FollowService {
 		PageMaker wantGoPM = new PageMaker();
 		wantGoPM.setCri(cri);
 		totalCount = followDAO.f_WantGoTotalCount(cri);
+		System.out.println("가고싶어요 게시판의 모든 글 갯수 = " + totalCount);
 		wantGoPM.setTotalCount(totalCount, "wantGo"); // Second_page
 
 		followBoardList.put("wantGoPM", wantGoPM);
 		followBoardList.put("threeBoardPM", threeBoardPM);
 		// Map = { "three_board_list" , " wantGoList", "wantGoPM", "threeBoardPM" }
+		
+		System.out.println("FollowService - Map.followBoardList.size() = " + followBoardList.size());
 		
 		return followBoardList;
 	}

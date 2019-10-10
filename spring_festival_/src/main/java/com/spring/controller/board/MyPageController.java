@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,95 +18,60 @@ import com.spring.dto.MemberVO;
 import com.spring.service.MyPageService;
 
 @Controller
-@RequestMapping("/myPage")
+@RequestMapping("/MyPage")
 public class MyPageController {
-	// xml에 설정해놓은 빈들중 <bean id="myPageService">인 빈을 ms에 주입시킨다.
 	@Resource(name="myPageService")
-	MyPageService ms;
-
-	@ModelAttribute("category")
-	public String category() throws Exception{
-		return "myPage";		
-	}
-
-	@ModelAttribute("view")
-	public String view() throws Exception{
-		return "작성 글/댓글";		
-	}
+	private MyPageService bs;
+	
 	// 마이페이지 -> '후기게시판'에 작성한 나의 글 리스트업
-	
 	@RequestMapping("/review")
-	public String myReviewList(Model model, Second_Criteria cri,
-			HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public ModelAndView myReviewList(ModelAndView modelnView, Second_Criteria cri,
+			HttpServletRequest request,	HttpServletResponse response) throws SQLException {
+		System.out.println("MyPageController.reviewBoard() 시작");
+		
 		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
 		cri.setStr(loginUser.getId());
 		cri.setPerPageNum(10);
 		
+
+		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap = ms.myReviewList(cri);
-		// dataMap = { "myReviewList", "pageMaker" }
+
+		dataMap = bs.myReviewList(cri);   // dataMap { myReviewList, 
+										  //           pageMaker { cri.getStr() } 
+										  //		 }
 		
 		
-		model.addAttribute("dataMap", dataMap);
 		
-		return "/myPage/review";
+
+		modelnView.addObject("dataMap",dataMap);		
+		modelnView.setViewName("myPage/review");
+		
+		System.out.println("MyPageController.reviewBoard() 종료");
+		return modelnView;
 	}
 	
+	
+	
+	
+	
+	// 마이페이지 -> '같이가요'게시판에 작성한 나의 글 리스트업
 	@RequestMapping("/together")
-	public ModelAndView myTogetherList(ModelAndView mnv, Second_Criteria cri,
-			HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-		
-		cri.setStr(loginUser.getId());
-		cri.setPerPageNum(10);
-		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap = ms.myTogetherList(cri);
-		// dataMap = { "myTogetherList", "pageMaer" }
-		
-		
-		mnv.addObject("dataMap", dataMap);
-		mnv.setViewName("/myPage/together");
-		
-		
-		return mnv;
-	}
-	
-
-	@RequestMapping("/comments")
-	public String commentsBoard(Model model, Second_Criteria cri,
-			HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		cri.setStr(loginUser.getId());
-		cri.setPerPageNum(10);
-		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap = ms.commentsBoard(cri);
-		// dataMap = { "commentsList", "pageMaker" }
-		
-		model.addAttribute("dataMap", dataMap);
-		
-		return "/myPage/comments";
-	}
-	
-	@RequestMapping("/holding")
-	public String festivalHolding(Model model, Second_Criteria cri,
-					HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public Model togetherGo(Second_Criteria cri, Model model,
+				HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
 		cri.setPerPageNum(10);
 		
-		Map<String, Object> dataMap = ms.holdingList(cri); 
-		// dataMap = { "holdingList", "pageMaker" }
-
-		model.addAttribute("dataMap", dataMap);
-
 		
-		return "/myPage/holding";
+		
+		
+		
+		return model;
 	}
+	
 }

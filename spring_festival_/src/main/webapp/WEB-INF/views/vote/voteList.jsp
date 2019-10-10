@@ -35,16 +35,22 @@
 <body class="hold-transition sidebar-mini">
 
 <div class="wrapper">
-            <div class="col-11" style="margin: 0 auto;">
-                <div class="baminfont-Pro" style="font-size:1.2em">가고 싶어요</div>
-              <div class="">
-                <table class="table table-condensed p-0">
+		<div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">가고 싶어요 , 총 ${wantGoPM.totalCount}개 중 ${ wantGoList.size() }개 출력</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-condensed">
+                
+                
                   <thead>                  
-                    <tr class="p-0" align="center" style="font-size:0.9em">
-                      <th class="p-0" style="width: 100px">번호</th>
-                      <th class="p-0">축제 이름</th>
-                      <th class="p-0">저장일시</th> 
-                      <th class="p-0" style="width: 90px">취소</th>
+                    <tr  align="center">
+                      <th style="width: 100px">번호</th>
+                      <th>축제 이름</th>
+                      <th>저장일시</th>
+                      <th style="width: 90px">취소</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -58,19 +64,23 @@
 						<c:if test="${!empty wantGoList }">
 							<c:forEach items="${wantGoList }" var="vl" begin="0" end="4" step="1">
 			                    <c:if test="${vl.f_seperate==1 }"><!-- 1:가고싶어요 -->
-				                    <tr  class="p-1" align="center" style="font-size:0.9em">
-				                      <td  class="p-1">${vl.unq_id}</td>
-				                      <td  class="p-1" align="left">${vl.f_title}</td>
-				                      <td  class="p-1">${vl.chkdate}</td>
-				                      <td  class="p-1"><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
-				                    </tr>
+				                    <tr  align="center">
+				                      <td>${vl.unq_id}</td>
+				                      <td align="left">${vl.f_content}</td>
+				                      <td>${vl.chkdate}</td>
+				                      <td><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
+				                    </tr  align="center">
 				                </c:if>
 			    			</c:forEach>
 			    		</c:if>
                   </tbody>
                 </table>
               </div>
-					<div class="clearfix"  >
+            
+
+
+
+					<div class="card-footer clearfix"  >
 						<div class="text-center">															
 						<ul class="pagination pagination-sm m-0 float-right"> 							
 							<li class="page-item">
@@ -85,7 +95,7 @@
 							</li>
 							<c:forEach begin="${wantGoPM.startPage }" 
 							           end="${wantGoPM.endPage }" var="pageNum">
-							<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>">
+							<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>"`>
 							 <input type="button" id="followedBtn" value="${pageNum }"
 									 class="page-link" onclick="pageMove($(this).val(), 'wantGo')"/>
 							</li>
@@ -118,21 +128,21 @@
             
 <!-- //////////////////////////////////////////////////////////////////////////////////////// -->
             
-           <div class="">
-              <div class="">
-                <div class="baminfont-Pro" style="font-size:1.2em">다녀 왔어요</div>
+           <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">다녀왔어요 ,  총 ${goAndBackPM.totalCount}개 중 ${ goAndBackList.size() }개 출력</h3>
               </div>
               <!-- /.card-header -->
-              <div class="">
+              <div class="card-body">
                 <table class="table table-condensed">
                 
                 
                   <thead>                  
-                    <tr class="p-0"  align="center" style="font-size:0.9em">
-                      <th class="p-0" style="width: 100px">번호</th>
-                      <th class="p-0">축제 이름</th>
-                      <th class="p-0">저장일시</th>
-                      <th class="p-0" style="width: 90px">취소</th>
+                    <tr  align="center">
+                      <th style="width: 100px">번호</th>
+                      <th>축제 이름</th>
+                      <th>저장일시</th>
+                      <th style="width: 90px">취소</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -146,12 +156,12 @@
 						<c:if test="${!empty goAndBackList }">
 							<c:forEach items="${goAndBackList }" var="vl" begin="0" end="4" step="1">
 								<c:if test="${vl.f_seperate==2 }">
-				                    <tr  class="p-1" align="center" style="font-size:0.9em">
-				                      <td class="p-1">${vl.unq_id}</td>
-				                      <td class="p-1" align="left">${vl.f_title}</td>
-				                      <td class="p-1">${vl.chkdate}</td>
-				                      <td class="p-1"><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
-				                    </tr>
+				                    <tr  align="center">
+				                      <td>${vl.unq_id}</td>
+				                      <td align="left">${vl.f_content}</td>
+				                      <td>${vl.chkdate}</td>
+				                      <td><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
+				                    </tr  align="center">
 			                    </c:if>
 			    			</c:forEach>
 			    		</c:if>
@@ -166,7 +176,7 @@
 
 
 
-					<div class=" clearfix"  >
+					<div class="card-footer clearfix"  >
 						<div class="text-center">															
 						<ul class="pagination pagination-sm m-0 float-right"> 							
 							<li class="page-item">
@@ -181,7 +191,7 @@
 							</li>
 							<c:forEach begin="${goAndBackPM.startPage }" 
 							           end="${goAndBackPM.endPage }" var="pageNum">
-							<li class="page-item <c:out value="${goAndBackPM.cri.second_page == pageNum ?'active':''}"/>">
+							<li class="page-item <c:out value="${goAndBackPM.cri.second_page == pageNum ?'active':''}"/>"`>
 							 <input type="button" id="followedBtn" value="${pageNum }"
 									 class="page-link" onclick="pageMove($(this).val(), 'goAndBack')"/>
 							</li>
@@ -214,6 +224,7 @@
         
             </div>
 		</div>
+</div>
 </div>
   <script>
 	function pageMove(this_page , type) {

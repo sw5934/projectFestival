@@ -10,7 +10,7 @@
 <body>
 <div class="col-11 mb-1" style="margin: 0 auto;padding: 0px; overflow:hidden; height:50px;"> 
 <div class="col-7 float-sm-left" style="padding: 0px; top: 5px;">
-<a class="baminfont-Air mt-2" href="<%=request.getContextPath()%>/message/sendMessage" style="color: darkslategrey; border: 1px solid #c9c9c9; padding: 8px 40px; font-size:1.2em"> 쪽지 보내기 </a>
+<a class="baminfont-Air mt-2" href="<%=request.getContextPath()%>/message/sendMessage" style="color: darkslategrey; border: 1px solid black; padding: 8px 40px; font-size:1.2em"> 쪽지 보내기 </a>
 </div>
 <div class="col-5 float-sm-left" style="padding: 0px; font-size:1.3em;"> 
 <div class="col-6 float-sm-left" style="padding: 0px; border-right:2px solid black; text-align:center;">
@@ -19,7 +19,7 @@
 <a class="baminfont-Pro" href="<%=request.getContextPath()%>/message/sendList?page=1" style="color: darkslategrey;">발신 목록</a></div>
 </div>
 </div>
-<div  class="col-11 card" style=" margin: 0 auto;height:306px;">
+<div  class="col-11" style=" margin: 0 auto; border:1px solid gray; height:306px;">
 <table class="col-11 mt-3"style=" margin: 0 auto;">
         <c:if test="${empty list }">
             <tr>
@@ -30,8 +30,8 @@
         </c:if>
         <c:if test="${!empty list }"> 
             <c:forEach items="${list }" var="message">
-                <tr>
- 	                <td style="width: 10px; border-bottom:1px solid gray;  font-size:0.9em">
+                <tr style="border-bottom: 0px solid black;">
+ 	                <td style="width: 30px; border-bottom:1px solid gray;  font-size:0.9em">
                     <td style="width: 125px; border-bottom:1px solid gray; font-size:0.9em">${message.m_receiver_Nick }</td>
                     <td style="width: 410px; border-bottom:1px solid gray;  font-size:0.9em;">
                         <a href="detail?m_no=${message.m_no }&pageNum=${page}" style="color: darkslategrey;height:21px;width: 300px;text-overflow: ellipsis;overflow:hidden;display:block;white-space: nowrap;">${message.m_content }</a>  

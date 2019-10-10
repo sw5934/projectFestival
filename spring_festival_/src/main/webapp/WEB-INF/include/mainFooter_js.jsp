@@ -7,14 +7,7 @@
         $('.headerDiv').width(window.screen.availWidth * 0.7)
         else
         $('.headerDiv').width(1000);
-        
-        
-
-        
-        
-        
-        
-        
     </script>
     </body>
+
 </html>

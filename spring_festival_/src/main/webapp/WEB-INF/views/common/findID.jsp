@@ -17,17 +17,19 @@
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     
+                    <label class="col-sm-4 control-label">이름</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="이름">
+                        <input type="text" class="form-control" id="name" name="name">
                     </div>
+                    <label class="col-sm-4 control-label">이메일</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+                        <input type="text" class="form-control" id="email" name="email">
                     </div>
                 </div>
                 <div class="float-sm-left col-3">
                     <div class="row">
                         <div class="">
-                            <button type="button" class="btn btn-primary baminfont-Air" id="findIdBtn" onclick="findIdCheck()" style="font-size:1.2em">아이디 찾기</button>
+                            <button type="button" class="btn btn-primary" id="findIdBtn" onclick="findIdCheck()" >아이디 찾기</button>
                         </div>
                     </div>
                     <!-- /.col -->

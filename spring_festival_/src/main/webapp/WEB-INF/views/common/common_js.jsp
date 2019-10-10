@@ -9,8 +9,14 @@ $('#loginBtn').click(function() {
 
 	var id = $('#id').val();
 	var pwd = $('#pwd').val();
+	
+	alert(id);
+	alert(pwd);
+	
+	
 	var data = {"id":id,"pwd":pwd};
 	var jsonData = JSON.stringify(data);
+	alert(jsonData);
 	$.ajax({
 		async: true,
 		type : "POST",
@@ -18,28 +24,28 @@ $('#loginBtn').click(function() {
 		data : jsonData,
 		contentType: "application/json; charset=UTF-8",
         success : function(data) {
-        	
-        	if(data.status=="loginSuccess"){
+			if(data.status == 'loginFail') {
+				alert('로그인에 실패했습니다.');
+			} else {
+				alert("로그인 성공!!");
+				alert(data.url);
 
 				$('#id').val(data.id);
 				$('#pwd').val(data.pwd);
-				$('#loginForm').attr("action","<%=request.getContextPath()%>/"+data.url);
 				$('#loginForm').submit();
-        		
-        	}else if(data.status=="loginFail"){
-        		if(data.sendMail=="yes"){
-        			alert("로그인에 5회 실패하여, 회원님의 메일로 임시 비밀번호를 발송하였습니다.");
-        		}else{
-        			alert("잘못된 회원입니다.");
-        		}	        		
-        	}else if(data.status=="IDNotFound"){
-        		alert("입력하신 아이디가 존재하지 않습니다.");
-        	}
+            }
         },
+
         error : function(error) {
-            alert("잘못된 경로의 접근");
+
+            /* alert("error:" + data.status);
+            alert(data.url); */
+            alert("로그인 에러!!!");
+
         }
+
     })
+
 });
 
 </script>

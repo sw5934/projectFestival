@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
-	<repositories> 
+	<repositories>
 		<repository>
 			<id>oracle ojdbc6</id>
 			<url>http://www.datanucleus.org/downloads/maven2/</url>
