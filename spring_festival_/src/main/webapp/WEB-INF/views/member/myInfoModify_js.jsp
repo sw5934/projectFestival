@@ -92,8 +92,6 @@ function onSubmit(url, form, method) {
 
 	var modifyChk = pwdchk * pwdConfchk * nickchk;
 	
-	alert(pwdchk + pwdConfchk + nickchk + modifyChk);
-	
 	if(modifyChk == 1){
 		form.action="<%=request.getContextPath()%>/"+url;
 		form.method=method;
@@ -101,7 +99,7 @@ function onSubmit(url, form, method) {
 		
 		session.setAttribute("loginUser", loginUser);
 	} else {
-		alert("다시 입력하셔");
+		alert("다시 입력하세요.");
 	}
 	
 }
