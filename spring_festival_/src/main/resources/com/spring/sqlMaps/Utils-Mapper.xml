@@ -32,6 +32,7 @@
 		select rpt_no,reporter,rpt_date,r.unq_id,type,bno,id,title
 		from report r, totalboard t
 		where r.unq_id=t.unq_id
+		order by rpt_no desc
 	</select>
 	<update id="doReport">
 		insert into report
@@ -46,13 +47,14 @@
 		select *
 		from report_comment r, totalcomments c
 		where r.c_no=c.c_no
+		order by rpt_no_c desc
 	</select>
 	<update id="doReportComment">
-		insert into report
+		insert into report_comment
 		values(rpt_comment_seq.nextval,#{reporter},#{c_no},sysdate)
 	</update>
 	<update id="deleteReportComment">
-		delete from report
+		delete from report_comment
 		where unq_id=#{c_no}
 	</update>
 </mapper>

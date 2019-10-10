@@ -18,6 +18,7 @@
     <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
+	<a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${festival.fno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
   </span>
   <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
   <div class="timeline-body">{{c_content}}</div>
@@ -184,5 +185,77 @@ function onSubmit(category, form, url, method) {
 			}
 		});
 	});
+		
+	function loadReview(){
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/festival/reviewList?fno=${festival.fno}",
+			type:"GET",
+			success:function(data){
+
+				$('#reviewLabel').css("border-bottom","5px solid #65ddda");
+				$('#togetherLabel').css("border-bottom","0px solid #65ddda");
+				
+				var loop = data.size;
+				
+				if(data.size==0){
+					$('#relateBrd').empty();
+					$('#relateBrd').append("<a>존재하지 않습니다.</a>")
+				}else{
+					$('#relateBrd').empty();
+					if(loop>5){
+						loop = 5;
+					} 
+					for(var i=0; i<loop;i++){
+						var d = new Date(data.dataMap[i].r_regDate);
+						$('#relateBrd').append("<a>"+data.dataMap[i].rno+"</a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_title+"</a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].nickName+"</a>");
+						$('#relateBrd').append("<a>  "+d.getMonth()+"."+d.getDate()+"  </a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_viewcnt+"</a>"); 
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_score+"</a><br>");
+					}
+				}
+			},
+			error:function(error){
+				alert('오류');
+			}
+		});
+	};
 	
+
+	function loadTogether(){
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/festival/togetherList?fno=${festival.fno}",
+			type:"GET",
+			success:function(data){
+				$('#togetherLabel').css("border-bottom","5px solid #65ddda");
+				$('#reviewLabel').css("border-bottom","0px solid #65ddda");
+				var loop = data.size;
+				
+				if(data.size==0){
+					$('#relateBrd').empty();
+					$('#relateBrd').append("<a>존재하지 않습니다.</a>")
+				}else{
+					$('#relateBrd').empty();
+					if(loop>5){
+						loop = 5;
+					} 
+					for(var i=0; i<loop;i++){
+						var d = new Date(data.dataMap[i].r_regDate);
+						$('#relateBrd').append("<a>"+data.dataMap[i].tno+"</a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].t_title+"</a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].nickName+"</a>");
+						$('#relateBrd').append("<a>  "+d.getMonth()+"."+d.getDate()+"  </a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_viewcnt+"</a><br>");
+					}
+				}
+			},
+			error:function(error){
+				alert('오류');
+			}
+		});
+	};
+	loadReview();
 </script>

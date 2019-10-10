@@ -66,9 +66,9 @@ public class ReportDAOImpl implements ReportDAO {
 		Map<String, Object> reportInfo = new HashMap<String, Object>();
 		
 		reportInfo.put("reporter", reporter);
-		reportInfo.put("unq_id", c_no);
+		reportInfo.put("c_no", c_no);
 		
-		session.update("Utils-Mapper.doReport",reportInfo);
+		session.update("Utils-Mapper.doReportComment",reportInfo);
 		
 	}
 	@Override

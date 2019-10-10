@@ -91,10 +91,29 @@
                     <td style="width: 7%;  text-align: center">${festival.fno }</td>
                     <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${festival.f_writer }/${festival.unq_Id }.jpg" style="width:93px;height:70px"></td>
                     <td style="width: 56%;"> 
+                    <p>개최기간 [${festival.f_period }]</p>
                         <a href="detail?fno=${festival.fno }&listSort=${listSort}&page=${page}">${festival.f_title } <c:if test="${festival.commentCount>0}">[${festival.commentCount }]</c:if></a>
-                        <p>
-                           <fmt:formatDate value="${festival.f_regDate }" pattern="MM-dd HH:mm"/>
-                         ${festival.f_org }</p>
+                        <p><fmt:formatDate value="${festival.f_regDate }" pattern="MM-dd HH:mm"/></p>
+                         <p>${festival.f_name }</p>
+                         <p>${festival.f_location1}${festival.f_location2 }</p>
+                         <p>${festival.f_org}</p>
+                         <p>${festival.f_type}</p>
+                         <c:if test="${festival.scoreAvg==0}">
+                         	<p>후기 없음</p>
+                         </c:if>
+                         <c:if test="${festival.scoreAvg!=0}">
+                         	<p>${festival.scoreAvg}</p>
+                         </c:if>
+                         
+                         
+                         <c:if test="${festival.hashTagList!=null}">
+	                         <div class="col-12">
+	                         	<c:forEach items="${festival.hashTagList}" var="tag">
+	                         		<a>#${tag.hashTag }</a>
+	                         	</c:forEach>
+	                         </div>
+                         </c:if>
+                         
                     </td>
                     <td style=";width: 25%">
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">

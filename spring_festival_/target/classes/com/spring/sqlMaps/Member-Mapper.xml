@@ -13,19 +13,19 @@
     	</select>
     
     	<select id="selectMemberList" resultType="member">
-    		select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
+    		select id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern as prtPattern, info_Status as infoStatus 
     		from member
 		</select>
 		
 		<select id="selectMemberByID" resultType="member">
-			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
+			select id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern as prtPattern, info_Status as infoStatus 
 			from member 
 			where id=#{id}	<!-- #을쓸떄는 데이터타입이 들어오는 타입에 ''을 붙인다. // $는 ''를 붙이지않는다. -->
 			<!-- 벨류는 #, 쿼리문 $ 쓴다. -->
 		</select>
 		
 		<select id="selectMemberByNickName" resultType="member">
-			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus 
+			select id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern as prtPattern, info_Status as infoStatus 
 			from member 
 			where nickName=#{nickName}
 		</select>
@@ -43,7 +43,7 @@
 		</select>
 		
 		<select id="findMemberPwd" resultType="member">
-			select id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus
+			select id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern as prtPattern, info_Status as infoStatus
 			from member
 			where id=#{id} AND name=#{name} AND email=#{email}
 		</select>

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.dao.AttachDAO;
 import com.spring.dto.MemberVO;
 import com.spring.dto.ReviewVO;
+import com.spring.service.ManageService;
 import com.spring.service.ReviewService;
 
 @Controller
@@ -38,11 +40,10 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@Autowired
-	private AttachDAO attachDAO;
+	private ManageService manageService;
 
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
-	// ???
 	@ModelAttribute("category")
 	public String category() throws Exception {
 		return "review";

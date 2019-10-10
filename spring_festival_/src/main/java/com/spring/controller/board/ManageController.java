@@ -1,7 +1,12 @@
 package com.spring.controller.board;
 
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.dto.MemberVO;
 import com.spring.service.ManageService;
 
 @Controller
@@ -35,12 +41,6 @@ public class ManageController {
 		return dataMap;
 	}
 
-	@RequestMapping("/doReport")
-	public void doReport(String reporter, int unq_id) throws SQLException {
-		manageService.doReport(reporter, unq_id);
-		
-	}
-
 	@RequestMapping("/deleteReport")
 	public void deleteReport(int unq_id) throws SQLException {
 		manageService.deleteReport(unq_id);
@@ -55,17 +55,40 @@ public class ManageController {
 		return dataMap;
 	}
 
-	@RequestMapping("/doReportComment")
-	public void doReportComment(String reporter, int unq_id) throws SQLException {
-		manageService.doReport(reporter, unq_id);
-		
-	}
 
 	@RequestMapping("/deleteReportComment")
 	public void deleteReportComment(int c_no) throws SQLException {
 		manageService.deleteReport(c_no);
 		
 	}
-	
-	
+
+	@RequestMapping("/doReport")
+	public String doReport(HttpServletResponse response, HttpServletRequest request, int unq_id, int no,String page, String listSort, String originCategory) throws Exception {
+		HttpSession session = request.getSession();
+		String reporter = ((MemberVO)session.getAttribute("loginUser")).getId();
+		manageService.doReport(reporter, unq_id);
+
+		String cat = "fno";
+		if(originCategory.equals("review"))
+			cat = "rno";
+		else if(originCategory.equals("together"))
+			cat = "tno";
+		
+		return "redirect:/"+originCategory+"/detail?"+cat+"="+no+"&page="+page+"&listSort="+listSort;
+	}
+
+	@RequestMapping("/doReportComment")
+	public String doReportComment(HttpServletResponse response, HttpServletRequest request, int c_no, int no,String page, String listSort, String originCategory) throws Exception {
+		HttpSession session = request.getSession();
+		String reporter = ((MemberVO)session.getAttribute("loginUser")).getId();
+		manageService.doReportComment(reporter, c_no);
+
+		String cat = "fno";
+		if(originCategory.equals("review"))
+			cat = "rno";
+		else if(originCategory.equals("together"))
+			cat = "tno";
+		
+		return "redirect:/"+originCategory+"/detail?"+cat+"="+no+"&page="+page+"&listSort="+listSort;
+	}
 }

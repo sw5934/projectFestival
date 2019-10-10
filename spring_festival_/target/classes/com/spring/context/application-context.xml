@@ -79,5 +79,6 @@
 		  class="com.spring.service.FestivalServiceImpl"
 		  p:festivalDAO-ref="festivalDAO"
 		  p:commentsDAO-ref="commentsDAO"
+		  p:reportDAO-ref="reportDAO"
 		  />
 </beans>

@@ -39,23 +39,23 @@
 	
 	<select id="selectSearchFestivalList" resultType="festival">
 		select *
-		from FESTIVAL_LIST_CONTAIN_VOTE 
-		where unq_id is not null
+		from brd_festival 
+		where unq_Id is not null
 				<include refid="search"/>
 		order by ${listSort} desc
 	</select>
 	
 	<select id="selectSearchFestivalListCount" resultType="int">
 		select count(*)
-		from FESTIVAL_LIST_CONTAIN_VOTE 
-		where unq_id is not null
+		from brd_festival 
+		where unq_Id is not null
 			 <include refid="search"/>
 	</select>
 	
 	<!-- 상세보기 -->
 	<select id="selectFestival" resultType="festival">
 		select *
-		from FESTIVAL_LIST_CONTAIN_VOTE
+		from brd_festival
 		where fno=#{fno}
 	</select>
 	
@@ -70,7 +70,7 @@
 	<update id="insertFestival" parameterType="festival">
 		insert into brd_festival
 		values
-		(#{unq_id}, #{fno},#{f_writer},#{f_title},sysdate,#{f_viewCnt}, #{f_content}, #{f_name}, #{f_location1}, #{f_location2},#{f_period}, #{f_org}, #{f_type})
+		(#{unq_Id}, #{fno},#{f_writer},#{f_title},sysdate,#{f_viewCnt}, #{f_content}, #{f_name}, #{f_location1}, #{f_location2},#{f_period}, #{f_org}, #{f_type},0,0,#{f_ref})
 	</update>
 	
 	<!--  -->
@@ -78,7 +78,7 @@
 		update
 		brd_festival
 		set
-		f_title=#{f_title}, f_content=#{f_content},  f_name=#{f_name},  f_location1=#{f_location1},  f_location2=#{f_location2},  f_period=#{f_period},  f_org=#{f_org},  f_type=#{f_type} 
+		f_title=#{f_title}, f_content=#{f_content},  f_name=#{f_name},  f_location1=#{f_location1},  f_location2=#{f_location2},  f_period=#{f_period},  f_org=#{f_org},  f_type=#{f_type}, f_ref=#{f_ref} 
 		where fno=#{fno}
 	</update>
 	
@@ -95,6 +95,86 @@
 		f_viewcnt = f_viewcnt + 1
 		where fno=#{fno}
 	</update>
+	<update id="increaseVote1" parameterType="int">
+		update
+		brd_festival
+		set
+		vote1 = vote1 + 1
+		where fno=#{fno}
+	</update>
+	<update id="increaseVote2" parameterType="int">
+		update
+		brd_festival
+		set
+		vote2 = vote2 + 1
+		where fno=#{fno}
+	</update>
+	<update id="decreaseVote1" parameterType="int">
+		update
+		brd_festival
+		set
+		vote1 = vote1 - 1
+		where fno=#{fno}
+	</update>
+	<update id="decreaseVote2" parameterType="int">
+		update
+		brd_festival
+		set
+		vote2 = vote2 - 1
+		where fno=#{fno}
+	</update>
+	
+	<select id="selectVoteRecord" resultType="vote">
+		select *
+		from vote
+		where unq_id=#{fno} and id=#{id} and f_seperate=#{seperate}
+	</select>
+	<update id="createVoteRecord">
+		insert into vote
+		values(#{id},#{unq_Id},sysdate,#{seperate})
+	</update>
+	<update id="deleteVoteRecord">
+		delete from vote
+		where unq_id=#{unq_Id} and id=#{id} and f_seperate=#{seperate}
+	</update>
+	
+	
+	<update id="insertTag">
+		insert into HashTag
+		values(#{fno},#{tag})
+	</update>
+	
+	<update id="deleteTag">
+		delete
+		from HashTag
+		where fno=#{fno}
+	</update>
+	
+	<select id="selectTag" resultType="hashTag">
+		select *
+		from HashTag
+		where fno=#{fno}
+	</select>
+	
+	<select id="selectReviewListByfno" resultType="review">
+		select *
+		from brd_review
+		where f_no=#{fno}
+		order by rno desc
+	</select>
+	<select id="selectTogetherListByfno" resultType="together">
+		select *
+		from brd_together
+		where f_no=#{fno}
+			and t_state=1
+		order by tno desc
+	</select>
+	
+	<select id="selectScoreAvg" resultType="float">
+ 	    select nvl(avg(r_score),0)
+    	from brd_review
+ 	    where f_no=#{fno}
+	</select>
 </mapper>
 
     

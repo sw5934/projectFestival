@@ -53,7 +53,7 @@
                                     <!-- Left navbar links -->
                                     <ul class="nav navbar-nav">
                                         <li class="nav-item d-none d-sm-inline-block">
-                                            <a href="#" class="nav-link">축제보러가기</a>
+                                            <a href="<%=request.getContextPath() %>/festival/list" class="nav-link">축제보러가기</a>
                                         </li>
                                         <li class="nav-item d-none d-sm-inline-block">
                                             <a href="<%=request.getContextPath() %>/review/list" class="nav-link">후기게시판</a>

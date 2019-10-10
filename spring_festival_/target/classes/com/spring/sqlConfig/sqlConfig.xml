@@ -9,6 +9,7 @@
   	<typeAliases>
   		<typeAlias type="java.lang.Integer" alias="int"/>
   		<typeAlias type="java.lang.String" alias="str" />
+  		<typeAlias type="java.lang.Float" alias="float" />
   		<typeAlias type="com.spring.dto.MemberVO" alias="member"/>
   		<typeAlias type="com.spring.dto.FollowWriteVO" alias="followBoard"/>
   		<typeAlias type="com.spring.dto.VoteVO" alias="vote"/>
@@ -24,6 +25,7 @@
   		<typeAlias type="com.spring.dto.CommentsBoardVO" alias="commentsBoard"/>
   		<typeAlias type="com.spring.dto.HoldingVO" alias="holding"/>
   		<typeAlias type="com.spring.dto.FestivalVO" alias="festival"/>
+  		<typeAlias type="com.spring.dto.HashTagVO" alias="hashTag"/>
   	</typeAliases>
   	
   </configuration>

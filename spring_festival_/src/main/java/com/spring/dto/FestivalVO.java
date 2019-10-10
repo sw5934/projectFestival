@@ -17,10 +17,13 @@ public class FestivalVO {
 	private String f_period;
 	private String f_org;
 	private String f_type;
+	private String f_ref;
 	private int vote1;
 	private int vote2;
 	private int commentCount;
+	private float scoreAvg;
 	private List<CommentsVO> commentsList;
+	private List<HashTagVO> hashTagList;
 	public int getUnq_Id() {
 		return unq_Id;
 	}
@@ -123,6 +126,25 @@ public class FestivalVO {
 	}
 	public void setVote2(int vote2) {
 		this.vote2 = vote2;
+	}
+	public String getF_ref() {
+		return f_ref;
+	}
+	public void setF_ref(String f_ref) {
+		this.f_ref = f_ref;
+	}
+	public List<HashTagVO> getHashTagList() {
+		return hashTagList;
+	}
+	public void setHashTagList(List<HashTagVO> hashTagList) {
+		this.hashTagList = hashTagList;
+	}
+	
+	public float getScoreAvg() {
+		return scoreAvg;
+	}
+	public void setScoreAvg(float scoreAvg) {
+		this.scoreAvg = scoreAvg;
 	}
 	@Override
 	public String toString() {

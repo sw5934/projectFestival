@@ -18,6 +18,8 @@
     <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
+<a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
+  
   </span>
   <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
   <div class="timeline-body">{{c_content}}</div>
