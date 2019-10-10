@@ -288,16 +288,9 @@
 		locationCheck();
 		prtPatternCheck();
 		
-		/* var infoStatus = $('#infoStatus').val(); */
-		
-		/*alert(id + "/" + pwd + "/" + pwdConf + "/" + name + "/" + nickName + "/" + birth + "/" + sex + "/" + tel 
-				+ "/" + email + "/" + location + "/" + prtPattern);
-		*/
 		var signUpchk = idchk * pwdchk * pwdConfchk * namechk * nickchk * birthchk * sexchk * telchk 
 		* emailchk * locationchk * prtPatternchk;
-		/*
-		alert("@@@@@@@"+signUpchk);
-		*/
+		
 		if(signUpchk == 1) {
 			/*alert("Dddddd");*/
 			$('#signForm').submit();
@@ -306,14 +299,6 @@
 			return;
 		}
 		
-		/* alert(id + "/" + pwd + "/" + pwdConf + "/" + name + "/" + nickName + "/" + birth + "/" + sex + "/" + tel 
-				+ "/" + email + "/" + address + "/" + prtPattern);
-		
-		alert(idchk + "/" + pwdchk + "/" + pwdConfchk + "/" + namechk + "/" + nickchk + "/" + birthchk + "/" + sexchk + "/" + telchk 
-				+ "/" + emailchk + "/" + addresschk + "/" + prtPatternchk);
-		
-		alert(idchk * pwdchk * pwdConfchk * namechk * nickchk * birthchk * sexchk * telchk 
-				* emailchk * addresschk * prtPatternchk); */
 	}
 
 </script>
@@ -339,8 +324,6 @@ function findIdCheck() {
 		data : $("#findIdPost").serialize(), 
 		url : "findID.do",
 		success : function(data) {
-				alert("id:"+data.id);
-				
 				$('#findIdPost').remove();
 				$('#login-logo').remove();
 				$('#findIdPro').append("<p class='login-box-msg baminfont-Air' style='font-size: 1.2em'>아이디를 찾았습니다!</p>");
@@ -378,8 +361,6 @@ function findPasswordCheck() {
 	
 	var params = JSON.stringify(obj);
 	
-	alert("!!!!!!!!!"+params);
-	
 	$.ajax({
 		async: true,
 		type : 'POST',
@@ -387,22 +368,13 @@ function findPasswordCheck() {
 		contentType:"application/json",
 		url : "findPassword.do",
 		success : function(data) {
-				alert("pwd:"+data.pwd);
-				alert(data);
-				
 				$('#findPasswordPost').remove();
 				$('#login-logo').remove();
 				$('#findPasswordPro').append("<p class='login-box-msg baminfont-Air' style='font-size: 1.2em'>임시 비밀번호를 메일로 전송했습니다.</p>");
 				$('#findPasswordPro').append("<div class='float-sm col-12'><div class='float-sm-right col-8'>");
 				$('#findPasswordPro').append("</div></div>");
-				/* $('#findPasswordPro').append("<p>회원님의 아이디는");
-				$('#findPasswordPro').append(data.id);
-				$('#findPasswordPro').append("입니다.</div><br><br><br>");
-				$('#findPasswordPro').append("<div class='float-sm-right col-8'><div class='baminfont-Air' style='font-size: 1.1em'>");
-				$('#findPasswordPro').append("</div></div></div>"); */
 		},
 		error : function(data) {
-			alert(data);
 			alert("비밀번호 찾기 실패!");
 		}
 	});
