@@ -49,7 +49,7 @@ public class CommonController {
 	}
 	
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public String signUpPost(MemberVO member,String birthM,String birthD,String birthY, String mailAddress,String location1, String location2) throws Exception {
+	public String signUpPost(MemberVO member,String birthM,String birthD,String birthY, String mailAddress) throws Exception {
 		System.out.println(mailAddress);
 		
 		member.setEmail(mailAddress);
@@ -58,14 +58,11 @@ public class CommonController {
 			birthM = "0"+birthM;
 		if(birthD.length()<2)
 			birthD = "0"+birthD;
-		String address = location1 
-				+ location2;
-		member.setAddress(address);
 
 		System.out.println("!!!!!!!!!!!!!!!"+member.toString());
 		System.out.println(birthY+birthM+birthD);
 		int birth = Integer.parseInt(birthY+birthM+birthD);
-		 member.setBirth(birth);
+		member.setBirth(birth);
 		memberService.regist(member);
 		
 		return "review/list";

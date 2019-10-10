@@ -24,6 +24,7 @@
   		<typeAlias type="com.spring.dto.CommentsBoardVO" alias="commentsBoard"/>
   		<typeAlias type="com.spring.dto.HoldingVO" alias="holding"/>
   		<typeAlias type="com.spring.dto.FestivalVO" alias="festival"/>
+
   	</typeAliases>
   	
   </configuration>

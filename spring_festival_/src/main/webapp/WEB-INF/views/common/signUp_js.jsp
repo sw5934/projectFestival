@@ -252,19 +252,19 @@
 		}
 	});
 	
-	var address;
-	var addresschk = false;
+	var location1 = "";
+	var location2 = "";
+	var locationchk = false;
 	
-	function addressCheck() {
+	function locationCheck() {
 		if($('#location1').val() == "선택") {
-			addresschk = false;
-			address = "";
+			locationchk = false;
 		} else {
-			addresschk = true;
-			address = $('#location1 option:selected').text() + " ";
+			locationchk = true;
+			location1 = $('#location1 option:selected').text() + " ";
 		}
 		
-		address = address + $('#location2').val();
+		location2 = $('#location2').val();
 	}
 	
 	var prtPattern;
@@ -285,16 +285,16 @@
 		birthCheck();
 		sexCheck();
 		telCheck();
-		addressCheck();
+		locationCheck();
 		prtPatternCheck();
 		
 		/* var infoStatus = $('#infoStatus').val(); */
 		
 		/*alert(id + "/" + pwd + "/" + pwdConf + "/" + name + "/" + nickName + "/" + birth + "/" + sex + "/" + tel 
-				+ "/" + email + "/" + address + "/" + prtPattern);
+				+ "/" + email + "/" + location + "/" + prtPattern);
 		*/
 		var signUpchk = idchk * pwdchk * pwdConfchk * namechk * nickchk * birthchk * sexchk * telchk 
-		* emailchk * addresschk * prtPatternchk;
+		* emailchk * locationchk * prtPatternchk;
 		/*
 		alert("@@@@@@@"+signUpchk);
 		*/

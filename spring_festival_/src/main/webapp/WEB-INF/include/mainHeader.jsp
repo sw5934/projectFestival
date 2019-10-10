@@ -18,7 +18,7 @@
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findID">ID/PW찾기</a>
                     </c:if>
                     <c:if test="${loginUser!=null}">
-                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/login">로그아웃</a>
                         <a class="nav-link float-sm-right"><b>${loginUser.nickName }</b>&nbsp;<span>님 어서 오세요</span></a>
                     </c:if>
                     </div>
