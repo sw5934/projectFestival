@@ -132,4 +132,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.getUnqSeqNextValue();
 	}
 
+	public int getLikeHistory(String id, int unq_Id) throws SQLException{
+		return reviewDAO.getLikeHistory(id, unq_Id);
+	}
+	
+	public void updateLike(String id, int unq_Id,int history) throws SQLException{
+		if(history==0) {
+			reviewDAO.addLike(id, unq_Id);
+		}else {
+			reviewDAO.deleteLike(id, unq_Id);
+		}
+	}
 }

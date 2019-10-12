@@ -14,6 +14,7 @@ public class ReviewVO {
 	private int r_score;				//평점
 	private Date r_regDate;
 	private int unq_Id;
+	private String nickname;
 	private List<CommentsVO> commentsList;
 	private List<AttachVO> attachList;
 	private int commentcount;
@@ -79,6 +80,13 @@ public class ReviewVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public List<AttachVO> getAttachList() {
 		return attachList;
 	}
@@ -96,6 +104,14 @@ public class ReviewVO {
 	}
 	public void setUnq_Id(int unq_Id) {
 		this.unq_Id = unq_Id;
+	}
+	
+	@Override
+	public String toString() {
+		return "ReviewVO [rno=" + rno + ", r_title=" + r_title + ", id=" + id + ", r_content=" + r_content
+				+ ", r_viewcnt=" + r_viewcnt + ", fno=" + fno + ", r_like=" + r_like + ", r_score=" + r_score
+				+ ", r_regDate=" + r_regDate + ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", commentsList="
+				+ commentsList + ", attachList=" + attachList + ", commentcount=" + commentcount + "]";
 	}
 	
 }

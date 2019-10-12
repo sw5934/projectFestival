@@ -31,7 +31,7 @@ public class CustomAuthentication implements AuthenticationProvider {
 		MemberVO member = null;
 		
 		try {
-			member = memberService.getMember(login_id);
+			member = memberService.getMemberByID(login_id);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw new BadCredentialsException("Internal server error!");

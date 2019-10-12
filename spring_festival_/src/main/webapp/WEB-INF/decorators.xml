@@ -4,6 +4,10 @@
 	<decorator name="OpenWindow" page="my_decorator.jsp">	
 	
 		<pattern>/message/*</pattern>	
+		<pattern>/MyPage/*</pattern>	
+		<pattern>/vote/*</pattern>	
+		<pattern>/follow/*</pattern>	
+		<pattern>/member/*</pattern>	
 	</decorator>
 	
 	<decorator name="main" page="main_decorator.jsp">

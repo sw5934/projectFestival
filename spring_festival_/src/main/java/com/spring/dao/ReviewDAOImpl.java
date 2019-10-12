@@ -1,7 +1,9 @@
 package com.spring.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -105,11 +107,11 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public int getLikeHistory(String id, int unq_Id) throws SQLException {
-		LikeVO like = new LikeVO();
-		like.setId(id);
-		like.setUnq_Id(unq_Id);
-		int count = session.selectOne("Utils-Mapper.selectLikeHistory",like);
-		return count;
+		Map<String,Object> sqlData = new HashMap<String,Object>();
+		sqlData.put("id", id);
+		sqlData.put("unq_Id", unq_Id);
+		int history = session.selectOne("Utils-Mapper.selectLikeHistory",sqlData);
+		return history;
 	}
 
 	@Override

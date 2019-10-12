@@ -34,6 +34,22 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
+	public MemberVO selectMemberByNickName(String nickName) throws SQLException {
+
+		MemberVO member = session.selectOne("Member.selectMemberByNickName", nickName);
+		
+		return member;
+	}
+	
+	@Override
+	public int selectMemberByEmail(String email) throws SQLException {
+		
+		int countemail = session.selectOne("Member.selectMemberByEmail", email);
+		
+		return countemail;
+	}
+	
+	@Override
 	public String findMemberID(String name, String email) throws SQLException {
 		
 		MemberVO member = new MemberVO();
@@ -47,7 +63,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public List<MemberVO> findMemberPwd(String id, String name, String email) throws SQLException {
+	public MemberVO findMemberPwd(String id, String name, String email) throws SQLException {
 		
 		MemberVO member = new MemberVO();
 		
@@ -55,7 +71,7 @@ public class MemberDAOImpl implements MemberDAO {
 		member.setName(name);
 		member.setEmail(email);
 		
-		List<MemberVO> pwd_member = session.selectList("Member.findMemberPwd", member);
+		MemberVO pwd_member = session.selectOne("Member.findMemberPwd", member);
 		
 		return pwd_member;
 	}

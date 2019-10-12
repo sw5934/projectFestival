@@ -87,10 +87,10 @@
                     <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/${review.id }/${review.unq_Id }.jpg" style="width:93px;height:70px"></td>
                     <td style="width: 56%;"> 
                         <a href="detail?rno=${review.rno }&listSort=${listSort}&page=${page}">${review.r_title } <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
-                        <p>${review.r_regDate } ${review.id }</p>
+                        <p>${review.r_regDate } ${review.nickname }</p>
                     </td>
                     <td style=";width: 25%">
-                        <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
+                        <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like1.png" style="width: 10%; float: left">
                             <p>　좋아요　${review.r_like }</p>
                         </span>
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/view.png" style="width: 10%; float: left">

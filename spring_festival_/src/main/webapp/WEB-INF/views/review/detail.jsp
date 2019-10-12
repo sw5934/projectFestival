@@ -56,6 +56,8 @@
             border-collapse: separate;
             border-spacing: 0 10px;
         }
+        
+        
     </style>
     
     
@@ -73,8 +75,8 @@
 	    <div class="float-sm-left col-3">${review.r_regDate }</div>
     </div>
     
-    <div class="col-12" style="overflow:hidden;">
-	    <a class="float-sm-right">평점모듈</a>
+    <div class="col-12" style="overflow:hidden;">    
+	    <a class="float-sm-right" id="score">평점 : </a>
     </div>
     
     
@@ -85,7 +87,17 @@
     
     <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
 	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-1">${review.r_like }</div>
+	   		<div class="float-sm-left col-1">
+	   			<c:if test="${review.id != null }">
+	   				<c:if test="${dataMap.history==0}">
+	   				<img src="/festival/resources/bootstrap/plugins/cm/unlike1.png" style="width: 20px; float: left" id="like_update">
+	   				</c:if>
+	   				<c:if test="${dataMap.history!=0}">
+	   				<img src="/festival/resources/bootstrap/plugins/cm/like1.png" style="width: 20px; float: left" id="like_update">
+	   				</c:if>
+	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
+	   			</c:if>
+	   		</div>
 	  		<div class="float-sm-left col-1">신고</div>	    	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
 	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
@@ -137,6 +149,9 @@
 
 
 <script>
+
+</script>
+<script>
 function onModify(){ 
 	if("${loginUser.id eq review.id }"){
 	self.location.href="<%=request.getContextPath()%>/review/modify?rno=${review.rno}&listSort=${dataMap.listSort}&page=${dataMap.page}";
@@ -155,3 +170,4 @@ function onRemove(){
 </body>
 
 </html>
+

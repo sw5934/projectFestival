@@ -12,9 +12,13 @@ public interface MemberDAO {
 	
 	public MemberVO selectMemberByID(String id) throws SQLException;
 	
+	public MemberVO selectMemberByNickName(String nickName) throws SQLException;
+	
+	public int selectMemberByEmail(String email) throws SQLException;
+	
 	public String findMemberID(String name, String email) throws SQLException;
 	
-	public List<MemberVO> findMemberPwd(String id, String name, String email) throws SQLException;
+	public MemberVO findMemberPwd(String id, String name, String email) throws SQLException;
 	
 	public List<Integer> selectMemberAuthority(String id) throws SQLException;
 	

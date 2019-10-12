@@ -26,7 +26,36 @@
 </script>
 
 <script>
-/* 목록가기 */
+/* 좋아요 버튼 */
+
+function like_update(){
+	
+	$.ajax({
+		url : "<%=request.getContextPath()%>/review/clickLike?unq_Id=${review.unq_Id}&id=${loginUser.id}",
+		type : "GET",
+		success: function(history){
+			if(history==0){
+				alert("좋아요가 반영되었습니다.");
+
+				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)+1);
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like1.png');
+				
+			}else{
+
+				alert("좋아요가 취소되었습니다.");
+
+				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)-1);
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike1.png');
+				
+			}
+		},
+		error: function(error){
+			
+		}
+	});
+	}
+	//추천버튼 클릭시 추천추가 or 추천제거
+	
 
 
  
@@ -247,5 +276,15 @@ function onSubmit(category, form, url, method) {
 			}
 		});
 	});
+		// 별점표시
+		function scoreDraw(){
+			var scoreStar = "";
+			for(var i = 0; i<${review.r_score};i++)
+				scoreStar += "★";
+			for(var i = 5; i>${review.r_score};i--)
+				 scoreStar += "☆";
+			$('#score').append("<a>"+scoreStar+"</a>");
+		}
+		scoreDraw();
 	
 </script>
