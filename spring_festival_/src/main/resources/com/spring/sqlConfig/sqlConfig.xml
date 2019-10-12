@@ -23,6 +23,8 @@
   		<typeAlias type="com.spring.dto.Report_CVO" alias="reportC"/>
   		<typeAlias type="com.spring.dto.CommentsBoardVO" alias="commentsBoard"/>
   		<typeAlias type="com.spring.dto.HoldingVO" alias="holding"/>
+  		<typeAlias type="com.spring.dto.AuthSettingVO" alias="authSet"/>
+  		<typeAlias type="com.spring.dto.MemSearchVO" alias="memSearch"/>
   	</typeAliases>
   	
   </configuration>

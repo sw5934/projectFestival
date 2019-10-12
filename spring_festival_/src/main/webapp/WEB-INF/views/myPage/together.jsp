@@ -65,7 +65,12 @@
 							<c:forEach items="${togetherList }" var="tList"> <!--  begin="0" end="10" step="1" -->
 				                    <tr  align="center">
 				                      	<td>${tList.bno}</td>
-				                      	<td>${tList.title}(${tList.comments })</td>
+				                      	<td><a href='<%= request.getContextPath()%>/review/detail/?tno=${tList.bno }'>${tList.title}
+				                      		<c:if test="${tList.comments ne 0 }">
+				                      			(${tList.comments })
+				                      		</c:if>
+				                      		</a>
+				                      	</td>
 				                      	<td>${tList.regDate}</td>
 				                    </tr>
 			    			</c:forEach>

@@ -65,7 +65,11 @@
 							<c:forEach items="${reviewList }" var="rList"> <!--  begin="0" end="10" step="1" -->
 				                    <tr  align="center">
 				                      	<td width="100px" >${rList.bno}</td>
-				                      	<td width="400px"><a href='<%= request.getContextPath()%>/review/detail/?rno=${rList.bno }'>${rList.title}(${rList.comments })</a></td>
+				                      	<td width="400px"><a href='<%= request.getContextPath()%>/review/detail/?rno=${rList.bno }'>${rList.title}
+				                      	<c:if test="${rList.comments ne 0 }">
+				                      	(${rList.comments })
+				                      	</c:if>
+				                      	</a></td>
 				                      	<td width="100px">a${rList.regDate}</td>
 				                    </tr>
 			    			</c:forEach>
@@ -108,7 +112,7 @@
 										${pageMaker.makeQuery(pageMaker.endPage+1) }
 									</c:if>
 									<c:if test="${!pageMaker.next }">
-										${pageMaker.makeQuery(pageMaker.cri.page) }
+										${pageMaker.makeQuery(pageMaker.endPage) }
 									</c:if>
 								">&gt;</a>
 							</li>			

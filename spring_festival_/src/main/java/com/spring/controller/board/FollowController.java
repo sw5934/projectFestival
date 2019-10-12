@@ -145,8 +145,9 @@ public class FollowController {
 	   3) 요청 측의 각종 데이터를 받아낼 HttpServletRequest request 작성.            -> 최대조건
 	*/
 	@RequestMapping("/unFollow")
-	public ResponseEntity<String> unFollow(@RequestBody Map<String, String> strMap
-											) throws SQLException {
+	public ResponseEntity<String> unFollow(@RequestBody Map<String, String> strMap)
+		throws SQLException {
+		
 		System.out.println("FollowController.unFollow() 시작");
 		System.out.println("FollowController.unFollow(),   넘어온 데이터 nickName = " + (String)strMap.get("nName"));
 		System.out.println("FollowController.unFollow(),   넘어온 데이터 nickName = " + (String)strMap.get("myId"));

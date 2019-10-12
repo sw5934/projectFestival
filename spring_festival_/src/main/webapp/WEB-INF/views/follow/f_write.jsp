@@ -32,10 +32,14 @@
   
 </head>
 <body>
+!zzz<br/>
+${wantGoPM.startPage }<br/>
+${threeBoardPM.startPage }<br/>
+
 <a id="hlist" href=""></a>
 
  <div class="wrapper">
-		<div class="col-md-6">
+		<div class="col-md-6" style="width:800px">
            
            
            
@@ -73,12 +77,15 @@
 				                    <tr  align="center">
 				                      <td>${vl.boardType}</td>
 				                      <td><a href='
-				                      <c:if test="${vl.boardType=='후기' }">
-				                      <%= request.getContextPath()%>/review/detail/?rno=${vl.bno }
-				                      </c:if>
-				                      <c:if test="${vl.boardType!='후기' }">
-				                      #
-				                      </c:if>
+					                      <c:if test="${vl.boardType eq '후기' }">
+					                      <%= request.getContextPath()%>/review/detail/?rno=${vl.bno }
+					                      </c:if>
+					                      <c:if test="${vl.boardType eq '같이가요' }">
+					                      <%= request.getContextPath()%>/review/detail/?tno=${vl.bno }
+					                      </c:if>
+					                      <c:if test="${vl.boardType eq '축제' }">
+					                      <%= request.getContextPath()%>/review/detail/?fno=${vl.bno }
+					                      </c:if>
 				                      '>${vl.title}</a></td>
 				                      <td>${vl.nickName}</td>
 				                      <td>${vl.writeDate}</td>
@@ -97,8 +104,8 @@
 
 
 
-					<div class="card-footer clearfix"  >
-						<div class="text-center">															
+					<div class="card-footer clearfix"  style="width:800px">
+						<div class="text-center" style="width:800px">
 						<ul class="pagination pagination-sm m-0 float-right"> 
 							
 							<li class="page-item">
@@ -110,7 +117,10 @@
 								<input type="button" value="&lt;" class="page-link" 
 									onclick='
 									<c:if test="${threeBoardPM.prev }">
-										pageMove(${threeBoardPM.startPage-1 }, "threeBoard")
+									pageMove(${threeBoardPM.startPage-1 }, "threeBoard")
+									</c:if>
+									<c:if test="${!threeBoardPM.prev }">
+										pageMove(${threeBoardPM.startPage }, "threeBoard")
 									</c:if>
 									'/>
 							</li>
@@ -127,10 +137,10 @@
 								<input type="button" value="&gt;" class="page-link" 
 									onclick='
 									<c:if test="${threeBoardPM.next }">
-										pageMove(${threeBoardPM.first_endPage+2},"threeBoard")
+										pageMove(${threeBoardPM.endPage+1},"threeBoard")
 									</c:if>
 									<c:if test="${!threeBoardPM.next }">
-										pageMove(${threeBoardPM.cri.first_page},"threeBoard")
+										pageMove(${threeBoardPM.endPage},"threeBoard")
 									</c:if>
 									'/>
 							</li>			
@@ -196,22 +206,25 @@
 							
 							<li class="page-item">
 								<input type="button" value="&lt;&lt;" class="page-link" 
-								onclick='pageMove(1, "wantGo")'/>
+								onclick='pageMove(1, "FwantGo")'/>
 							</li>
 							
 							<li class="page-item">
 								<input type="button" value="&lt;" class="page-link" 
 									onclick='
-									<c:if test="${wantGoPM.prev }">
-										pageMove(${wantGoPM.startPage-1 }, "wantGo")
-									</c:if>
+										<c:if test="${wantGoPM.prev }">
+										pageMove(${wantGoPM.startPage-1 }, "FwantGo")
+										</c:if>
+										<c:if test="${!wantGoPM.prev }">
+											pageMove(${wantGoPM.startPage }, "FwantGo")
+										</c:if>
 									'/>
 							</li>
 							<c:forEach begin="${wantGoPM.startPage }" 
 							           end="${wantGoPM.endPage }" var="pageNum">
 							<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>"`>
 								<input type="button" id="followBtn" value="${pageNum }" 
-									class="page-link" onclick="pageMove($(this).val(), 'wantGo')" />
+									class="page-link" onclick="pageMove($(this).val(), 'FwantGo')" />
 								</input>
 							</li>
 							</c:forEach>	
@@ -220,17 +233,17 @@
 								<input type="button" value="&gt;" class="page-link" 
 									onclick='
 									<c:if test="${wantGoPM.next }">
-										pageMove(${wantGoPM.second_endPage+1},"wantGo")
+										pageMove(${wantGoPM.endPage+1},"FwantGo")
 									</c:if>
 									<c:if test="${!wantGoPM.next }">
-										pageMove(${wantGoPM.cri.first_page},"wantGo")
+										pageMove(${wantGoPM.endPage},"FwantGo")
 									</c:if>
 									'/>
 							</li>			
 							
 							<li class="page-item">
 								<input type="button" value="&gt;&gt;" class="page-link"
-								 onclick='pageMove(${wantGoPM.realEndPage}, "wantGo")'/>
+								 onclick='pageMove(${wantGoPM.realEndPage}, "FwantGo")'/>
 							</li>
 					
 						</ul>
@@ -268,8 +281,8 @@
    				var varUrl='<%= request.getContextPath()%>/follow/f_write/?first_page='+click_page
 				+'&second_page='+wantGO_now_page
 				+'&perPageNum=5';
-		} else if(type=='wantGo') {
-				// alert('if == wantGo');
+		} else if(type=='FwantGo') {
+				// alert('if == FwantGo');
 				var varUrl='<%= request.getContextPath()%>/follow/f_write/?first_page='+threeBoard_now_page
 				+'&second_page='+click_page
 				+'&perPageNum=5';

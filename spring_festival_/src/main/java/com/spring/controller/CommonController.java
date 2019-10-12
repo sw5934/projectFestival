@@ -55,9 +55,8 @@ public class CommonController {
 			birthM = "0"+birthM;
 		if(birthD.length()<2)
 			birthD = "0"+birthD;
-		String address = location1 
-				+ location2;
-		member.setAddress(address);
+		member.setLocation1(location1);
+		member.setLocation1(location2);
 
 		System.out.println("!!!!!!!!!!!!!!!"+member.toString());
 		System.out.println(birthY+birthM+birthD);

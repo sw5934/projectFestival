@@ -8,10 +8,12 @@
 <mapper namespace="Vote-Mapper">
 	<!-- f_seperate = 1 가고싶어요 -->
 	<select id="WantGoVoteList" resultType="vote">
-		select v.id, v.unq_id, bf.f_content, v.chkdate, v.f_seperate
-		from vote v, brd_festival bf, member m
-		where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
-                and v.f_seperate=1
+		select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
+		from member m, vote v, brd_festival bf
+		where m.id = #{str}
+		and m.id = v.id
+		and v.unq_id = bf.unq_id
+		and v.f_seperate = 1
 		order by bf.f_content desc
 	</select>	
 	
@@ -19,10 +21,12 @@
 	
 	<!-- f_seperate = 2(다녀왔어요) -->
 	<select id="GoAndBackVoteList" resultType="vote">
-		select v.id, v.unq_id, bf.f_content, v.chkdate, v.f_seperate
-		from vote v, brd_festival bf, member m
-		where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
-                and v.f_seperate=2
+		select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
+		from member m, vote v, brd_festival bf
+		where m.id = #{str}
+		and m.id = v.id
+		and v.unq_id = bf.unq_id
+		and v.f_seperate = 2
 		order by bf.f_content desc
 	</select>	
 	
@@ -32,10 +36,12 @@
 	<select id="WantGoTotalCount" resultType="int">
 		select count(*)
 		from (	
-			select v.id, bf.f_content, v.chkdate, v.f_seperate, v.unq_id
-			from vote v, brd_festival bf, member m
-			where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
-	                and v.f_seperate=1
+			select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
+			from member m, vote v, brd_festival bf
+			where m.id = #{str}
+			and m.id = v.id
+			and v.unq_id = bf.unq_id
+			and v.f_seperate = 2
 			order by bf.f_content desc
 		)
 	</select>
@@ -45,10 +51,12 @@
 	<select id="GoAndBackTotalCount" resultType="int">
 		select count(*)
 		from (
-			select v.id, bf.f_content, v.chkdate, v.f_seperate, v.unq_id
-			from vote v, brd_festival bf, member m
-			where v.id=#{str} and v.id=m.id and v.unq_id=bf.unq_id
-	                and v.f_seperate=2
+			select v.id, v.unq_id, bf.f_title, v.chkdate, v.f_seperate
+			from member m, vote v, brd_festival bf
+			where m.id = #{str}
+			and m.id = v.id
+			and v.unq_id = bf.unq_id
+			and v.f_seperate = 1
 			order by bf.f_content desc
 		)
 	</select>

@@ -19,10 +19,10 @@
 	<div id="table">	
 		<table>
 			<tr>
-				<td>카테고리</td>
-				<td>제  목</td>
-				<td>댓  글</td>
-				<td>작성일시</td>
+				<td align="center">카테고리</td>
+				<td align="center">제  목</td>
+				<td align="center">나의 댓글</td>
+				<td align="center">작성일시</td>
 			</tr>
 			<c:forEach items="${commentsList }" var="tuple">
 				<tr>
@@ -46,32 +46,54 @@
 		</table>
 	</div>
 	
-	<div id="pageing">
-		<!-- ul태그의 클래스 : 오른쪽 정렬 및 float:left설정 -->
-		<ul class="pagination pagination-sm m-0 float-right">
-			<li class="page-item">
-				<a class="page-link">&lt;&lt;</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link">&lt;</a>
-			</li>
-			
-			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				<li class="page-item <c:out value="${pageMaker.cri.page == pageNum ? 'active' : '' }"/>"'>
-					<a class="page-link" href="comments${pageMaker.makeQuery(pageNum) }">${pageNum }</a>
-				</li>
-			</c:forEach>
-			
-			
-			
-			<li class="page-item">
-				<a class="page-link">&gt;</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link">&gt;&gt;</a>
-			</li>
-		</ul>
-	</div>	
+	
+	
+
+					<div class="card-footer clearfix"  >
+						<div class="text-center">															
+						<ul class="pagination pagination-sm m-0 float-right"> 
+							
+							<li class="page-item">
+								<a class="page-link" href="comments${pageMaker.makeQuery(1)}">&lt;&lt;</a>
+							</li>
+							
+							<li class="page-item">
+								<a class="page-link" href="comments
+									<c:if test="${pageMaker.prev }">
+										${pageMaker.makeQuery(pageMaker.startPage-1) }
+									</c:if>
+								">&lt;</a>
+							</li>
+							<c:forEach begin="${pageMaker.startPage }" 
+							           end="${pageMaker.endPage }" var="pageNum">
+							<li class="page-item <c:out value="${pageMaker.cri.page == pageNum ?'active':''}"/>"`>
+								<a class="page-link" href="comments${pageMaker.makeQuery(pageNum) }" >
+									${pageNum}
+								</a>
+							</li>
+							</c:forEach>	
+							
+							<li class="page-item">
+								<a class="page-link" href="comments
+									<c:if test="${pageMaker.next }">
+										${pageMaker.makeQuery(pageMaker.endPage+1) }
+									</c:if>
+									<c:if test="${!pageMaker.next }">
+										${pageMaker.makeQuery(pageMaker.endPage) }
+									</c:if>
+								">&gt;</a>
+							</li>			
+							
+							<li class="page-item">
+								<a class="page-link" href="comments${pageMaker.makeQuery(pageMaker.realEndPage) }">
+									&gt;&gt;
+								</a>
+							</li>
+					
+						</ul>
+						</div>
+					</div>			
+
 </div>
 </body>
 </html>

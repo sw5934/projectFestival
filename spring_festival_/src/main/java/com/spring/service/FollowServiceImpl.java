@@ -73,7 +73,7 @@ public class FollowServiceImpl implements FollowService {
 		wantGoPM.setCri(cri);
 		totalCount = followDAO.f_WantGoTotalCount(cri);
 		System.out.println("가고싶어요 게시판의 모든 글 갯수 = " + totalCount);
-		wantGoPM.setTotalCount(totalCount, "wantGo"); // Second_page
+		wantGoPM.setTotalCount(totalCount, "FwantGo"); // Second_page
 
 		followBoardList.put("wantGoPM", wantGoPM);
 		followBoardList.put("threeBoardPM", threeBoardPM);

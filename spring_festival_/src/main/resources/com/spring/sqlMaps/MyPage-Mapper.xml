@@ -49,11 +49,10 @@
 	</select>
 <!-- //////////////////////////////////////////////////////////////////////// -->
 	<select id="commentsBoard" resultType="commentsBoard">
-		select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-		from comments c, brd_festival bf, festival fe
+		select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", bf.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+		from comments c, brd_festival bf
 		where c.C_WRITER = #{str}
 		and c.UNQ_ID = bf.UNQ_ID
-		and bf.F_NO= fe.F_NO
 		
 		union
 		
@@ -74,11 +73,10 @@
 	<select id="commentsTotalCount" resultType="int">
 		select distinct count(*)
 		from (
-			select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", fe.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
-			from comments c, brd_festival bf, festival fe
+			select '축제' "category", c.unq_id "unq_id", bf.FNO "bno", bf.F_TITLE "title", c.C_CONTENT "comment", c.C_WRITER "writer", c.C_REGDATE "regDate"
+			from comments c, brd_festival bf
 			where c.C_WRITER = #{str}
 			and c.UNQ_ID = bf.UNQ_ID
-			and bf.F_NO= fe.F_NO
 			
 			union
 			
@@ -99,31 +97,42 @@
 
 
 
-	<select id="holdingList" resultType="holding">
-		select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id", m.id "id"
-		from member m, organization og, brd_festival bf, festival fe, hashtag hs
+	<select id="holdingNoTagList" resultType="holding">
+		select distinct bf.f_title "title", bf.fno "fno", m.id "id"
+		from member m, organization og, brd_festival bf, hashtag hs
 		where m.id = #{str}
 		and m.id = og.id
 		and og.id = bf.f_writer
-		and bf.f_no = fe.f_no
-		and fe.f_no = hs.f_no
+		and bf.fno = hs.fno
+        order by "title"
 	</select>
+	
+	
+	<select id="holdingTagList" resultType="str">
+		select distinct hs.hashtag "hashTag"
+		from member m, organization og, brd_festival bf, hashtag hs
+		where m.id = #{str}
+		and m.id = og.id
+		and og.id = bf.f_writer
+		and bf.fno = hs.fno
+		and bf.f_title = #{str2}
+	</select>
+	
+	
 
 
 
 	<select id="holdingTotalCount" resultType="int">
-		select distinct count(*)
-		from (	
-			select fe.f_title "title", hs.hashtag "hashTag", bf.unq_id "unq_id"
-			from member m, organization og, brd_festival bf, festival fe, hashtag hs
+		select count (*)
+		from(
+			select distinct bf.f_title "title"
+			from member m, organization og, brd_festival bf, hashtag hs
 			where m.id = #{str}
 			and m.id = og.id
 			and og.id = bf.f_writer
-			and bf.f_no = fe.f_no
-			and fe.f_no = hs.f_no
+			and bf.fno = hs.fno
 		)
 	</select>
-
 
 
 	<select id="holdingCommentsCount" resultType="int">
@@ -132,6 +141,73 @@
 		where bf.unq_id = #{unq_id}
 		and bf.unq_id = c.unq_id
 		and bf.F_WRITER = #{id}
+	</select>
+	
+	
+	
+	
+	<!-- 모든 멤버들에 대한 권한 관련 정보들을 조회한다. -->
+	<!-- member(id), has_authority(id), blackList(id) -->
+	<select id="memAuthSet" resultType="authSet">
+		select m.id "id", m.email "email", m.nickName "nickName", m.name "name", ha.auth_no "auth_no", au.authority "auth"
+		from member m, has_authority ha, authority au
+		where m.id = ha.id
+		and ha.auth_no = au.auth_no
+	</select>
+	
+	
+	
+	<select id="authSetTotalCount" resultType="int">
+		select count(*)
+		from (
+			select m.id , ha.id, ha.auth_no, au.authority
+			from member m, has_authority ha, authority au
+			where m.id = ha.id
+			and ha.auth_no = au.auth_no
+		)
+	</select>
+	
+	
+	<!-- 모든 회원들 중, 권한번호가 1(제재회원)에 해당하는 회원은 제재 기간을 조회한다. -->
+	<select id="blackListPeriod" resultType="int">
+			select distinct (bl.BK_ENDDATE - bl.BK_STARTDATE) "제재기간"
+			from member m, has_authority ha, authority au, blackList bl
+			where m.id = #{str2}
+			and m.id = ha.id
+			and ha.auth_no = au.auth_no
+			and ha.auth_no = 1
+			and ha.id = bl.id
+	</select>
+	
+	
+	
+	
+	<update id="authUpdate">
+		update HAS_AUTHORITY
+		set auth_no = #{auNo}
+		where id = (select hs.id
+		from member m, has_authority hs
+		where m.id = hs.id
+		and hs.id = #{mem})
+	</update>
+	
+	<update id="authUpdate2">
+		delete from blacklist
+		where id=#{mem}
+	</update>
+	<update id="authUpdate3">
+		insert into blacklist
+		values(#{mem}, to_date(to_char(sysdate, 'yy-mm-dd')), sysdate+${period}, 'memo')
+	</update>
+
+
+
+	<select id="MemSearch" resultType="memSearch">
+		select m.id "id", m.name "name", m.sex "gender", m.nickName "nName", m.tel "tel", m.email "email", au.AUTHORITY "auth"
+		from member m, has_authority hs, authority au
+		where m.id like '%${str2}%'
+		and m.id = hs.id
+		and hs.auth_no = au.auth_no
 	</select>
 </mapper>
     
