@@ -8,6 +8,7 @@ public class CommentsVO {
 	private String c_content;
 	private Date c_regDate;
 	private int unq_Id;
+	private String nickName;
 	
 	public int getC_no() {
 		return c_no;
@@ -38,6 +39,12 @@ public class CommentsVO {
 	}
 	public void setUnq_Id(int unq_Id) {
 		this.unq_Id = unq_Id;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 	
