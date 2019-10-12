@@ -5,51 +5,78 @@
 
 
 <mapper namespace="Festival-Mapper">
+	
+	<sql id="tag">
+		<if test="searchType == 'hashTag'.toString()">
+			,(select fno from hashtag where hashtag like '%'||#{keyword}||'%') t 
+		</if>
+	
+	</sql>
 	<sql id="search">
-		<if test="searchType == 't'.toString()">
-			and r_title like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_title'.toString()">
+			and f_title like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'w'.toString()">
-			and r_writer like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_name'.toString()">
+			and f_name like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'c'.toString()">
-			and r_content like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_content'.toString()">
+			and f_content like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'tc'.toString()">
+		<if test="searchType == 'f_org'.toString()">
 			and (
-			r_title like '%'||#{keyword}||'%'
-			or
-			r_content like '%'||#{keyword}||'%'						
+			f_org like '%'||#{keyword}||'%'				
 			)			
 		</if>
 		
 		<if test="searchType == 'tcw'.toString()">
 			and (
-			r_title like '%'||#{keyword}||'%'
+			f_title like '%'||#{keyword}||'%'
 			or
-			r_writer like '%'||#{keyword}||'%'
+			f_name like '%'||#{keyword}||'%'
 			or
-			r_content like '%'||#{keyword}||'%'						
+			f_content like '%'||#{keyword}||'%'
+			or
+			f_org like '%'||#{keyword}||'%'						
 			)			
 		</if>
+		
+		<if test="searchType == 'hashTag'.toString()">
+			and b.fno=t.fno
+		</if>
+		
+		
+		<if test="searchType2 != '전국'.toString()">
+			and f_location1 like '%'||#{searchType2}||'%'			
+		</if>
+		
+		<if test="searchType3 != '전체'.toString()">
+			and f_type like '%'||#{searchType3}||'%'			
+		</if>
+		
 	</sql>
+	
+	
+	
+	
 	
 	<select id="selectSearchFestivalList" resultType="festival">
 		select *
-		from brd_festival 
+		from brd_festival b
+				<include refid="tag"/>
 		where unq_Id is not null
 				<include refid="search"/>
-		order by ${listSort} desc
+		order by b.${listSort} desc
 	</select>
 	
 	<select id="selectSearchFestivalListCount" resultType="int">
 		select count(*)
-		from brd_festival 
+		from brd_festival b
+				<include refid="tag"/>
 		where unq_Id is not null
-			 <include refid="search"/>
+				<include refid="search"/>
 	</select>
 	
 	<!-- 상세보기 -->

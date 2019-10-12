@@ -36,6 +36,10 @@ public class ManageController {
 
 	@RequestMapping("/reportList")
 	public Map<String,Object> selectReportList(SearchCriteria cri) throws SQLException {
+
+		if(cri.getKeyword().equals(""))
+			cri.setSearchType("nickname");
+		
 		cri.setPerPageNum(15);
 		Map<String,Object> dataMap = manageService.selectReportList(cri);
 		return dataMap;
@@ -50,6 +54,13 @@ public class ManageController {
 
 	@RequestMapping("/reportCommentList")
 	public Map<String,Object> selectReportCommentList(SearchCriteria cri) throws SQLException {
+		
+
+		if(cri.getKeyword().equals(""))
+			cri.setSearchType("nickname");
+		
+		
+		
 		cri.setPerPageNum(15);
 		Map<String,Object> dataMap = manageService.selectReportCommentList(cri);
 		return dataMap;

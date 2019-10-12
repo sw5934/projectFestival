@@ -20,8 +20,8 @@
 	</select>
 	
 	<update id="insertComments">
-		insert into comments(c_no,unq_Id,c_content,c_regdate,c_writer)
-		values(COMMENTS_SEQ.nextVal,#{unq_Id},#{c_content},sysdate,#{c_writer})
+		insert into comments(c_no,unq_Id,c_content,c_regdate,c_writer,nickname)
+		values(COMMENTS_SEQ.nextVal,#{unq_Id},#{c_content},sysdate,#{c_writer},#{nickName})
 	</update>
 	
 	<update id="updateComments">

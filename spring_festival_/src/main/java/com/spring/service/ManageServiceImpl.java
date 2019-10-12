@@ -35,7 +35,7 @@ public class ManageServiceImpl implements ManageService{
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reportDAO.selectReportListCount());
+		pageMaker.setTotalCount(reportDAO.selectReportListCount(cri));
 		System.out.println("totalCount="+pageMaker.getTotalCount());
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		
@@ -69,7 +69,7 @@ public class ManageServiceImpl implements ManageService{
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reportDAO.selectReportCommentListCount());
+		pageMaker.setTotalCount(reportDAO.selectReportCommentListCount(cri));
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		
 		dataMap.put("reportList", reportList);

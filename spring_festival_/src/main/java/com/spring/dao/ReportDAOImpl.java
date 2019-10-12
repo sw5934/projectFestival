@@ -30,8 +30,8 @@ public class ReportDAOImpl implements ReportDAO {
 	
 
 	@Override
-	public int selectReportListCount() throws SQLException {
-		return session.selectList("Utils-Mapper.selectReportList").size();
+	public int selectReportListCount(SearchCriteria cri) throws SQLException {
+		return session.selectList("Utils-Mapper.selectReportList",cri).size();
 	}
 	
 	
@@ -58,8 +58,8 @@ public class ReportDAOImpl implements ReportDAO {
 		return reportList;
 	}
 	@Override
-	public int selectReportCommentListCount() throws SQLException {
-		return session.selectList("Utils-Mapper.selectReportCommentList").size();
+	public int selectReportCommentListCount(SearchCriteria cri) throws SQLException {
+		return session.selectList("Utils-Mapper.selectReportCommentList",cri).size();
 	}
 	@Override
 	public void doReportComment(String reporter, int c_no) throws SQLException {

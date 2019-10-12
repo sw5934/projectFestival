@@ -5,6 +5,35 @@
 
 
 <mapper namespace="Utils-Mapper">
+
+	<sql id="reportBoard">
+	
+	
+		<if test="searchType == 'title'.toString()">
+		and t.title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'reporter'.toString()">
+			and reporter like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'nickname'.toString()">
+		and t.nickname like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+
+	<sql id="reportComment">
+		<if test="searchType == 'title'.toString()">
+		and c.title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'contents'.toString()">
+		and c.contents like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'reporter'.toString()">
+			and reporter like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'nickname'.toString()">
+		and c.nickname like '%'||#{keyword}||'%'
+		</if>
+	</sql>
 	
 	<select id="selectLikeCount" resultType="int">
 		select count(*)
@@ -32,6 +61,7 @@
 		select rpt_no,reporter,rpt_date,r.unq_id,type,bno,id,title
 		from report r, totalboard t
 		where r.unq_id=t.unq_id
+				<include refid="reportBoard"/>
 		order by rpt_no desc
 	</select>
 	<update id="doReport">
@@ -47,6 +77,7 @@
 		select *
 		from report_comment r, totalcomments c
 		where r.c_no=c.c_no
+				<include refid="reportComment"/>
 		order by rpt_no_c desc
 	</select>
 	<update id="doReportComment">

@@ -7,6 +7,7 @@
 <c:set var="festivalList" value="${dataMap.festivalList }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="listSort" value="${dataMap.listSort }" />
+<c:set var="cri" value="${dataMap.cri }" />
 <c:set var="page" value="${dataMap.page }" />
 <!DOCTYPE html>
 <html>
@@ -77,6 +78,50 @@
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=vote1">가고싶어요</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=vote2">다녀왔어요</a></div>
     </div>
+    
+    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/festival/list" method="get">
+	    <select name="searchType">
+	    	<option value="tcw">전체 </option>
+	    	<option value="f_title" <c:if test='${cri.searchType =="f_title"}'>selected</c:if> >글 제목 </option>
+	    	<option value="f_name" <c:if test='${cri.searchType =="f_name"}'>selected</c:if> >축제 명 </option>
+	    	<option value="f_content" <c:if test='${cri.searchType =="f_content"}'>selected</c:if> >글 내용 </option>
+	    	<option value="f_org" <c:if test='${cri.searchType =="f_org"}'>selected</c:if> >개최기관 </option>
+	    	<option value="hashTag" <c:if test='${cri.searchType =="hashTag"}'>selected</c:if> >해시태그 </option>
+	    </select>
+    	<input type="text" name="keyword" value="${cri.keyword }">
+    	<label>개최지</label>
+    	<select name="searchType2">
+    		<option value="전국">전국</option>
+    		<option value="서울특별시" <c:if test='${cri.searchType2 =="서울특별시"}'>selected</c:if> >서울특별시</option>
+           	<option value="인천광역시" <c:if test='${cri.searchType2 =="인천광역시"}'>selected</c:if> >인천광역시</option>
+           	<option value="대전광역시" <c:if test='${cri.searchType2 =="대전광역시"}'>selected</c:if> >대전광역시</option>
+           	<option value="광주광역시" <c:if test='${cri.searchType2 =="광주광역시"}'>selected</c:if> >광주광역시</option>
+           	<option value="울산광역시" <c:if test='${cri.searchType2 =="울산광역시"}'>selected</c:if> >울산광역시</option>
+           	<option value="대구광역시" <c:if test='${cri.searchType2 =="대구광역시"}'>selected</c:if> >대구광역시</option>
+           	<option value="부산광역시" <c:if test='${cri.searchType2 =="부산광역시"}'>selected</c:if> >부산광역시</option>
+           	<option value="세종특별자치시" <c:if test='${cri.searchType2 =="세종특별자치시"}'>selected</c:if> >세종특별자치시</option>
+           	<option value="경기도" <c:if test='${cri.searchType2 =="경기도"}'>selected</c:if> >경기도</option>
+           	<option value="강원도" <c:if test='${cri.searchType2 =="강원도"}'>selected</c:if> >강원도</option>
+           	<option value="충청북도" <c:if test='${cri.searchType2 =="충청북도"}'>selected</c:if> >충청북도</option>
+           	<option value="충청남도" <c:if test='${cri.searchType2 =="충청남도"}'>selected</c:if> >충청남도</option>
+           	<option value="전라북도" <c:if test='${cri.searchType2 =="전라북도"}'>selected</c:if> >전라북도</option>
+           	<option value="전라남도" <c:if test='${cri.searchType2 =="전라남도"}'>selected</c:if> >전라남도</option>
+           	<option value="경상북도" <c:if test='${cri.searchType2 =="경상북도"}'>selected</c:if> >경상북도</option>
+           	<option value="경상남도" <c:if test='${cri.searchType2 =="경상남도"}'>selected</c:if> >경상남도</option> 
+    	</select>
+    	
+    	<label>축제 유형</label>
+    	<select name="searchType3">
+    		<option value="전체">전체</option>
+    		<option value="참여" <c:if test='${cri.searchType3 =="참여"}'>selected</c:if> >참여</option>
+            	<option value="관람" <c:if test='${cri.searchType3 =="관람"}'>selected</c:if> >관람</option>
+            	<option value="전시" <c:if test='${cri.searchType3 =="전시"}'>selected</c:if> >전시</option>
+            	<option value="기타" <c:if test='${cri.searchType3 =="기타"}'>selected</c:if> >기타</option>
+    	</select>
+    	<input type="hidden" name="listSort" value="${listSort}">
+    	<button type="button" onclick="$('#listForm').submit()">검색</button>
+    </form>
+    
     <table class="mt-5 col-10" style=" margin: 0 auto;">
         <c:if test="${empty festivalList }">
             <tr>

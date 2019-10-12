@@ -54,6 +54,22 @@
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="<%=request.getContextPath()%>/manage/reportList">신고 게시글</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="<%=request.getContextPath()%>/manage/reportCommentList">신고 댓글</a></div>
     </div> 
+    
+    
+    
+    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/manage/reportCommentList" method="get">
+	    <select name="searchType">
+	    	<option value="nickname" <c:if test='${cri.searchType =="nickname"}'>selected</c:if> >작성자 </option>
+	    	<option value="reporter" <c:if test='${cri.searchType =="reporter"}'>selected</c:if> >신고자 </option>
+	    	<option value="title" <c:if test='${cri.searchType =="title"}'>selected</c:if> >글 제목 </option>
+	    	<option value="contents" <c:if test='${cri.searchType =="contents"}'>selected</c:if> >댓글 내용 </option>
+	    </select>
+    	<input type="text" name="keyword" value="${cri.keyword }">
+    	<button type="button" onclick="$('#listForm').submit()">검색</button>
+    </form>
+    
+    
+    
     <table class="mt-5 col-12" style=" margin: 0 auto;">
     		<tr style="border-bottom: 0px solid black; font-size:0.9em">
                     <td style="width: 8%;  text-align: center">신고번호</td>

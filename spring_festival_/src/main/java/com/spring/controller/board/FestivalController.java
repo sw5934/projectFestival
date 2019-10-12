@@ -51,6 +51,12 @@ public class FestivalController {
 	public void listFestival(SearchCriteria cri, Model model, String listSort, String page) throws Exception {
 
 		try {
+			if(cri.getKeyword().equals(""))
+				cri.setSearchType("tcw");
+			if(cri.getSearchType2() == null)
+				cri.setSearchType2("전국");
+			if(cri.getSearchType3() == null) 
+				cri.setSearchType3("전체");
 			if (listSort == null)
 				listSort = "fno";
 			if (page == null)
@@ -60,6 +66,7 @@ public class FestivalController {
 			Map<String, Object> dataMap = festivalService.getFestivalList(cri);
 			dataMap.put("listSort",listSort);
 			dataMap.put("page",page);
+			dataMap.put("cri",cri);
 
 			model.addAttribute("dataMap", dataMap);
 		} catch (SQLException e) {
