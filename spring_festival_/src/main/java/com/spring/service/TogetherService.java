@@ -33,5 +33,5 @@ public interface TogetherService {
 	
 	public void deadLineUpdate(String tno, String t_state) throws SQLException;
 	
-
+	
 }

@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Member;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dao.AttachDAO;
+import com.spring.dao.MemberDAO;
 import com.spring.dto.MemberVO;
-import com.spring.dto.ReviewVO;
 import com.spring.dto.TogetherVO;
 import com.spring.service.TogetherService;
 
@@ -37,9 +39,6 @@ public class TogetherController {
 	
 	@Autowired
 	private TogetherService togetherService;
-	
-	@Autowired
-	private AttachDAO attachDAO;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 	
@@ -77,9 +76,7 @@ public class TogetherController {
 	}
 	
 	@RequestMapping(value="/togetherRegist", method=RequestMethod.POST)
-	public String registPOST(TogetherVO together, HttpServletRequest request, String unq_Id) throws Exception{
-		
-		System.out.println("00000000" +together.getT_writer());
+	public String registPOST(TogetherVO together, HttpServletRequest request, String id, String unq_Id, int articleStatus) throws Exception{
 		
 		File origin = new File(request.getServletContext().getRealPath("/resources/uploadImg/") + together.getT_writer() + "\\" + unq_Id + ".jpg");
 		if(!(origin.exists())) {
@@ -113,9 +110,12 @@ public class TogetherController {
 			}
 		}
 		HttpSession session = request.getSession();
-		String loginUser = ((MemberVO)session.getAttribute("loginUser")).getId();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		together.setT_writer(loginUser.getId());
+		together.setNickname(loginUser.getNickName());
+		together.setArticleStatus(articleStatus);
 		
-		together.setT_writer(loginUser);
+		
 		System.out.println(together.toString());
 		togetherService.regist(together);
 		
@@ -123,13 +123,20 @@ public class TogetherController {
 	}
 	
 	@RequestMapping("/detail")
-	public void detail(int tno, Model model, String page, String listSort, SearchCriteria cri) throws Exception{
+	public void detail(HttpServletRequest request, TogetherVO together, int tno, Model model, String page, String listSort, SearchCriteria cri) throws Exception{
+	
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
-		Map<String, Object> dataMap = 
-		togetherService.read(tno, cri);
+		Map<String, Object> dataMap = togetherService.read(tno, cri);
 		dataMap.put("listSort", listSort);
 		dataMap.put("page", page);
 		model.addAttribute("dataMap",dataMap);
+		
+		together.getArticleStatus();
+		//memberDAO.selectMemberByID(together.getT_writer());
+		
+		
 	}
 	@RequestMapping("/deadLine")
 	public String deadLine(String tno, String t_state, String page, String listSort, SearchCriteria cri) throws SQLException{
@@ -154,8 +161,10 @@ public class TogetherController {
 	}
 	
 	@RequestMapping(value="/modify",method=RequestMethod.POST)
-	public String modifyPOST(TogetherVO together, HttpServletRequest request, String page, String listSort)throws Exception{
-		togetherService.modify(together);
+	public String modifyPOST(TogetherVO together, HttpServletRequest request, String page, String listSort, int articleStatus)throws Exception{
+		
+		together.setArticleStatus(articleStatus);
+		togetherService.modify(together);		
 		return "redirect:detail?tno=" + together.getTno() + "&listSort=" + listSort + "&page=" + page;
 	}
 	

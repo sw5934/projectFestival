@@ -11,6 +11,7 @@ import com.spring.dao.AttachDAO;
 import com.spring.dao.CommentsDAO;
 import com.spring.dao.TogetherDAO;
 import com.spring.dto.AttachVO;
+import com.spring.dto.MemberVO;
 import com.spring.dto.ReviewVO;
 import com.spring.dto.TogetherVO;
 
@@ -58,6 +59,7 @@ public class TogetherServiceImpl implements TogetherService{
 		
 		List<AttachVO> attachList = attachDAO.selectAttachesByUnq_Id(tno);
 		together.setAttachList(attachList);
+		
 		return together;
 	}
 
@@ -123,6 +125,7 @@ public class TogetherServiceImpl implements TogetherService{
 	@Override
 	public void deadLineUpdate(String tno, String t_state) throws SQLException{
 		togetherDAO.deadLineTogether(tno, t_state);
-	}
+	}	
+	
 
 }

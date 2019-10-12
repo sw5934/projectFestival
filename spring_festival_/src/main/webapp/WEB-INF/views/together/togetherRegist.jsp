@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <head>
 <title>같이가요 등록</title>
-
-
 </head>
 <body>
 
@@ -25,7 +24,22 @@
 								<label class="col-sm-2 control-label" for="title">제 목</label> 
 								<input class="col-sm-10 form-control" type="text" id="t_title"
 									name='t_title' placeholder="제목을 쓰세요">
-							</div>							
+							</div>	
+							<div class="form-group row">
+								<label class="col-sm-2 control-label" for="title">정보 공개 여부</label>
+								<div class = "infocheck"> 								
+									<div class="form-group">
+									<c:if test="${loginUser.infoStatus == 1}">
+					                    <input type="radio" id="infoPublic" name="articleStatus" value='1' checked="checked"> 공개 &nbsp;&nbsp;&nbsp;
+					               		<input type="radio" id="infoPrivate" name="articleStatus" value='0'> 비공개
+					                </c:if>   
+					                <c:if test="${loginUser.infoStatus != 1}">
+					                	<input type="radio" id="infoPublic" name="articleStatus" value='1' > 공개 &nbsp;&nbsp;&nbsp;
+					                    <input type="radio" id="infoPrivate" name="articleStatus" value='0' checked="checked"> 비공개
+					                </c:if> 
+					                 </div>	
+								</div>	
+							</div>
 							
 							<div class="col-md-12">
 								<textarea name="t_content" id="t_content"

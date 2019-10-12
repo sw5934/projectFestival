@@ -60,15 +60,15 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 							<span class="star-input">								
 								축제는 어떠셨나요?
 								<span class="input" id="r_score" >							
-							    	<input type="radio"  name="star-input" value="1" id="p1">
+							    	<input type="radio"  name="starInput" value="1" id="p1">
 							    	<label for="p1">1</label>
-							    	<input type="radio" name="star-input" value="2" id="p2">
+							    	<input type="radio" name="starInput" value="2" id="p2">
 							    	<label for="p2">2</label>
-							    	<input type="radio" name="star-input" value="3" id="p3">
+							    	<input type="radio" name="starInput" value="3" id="p3">
 							    	<label for="p3">3</label>
-							    	<input type="radio" name="star-input" value="4" id="p4">
+							    	<input type="radio" name="starInput" value="4" id="p4">
 							    	<label for="p4">4</label>
-							    	<input type="radio" name="star-input" value="5" id="p5">
+							    	<input type="radio" name="starInput" value="5" id="p5">
 							    	<label for="p5">5</label>
 							  	</span>					
 							</span>

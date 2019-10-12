@@ -9,12 +9,14 @@ public class TogetherVO {
 	private String t_writer;
 	private String t_content;
 	private Date t_regDate;
-	private int t_state;
+	private int t_state;						//마감상태
 	private int t_viewcnt;
 	private int f_no;
 	private int unq_Id;
 	private String nickname;
+	private int articleStatus;					//글정보공개여부
 	
+	private List<MemberVO> memberList;
 	private List<AttachVO> attachList;
 	private List<CommentsVO> commentsList;
 	private int commentcount;
@@ -42,8 +44,7 @@ public class TogetherVO {
 	}
 	public void setT_content(String t_content) {
 		this.t_content = t_content;
-	}
-	
+	}	
 	public Date getT_regDate() {
 		return t_regDate;
 	}
@@ -79,7 +80,19 @@ public class TogetherVO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}	
+	}					
+	public int getArticleStatus() {
+		return articleStatus;
+	}
+	public void setArticleStatus(int articleStatus) {
+		this.articleStatus = articleStatus;
+	}
+	public List<MemberVO> getMemberList() {
+		return memberList;
+	}
+	public void setMemberList(List<MemberVO> memberList) {
+		this.memberList = memberList;
+	}
 	public List<CommentsVO> getCommentsList() {
 		return commentsList;
 	}
@@ -103,8 +116,8 @@ public class TogetherVO {
 	public String toString() {
 		return "TogetherVO [tno=" + tno + ", t_title=" + t_title + ", t_writer=" + t_writer + ", t_content=" + t_content
 				+ ", t_regDate=" + t_regDate + ", t_state=" + t_state + ", t_viewcnt=" + t_viewcnt + ", f_no=" + f_no
-				+ ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", attachList=" + attachList + ", commentsList="
-				+ commentsList + ", commentcount=" + commentcount + "]";
+				+ ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", articleStatus=" + articleStatus + ", memberList="
+				+ memberList + ", attachList=" + attachList + ", commentsList=" + commentsList + ", commentcount="
+				+ commentcount + "]";
 	}
-	
 }

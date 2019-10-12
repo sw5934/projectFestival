@@ -38,7 +38,7 @@
 	
 	<select id="selectSearchTogetherList" resultType="together">
 		select
-		UNQ_ID, TNO, T_TITLE, T_WRITER, T_CONTENT, T_REGDATE, T_STATE, T_VIEWCNT, F_NO, NICKNAME
+		UNQ_ID, TNO, T_TITLE, T_WRITER, T_CONTENT, T_REGDATE, T_STATE, T_VIEWCNT, F_NO, NICKNAME, articleStatus
 		from
 		brd_together
 		where tno is not null
@@ -76,16 +76,16 @@
 	<update id="insertTogether" parameterType="together">
 	insert
 	into
-	brd_together(unq_Id, tno, t_title, t_writer, t_content, t_regDate, t_state, t_viewcnt, f_no, nickname)
+	brd_together(unq_Id, tno, t_title, t_writer, t_content, t_regDate, t_state, t_viewcnt, f_no, nickname, articleStatus)
 	values
-	(three_board_seq.nextval, brd_together_seq.nextval, #{t_title}, #{t_writer}, #{t_content}, sysdate, 1, 0, null, null)
+	(three_board_seq.nextval, brd_together_seq.nextval, #{t_title}, #{t_writer}, #{t_content}, sysdate, 1, 0, null, #{nickname}, #{articleStatus})
 	</update>
 	
 	<update id="updateTogether" parameterType="together">
 	update
 	brd_together
 	set
-	t_title=#{t_title}, t_content=#{t_content}
+	t_title=#{t_title}, t_content=#{t_content}, articleStatus=#{articleStatus}
 	where tno = #{tno}
 	</update>
 	
