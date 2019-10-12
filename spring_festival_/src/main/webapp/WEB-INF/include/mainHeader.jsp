@@ -12,16 +12,20 @@
             <div class="headerDiv" style="width:1200px; margin:0 auto">
                 <div class="float-sm-right col-12 pb-2">
                     <div class="mr-5 pr-5">
-                    <c:if test="${id } != null"></c:if>
+                    <c:if test="${loginUser==null}">
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/login">로그인</a>
-                        <a class="nav-link float-sm-right" href="#">회원가입</a>
-                        <a class="nav-link float-sm-right" href="#">ID/PW찾기</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/signUp">회원가입</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findID">ID/PW찾기</a>
+                    </c:if>
+                    <c:if test="${loginUser!=null}">
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
                         <a class="nav-link float-sm-right"><b>${loginUser.nickName }</b>&nbsp;<span>님 어서 오세요</span></a>
+                    </c:if>
                     </div>
                 </div>
                 <div class="float-sm-left col-12">
                     <!-- Navbar -->
-                    <div class="float-sm-left col-3 pl-5"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" width="200px" class=" ml-5"></div>
+                    <div class="float-sm-left col-3 pl-5"><a href="<%=request.getContextPath()%>/login"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" width="200px" class=" ml-5"></a></div>
                     <div class="float-sm-left col-9 pr-5">
                         <div>
                             <div class="float-sm-left col-12">
@@ -52,14 +56,15 @@
                                             <a href="#" class="nav-link">축제보러가기</a>
                                         </li>
                                         <li class="nav-item d-none d-sm-inline-block">
-                                            <a href="#" class="nav-link">후기게시판</a>
+                                            <a href="<%=request.getContextPath() %>/review/list" class="nav-link">후기게시판</a>
                                         </li>
                                         <li class="nav-item d-none d-sm-inline-block">
                                             <a href="#" class="nav-link">같이가요</a>
                                         </li>
+                                        <c:if test="${loginUser!=null}">
                                         <li class="nav-item d-none d-sm-inline-block">
-                                            <a href="#" class="nav-link">마이페이지</a>
-                                        </li>
+                                            <a class="nav-link" onClick="window.open('<%=request.getContextPath()%>/message/sendList', '마이 페이지', 'height=700,width=1000,resizable=0');">마이페이지</a>
+                                        </li></c:if>
                                     </ul>
                                 </nav>
                             </div>

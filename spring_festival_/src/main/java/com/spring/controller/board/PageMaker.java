@@ -11,7 +11,12 @@ public class PageMaker {
 
 	private int displayPageNum = 10; // 한 페이지에 보여줄 페이지번호 개수
 
-	private Criteria cri; // 현재 페이지 정보
+	private SearchCriteria cri; // 현재 페이지 정보
+	
+	// 인성
+	private int first_endPage; // "내가 팔로우한 사람들"에서 사용할 endPage
+	private int second_endPage; // "나를 팔로우한 사람들"에서 사용할 endPage
+	
 
 	public int getTotalCount() {
 		return totalCount;
@@ -75,7 +80,7 @@ public class PageMaker {
 		return cri;
 	}
 
-	public void setCri(Criteria cri) {
+	public void setCri(SearchCriteria cri) {
 		this.cri = cri;
 	}
 
@@ -104,6 +109,50 @@ public class PageMaker {
 
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
+	
+	public String makeNonSearchQuery() {
+		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum();
+		return query;
+	}
+
+	public String makeNonSearchQuery(int page) {
+		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum();
+		return query;
+	}
+	
+	private void calcData(String seperator) {
+		
+		if (seperator.equals("follow") || seperator.equals("threeBoard") || seperator.equals("wantGo") ) {
+			endPage = (int) (Math.ceil(((Second_Criteria) cri).getFirst_page() / (double) displayPageNum) * displayPageNum);
+			
+		} else if (seperator.equals("followed") || seperator.equals("wantGo") || seperator.equals("goAndBack") ) {
+			endPage = (int) (Math.ceil(((Second_Criteria) cri).getSecond_page() / (double) displayPageNum) * displayPageNum);
+			// cri.getSecond_page() / (double) displayPageNum)     
+			// =>>  1~10		    /      10.0				= 0.1~1     
+			// =>>  11~20		    /      10.0    			= 1.1~2
+
+			// Math.ceil(cri.getSecond_page() / (double) displayPageNum))     
+			// =>>  1~10		    /      10.0				= Math.ceil(0.1~1) = 1     
+			// =>>  11~20		    /      10.0    			= Math.ceil(1.1~2) = 2
+						
+			// Math.ceil(cri.getSecond_page() / (double) displayPageNum)) * displayPageNum     
+			// =>>  1~10		    /      10.0				= Math.ceil(0.1~1) = 1	* 10 = 10 
+			// =>>  11~20		    /      10.0    			= Math.ceil(1.1~2) = 2	* 10 = 20
+		}
+
+		// (10,20,30, 40, 50 - 10) + 1 = 01, 11, 21, 31, 41
+		startPage = (endPage - displayPageNum) + 1;
+
+		realEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
+
+		if (endPage > realEndPage) {
+			endPage = realEndPage;
+		}
+
+		prev = startPage == 1 ? false : true;
+		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;		
+	}
+
 
 	public String makeQuery() {
 		String query = "?page=" + cri.getPage() + "&perPageNum=" + cri.getPerPageNum()
@@ -121,4 +170,26 @@ public class PageMaker {
 		return query;
 	}
 
+	public int getSecond_endPage() {
+		return second_endPage;
+	}
+
+	public void setSecond_endPage(int second_endPage) {
+		this.second_endPage = second_endPage;
+	}
+
+	public int getFirst_endPage() {
+		return first_endPage;
+	}
+
+	public void setFirst_endPage(int first_endPage) {
+		this.first_endPage = first_endPage;
+	}
+
+	// 인성
+	public void setTotalCount(int totalCount, String seperator) {
+	
+		this.totalCount = totalCount;
+		calcData(seperator);
+	}
 }

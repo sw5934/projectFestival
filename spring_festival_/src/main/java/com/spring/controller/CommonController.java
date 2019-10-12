@@ -1,7 +1,9 @@
 package com.spring.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -86,53 +89,51 @@ public class CommonController {
 		Map<String,String> data = new HashMap<String,String>();
 		String id = ajaxData.get("id");
 		String pwd = ajaxData.get("pwd");
-		System.out.println("QQQQQQQQQ" + id + pwd);
-		
+		data.put("id", id);
+		data.put("pwd", pwd);
+		String loginStatus;
+		String url = "login";
 		MemberVO member = memberService.getMemberByID(id);
 		
-		System.out.println("@@@@@@@@@@@@@"+member.getFailCnt());
-		
-		int failCnt = memberService.loginFail(id);
-System.out.println("failCnt:"+failCnt);
-		if(member != null) {
-			if(pwd.equals(member.getPwd())) {	// 로그인 성공
-				if(member.getFailCnt() > 5) {
-					// 비밀번호 변경창
-					
+		if(member != null) {							//ID존재
+			
+			int recordCount = memberService.getLoginFailRecord(id);
+			if(recordCount!=1) {
+				if(recordCount>1)
+					memberService.removeLoginRecord(id);
+				memberService.setLoginFailRecord(id);
+			};
+			
+			if(pwd.equals(member.getPwd())) {			//로그인 성공
+				String temporary = memberService.loginSuccess(id); //임시비밀번호 발송여부
+				loginStatus = "loginSuccess";;		
+				if(temporary.equals("no")) {
+					url = "loginPost";
+				}else{
+					url = "newPassword";
 				}
-				data.put("status", "loginSuccess");
-				data.put("id", id);
-				data.put("pwd", pwd);
-				data.put("url", "/festival/review/list");
 				entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
-			} else {	// 비밀번호 틀림
-				if(member.getFailCnt() == 5) {
-					member = memberService.getMemberPwd(id, member.getName(), member.getEmail());
+			} else {						
+				if(memberService.loginFail(id) == 5) {						//횟수가 5가 되면 임시메일 발송
+					member.setPwd(UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(0, 6));
 					mailService.sendMail(member.getEmail(),"임시 비밀번호","임시 비밀번호 : " + member.getPwd());
-					data.put("status", "loginFail");
-				} else if(member.getFailCnt() != 5) {
-					memberService.loginFail(id);
-					data.put("status", "loginFail");
-				}
-				data.put("status", "else");
-				data.put("id", id);
-				data.put("pwd", pwd);
-				data.put("url", "login");
-				/*entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);*/
+					memberService.modify(member);
+					data.put("sendMail", "yes");
+				}else {									//이미 임시메일을 발송 한 이후 처리
+					data.put("sendMail", "no");}
+				
+				loginStatus = "loginFail";
+				
+				entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
 			}
 			
-		} else {
-			System.out.println(member.getFailCnt());
-			data.put("status", "~~~~");
-			data.put("id", id);
-			data.put("pwd", pwd);
-			data.put("url", "login");
-			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {	//ID가 존재하지 않을 경우
+			loginStatus = "IDNotFound";
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);
 		}
 		
-		
-		System.out.println(data + "\n\n\n" + entity);
-		
+		data.put("status", loginStatus);
+		data.put("url", url);
 		return entity;
 	}
 	
@@ -201,6 +202,25 @@ System.out.println("failCnt:"+failCnt);
 			data.put("pwd", "pwd");
 			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);}
 		return entity;
+	}
+
+	@RequestMapping(value="/newPassword",method=RequestMethod.POST)
+	public String newPasswordGET(Model model,String id) throws SQLException{
+		model.addAttribute("id",id);
+		return "common/newPassword";
+	}
+	
+	@RequestMapping(value="/newPasswordUpdate",method=RequestMethod.POST)
+	public String newPasswordPOST(String id, String pwd) throws SQLException {
+		memberService.setNewPassword(id, pwd);
+		return "redirect:login";
+	}
+	
+	
+	@RequestMapping("/memInfoCall")
+	public String memInfoCall() {
+		System.out.println("CommonController.memInfoCall(), memInfoCall.jsp를 리턴.");
+		return "/memInfo/memInfoCall";
 	}
 	
 }

@@ -17,19 +17,17 @@
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     
-                    <label class="col-sm-4 control-label">이름</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="이름">
                     </div>
-                    <label class="col-sm-4 control-label">이메일</label>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" name="email">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
                     </div>
                 </div>
                 <div class="float-sm-left col-3">
                     <div class="row">
                         <div class="">
-                            <button type="button" class="btn btn-primary" id="findIdBtn" onclick="findIdCheck()" >아이디 찾기</button>
+                            <button type="button" class="btn btn-primary baminfont-Air" id="findIdBtn" onclick="findIdCheck()" style="font-size:1.2em">아이디 찾기</button>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -41,7 +39,8 @@
 
     </div>
         <p class="mb-1 ml-5 baminfont-Air" style="font-size: 1.1em">
-            <a href="#">아이디 찾기</a>|<a href="#"> 비밀번호 찾기</a>|<a href="<%=request.getContextPath()%>/signUp" class="text-center"> 회원가입</a>
+            <a href="<%=request.getContextPath()%>/findPassword" > 비밀번호 찾기</a>|
+            <a href="<%=request.getContextPath()%>/signUp" class="text-center"> 회원가입</a>
         </p>
     
 

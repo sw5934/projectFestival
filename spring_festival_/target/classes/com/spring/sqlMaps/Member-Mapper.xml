@@ -50,18 +50,24 @@
 		
 		
 		<!-- 로그인 -->
+		<select id="loginFailRecord" resultType="int">
+			select count(fail_cnt)
+			from login
+			where id=#{id}
+		</select>
+		
+		<update id="setLoginFailRecord">
+			insert
+			into login
+			values(#{id}, 0)
+		</update>
+		
 		<select id="loginFailSelect" resultType="int">
 			select fail_cnt
 			from login
 			where id=#{id}
 		</select>
-		
-		<update id="loginFailInsert">
-			insert
-			into login
-			values(#{id}, 1)
-		</update>
-		
+	
 		<update id="loginFailUpdate">
 			update login
 			set fail_cnt=fail_cnt+1
@@ -78,13 +84,19 @@
     	<!-- 회원 관리 -->
     	<update id="insertMember">
     		insert
-    		into member(id, pwd, name, nickName, tel, email, birth, sex, location as address, prt_Pattern as prtPattern, info_Status as infoStatus)
+    		into member(id, pwd, name, nickName, tel, email, birth, sex, location, prt_Pattern, info_Status)
     		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{address}, #{prtPattern}, #{infoStatus})
     	</update>	<!-- 세개는  결국 익스큐트업데이트로 가기때문에 구분이없다 -->
     
     	<update id="updateMember">
     		update member
     		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{address}, prt_Pattern=#{prtPattern}, info_Status=#{infoStatus}
+    		where id=#{id}
+    	</update>
+    	
+    	<update id="newPassword">
+    		update member
+    		set pwd=#{pwd}
     		where id=#{id}
     	</update>
     	

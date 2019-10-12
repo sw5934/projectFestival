@@ -26,12 +26,12 @@ public interface ReviewDAO {
 	
 	public int getUnqSeqNextValue() throws SQLException;
 	
-	public int getLikeCount(int unq_id) throws SQLException;
+	public int getLikeCount(int unq_Id) throws SQLException;
 	
-	public int getLikeHistory(String id, int unq_id) throws SQLException;
+	public int getLikeHistory(String id, int unq_Id) throws SQLException;
 	
-	public void addLike(String id, int unq_id) throws SQLException;
+	public void addLike(String id, int unq_Id) throws SQLException;
 	
-	public void deleteLike(String id, int unq_id) throws SQLException;
+	public void deleteLike(String id, int unq_Id) throws SQLException;
 
 }

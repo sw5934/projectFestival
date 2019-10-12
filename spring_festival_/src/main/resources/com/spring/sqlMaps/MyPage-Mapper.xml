@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+    
+<mapper namespace="MyPage-Mapper">
+
+	<select id="reviewBoard" resultType="reviewTogether">
+		select distinct rno "bno", r_title "title", to_date(to_char(r_regDate, 'yy-mm-dd')) "regDate", r_writer "writer", unq_id "unq_id"
+		from brd_review
+		where r_writer=#{str}
+		order by rno desc
+	</select>
+	
+	
+	<select id="myReviewTotalCount" resultType="int">
+		select distinct count(*)
+		from brd_review
+		where r_writer=#{str}
+	</select>
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+	<select id="togetherBoard" resultType="reviewTogether">
+		select distinct tno "bno", t_title "title", to_date(to_char(t_regDate, 'yy-mm-dd')) "regDate", t_writer "writer", unq_id "unq_id"
+		from brd_together
+		where t_writer=#{str}
+		order by tno desc		
+	</select>
+	<select id="myTogetherTotalCount" resultType="int">
+		select distinct count(*)
+		from brd_together
+		where t_writer=#{str}
+	</select>
+	
+	
+<!-- ///////////////////////////////////////////////////////////////// -->
+	<select id="reviewComments" resultType="int">
+		select distinct count(*)
+		from comments c
+		where c.unq_id=${unq_id}
+		and c.unq_id != 0
+	</select>
+	
+	<select id="togetherComments" resultType="int">
+		select distinct count(*)
+		from comments c
+		where c.unq_id=${unq_id}
+		and c.unq_id != 0
+	</select>
+<!-- //////////////////////////////////////////////////////////////////////// -->
+	<select id="commentsBoard" resultType="commentsBoard">
+		select type as category,unq_id,bno,title,contents "COMMENT",id as writer,regdate       
+        from totalcomments
+        where id=#{str}
+        order by regdate
+	</select>
+	
+	<select id="commentsTotalCount" resultType="int">
+		select count(*)       
+        from totalcomments
+        where id=#{str}
+	</select>
+
+
+	<!-- 해시태그는 일대다 관계이므로 따로 호출해서 서비스에서 붙여줘야함. fno에 맞는 해시태그 '리스트'를 불러오는 쿼리 추가 작성하여 적용시킬것. -->
+	<select id="holdingList" resultType="holding">
+		select bf.f_title "title", bf.unq_id "unq_id", m.id "id"
+		from member m,brd_festival bf
+		where m.id = #{str}
+		and m.id = bf.f_writer
+	</select>
+
+
+
+	<select id="holdingTotalCount" resultType="int">
+		select distinct count(*)
+		from member m,brd_festival bf
+		where m.id = #{str}
+		and m.id = bf.f_writer
+	</select>
+
+
+
+	<select id="holdingCommentsCount" resultType="int">
+		select distinct count(*)
+		from brd_festival bf, comments c
+		where bf.unq_id = #{unq_id}
+		and bf.unq_id = c.unq_id
+	</select>
+</mapper>
+    
