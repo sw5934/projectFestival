@@ -84,13 +84,13 @@
     	<!-- 회원 관리 -->
     	<update id="insertMember">
     		insert
-    		into member(id, pwd, name, nickName, tel, email, birth, sex, location, prt_Pattern, info_Status)
-    		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{address}, #{prtPattern}, #{infoStatus})
+    		into member(id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern, info_Status)
+    		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{location1}, #{location2}, #{prtPattern}, #{infoStatus})
     	</update>	<!-- 세개는  결국 익스큐트업데이트로 가기때문에 구분이없다 -->
     
     	<update id="updateMember">
     		update member
-    		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location=#{address}, prt_Pattern=#{prtPattern}, info_Status=#{infoStatus}
+    		set pwd=#{pwd}, nickName=#{nickName}, tel=#{tel}, location1=#{location1}, location2=#{location2},  prt_Pattern=#{prtPattern}, info_Status=#{infoStatus}
     		where id=#{id}
     	</update>
     	

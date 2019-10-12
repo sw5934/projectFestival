@@ -18,7 +18,7 @@
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findID">ID/PW찾기</a>
                     </c:if>
                     <c:if test="${loginUser!=null}">
-                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logout">로그아웃</a>
                         <a class="nav-link float-sm-right"><b>${loginUser.nickName }</b>&nbsp;<span>님 어서 오세요</span></a>
                     </c:if>
                     </div>
@@ -64,6 +64,10 @@
                                         <c:if test="${loginUser!=null}">
                                         <li class="nav-item d-none d-sm-inline-block">
                                             <a class="nav-link" onClick="window.open('<%=request.getContextPath()%>/message/sendList', '마이 페이지', 'height=700,width=1000,resizable=0');">마이페이지</a>
+                                        </li></c:if>
+                                        <c:if test="${loginUser==null}">
+                                        <li class="nav-item d-none d-sm-inline-block">
+                                            <a class="nav-link" onClick="alert('로그인하세요.'); window.close();">마이페이지</a>
                                         </li></c:if>
                                     </ul>
                                 </nav>

@@ -8,10 +8,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.MemberVO;
 import com.spring.service.MemberService;
@@ -41,8 +45,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
-		if(loginUser.getId().equals(id))
-		{	
+		if(loginUser.getId().equals(id)) {
 			String birth = loginUser.getBirth()+"";
 			String year = birth.substring(0,4);
 			String month = birth.substring(4,6);
@@ -53,10 +56,87 @@ public class MemberController {
 			birthData.put("date", date);
 			model.addAttribute("loginUser",loginUser); 
 			model.addAttribute("birthData",birthData); 
-			return "/memInfo/myInfo";
+			return "/member/myInfo";
 		}
 		
 		else
 			return "redirect:main.htm";
 	}
+
+	@RequestMapping(value="/myInfoPwdConfirm",method=RequestMethod.GET)
+	public void myInfoPwdConfirmGET() throws SQLException {
+	}
+	@RequestMapping(value="/myInfoPwdConfirm",method=RequestMethod.POST)
+	public String myInfoPwdConfirmPOST(HttpServletRequest request,String pwd) throws SQLException {
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		String url = "redirect:/member/myInfo?id="+loginUser.getId();
+		
+		if(pwd.equals(loginUser.getPwd())) {
+			url = "redirect:/member/myInfoModify?id="+loginUser.getId();
+		}
+		
+		
+		return url;
+	}
+	
+	@RequestMapping(value="/myInfoModify", method=RequestMethod.GET)
+	public String myInfoModifyGET(Model model, String id, HttpServletRequest request) throws SQLException {
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		String birth = loginUser.getBirth()+"";
+		String year = birth.substring(0,4);
+		String month = birth.substring(4,6);
+		String date = birth.substring(6,8);
+		Map<String,String> birthData = new HashMap<String,String>();
+		birthData.put("year", year);
+		birthData.put("month", month);
+		birthData.put("date", date);
+		model.addAttribute("loginUser",loginUser);
+		model.addAttribute("birthData",birthData);
+		return "/member/myInfoModify";
+		
+	}
+	
+	@RequestMapping(value="/myInfoModify", method=RequestMethod.POST)
+	public String myInfoModifyPOST(Model model, MemberVO member, HttpServletRequest request) throws SQLException {
+		
+		memberService.modify(member);
+		
+		MemberVO loginUser = memberService.getMemberByID(member.getId());
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", loginUser);
+		
+		String birth = loginUser.getBirth()+"";
+		String year = birth.substring(0,4);
+		String month = birth.substring(4,6);
+		String date = birth.substring(6,8);
+		Map<String,String> birthData = new HashMap<String,String>();
+		birthData.put("year", year);
+		birthData.put("month", month);
+		birthData.put("date", date);
+		
+		model.addAttribute("loginUser",loginUser);
+		model.addAttribute("birthData",birthData);
+		
+		return "/member/myInfo";
+	}
+	
+	@RequestMapping(value = "/nickCheck.do", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,String>> signUpNickCheck(@RequestBody String nickName) throws Exception {
+		ResponseEntity<Map<String,String>> entity = null;
+		Map<String,String> data = new HashMap<String,String>();
+		
+		if(memberService.getMemberByNickName(nickName)==null) {
+			data.put("data", "사용 가능한 닉네임 입니다.");
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.OK);}
+		else {
+			data.put("data", "사용할 수 없는 닉네임 입니다.");
+			entity = new ResponseEntity<Map<String,String>>(data, HttpStatus.INTERNAL_SERVER_ERROR);}
+		System.out.println(entity);
+		return entity;
+	}
+	
 }
