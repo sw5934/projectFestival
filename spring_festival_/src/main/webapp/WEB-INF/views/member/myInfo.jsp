@@ -28,6 +28,11 @@
 <body>
 
 	<div class="card col-11 pt-3 pb-3" style="margin:0 auto; top:50px">
+		<div style="display:none;">
+			<input id="loginId" name="id" value="${loginUser.id}" />
+			<input id="loginName" name="name" value="${loginUser.name}" />
+			<input id="loginPwd" name="pwd" value="${loginUser.pwd}" />
+		</div>
 		<div class="col-12 float-sm-left">
 			<div class="col-3 float-sm-left baminfont-Air" style="font-size:1.2em">닉네임 </div>
 			<div class="col-9 float-sm-left">${loginUser.nickName}</div>
@@ -50,22 +55,27 @@
 		</div>
 		<div class="col-12 float-sm-left">
 			<div class="col-3 float-sm-left baminfont-Air" style="font-size:1.2em">지역 </div>
-			<div class="col-9 float-sm-left">${loginUser.address}</div>
+			<div class="col-9 float-sm-left">${loginUser.location1} &nbsp; ${loginUser.location2}</div>
 		</div>
 		<div class="col-12 float-sm-left">
 			<div class="col-3 float-sm-left baminfont-Air" style="font-size:1.2em">여행타입 </div>
-			<div class="col-9 float-sm-left">${loginUser.prtPattern }</div>
+			<div class="col-9 float-sm-left">${loginUser.prtPattern}</div>
 		</div>
 		<div class="col-12 float-sm-left">
 			<div class="col-3 float-sm-left baminfont-Air" style="font-size:1.2em">정보 공개 여부</div>
 			<div class="col-9 float-sm-left">
 				<c:if test="${loginUser.infoStatus==1 }">공개	</c:if>
-				<c:if test="${loginUser.infoStatus==2 }">비공개</c:if>
+				<c:if test="${loginUser.infoStatus==0 }">비공개</c:if>
 			</div> 
 		</div>
 	</div>
 		<div class="col-11" style="overflow:hidden;margin:0 auto; top:52px;"> 
-			<div class="col-2 float-sm-right baminfont-Air" style="border:1px solid #B9B9B9;font-weight:bold; font-size:1.3em; text-align:center;"> 수정 </div>
+			<%-- <div class="col-2 float-sm-right baminfont-Air" id="myModifyBtn" style="border:1px solid #B9B9B9;font-weight:bold; font-size:1.3em; text-align:center;" onclick="myModify(${loginUser.location1}, ${loginUser.prtPattern})">
+			<a href="<%=request.getContextPath() %>/member/myInfoPwdConfirm" >수정 </a></div> --%>
+			<button type="button" class="col-2 float-sm-right baminfont-Air" id="myModifyBtn" style="border:1px solid #B9B9B9;font-weight:bold; font-size:1.3em; text-align:center;" onclick="location.href='<%=request.getContextPath() %>/member/myInfoPwdConfirm' "> 수정 </button>
 		</div>
+
+
+<%@ include file="./myInfoModify_js.jsp" %>
 </body>
 </html>

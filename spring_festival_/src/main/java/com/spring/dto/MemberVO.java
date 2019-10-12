@@ -12,7 +12,8 @@ public class MemberVO {
 	private String email;
 	private int birth;
 	private String sex;
-	private String address;
+	private String location1;
+	private String location2;
 	private String prtPattern;
 	private int infoStatus;
 	
@@ -67,11 +68,17 @@ public class MemberVO {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public String getAddress() {
-		return address;
+	public String getLocation1() {
+		return location1;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setLocation1(String location1) {
+		this.location1 = location1;
+	}
+	public String getLocation2() {
+		return location2;
+	}
+	public void setLocation2(String location2) {
+		this.location2 = location2;
 	}
 	public String getPrtPattern() {
 		return prtPattern;
@@ -103,7 +110,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", nickName=" + nickName + ", tel=" + tel
-				+ ", email=" + email + ", birth=" + birth + ", sex=" + sex + ", address=" + address + ", prtPattern="
+				+ ", email=" + email + ", birth=" + birth + ", sex=" + sex + ", location1=" + location1 + ", location2=" + location2 + ", prtPattern="
 				+ prtPattern + ", infoStatus=" + infoStatus + ", authority=" + authority + ", failCnt=" + failCnt
 				+ "]";
 	}
