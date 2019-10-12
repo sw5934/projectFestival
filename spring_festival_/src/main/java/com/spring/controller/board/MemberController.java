@@ -101,14 +101,25 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/myInfoModify", method=RequestMethod.POST)
-	public String myInfoModifyPOST(MemberVO member, HttpServletRequest request) throws SQLException {
+	public String myInfoModifyPOST(Model model, MemberVO member, HttpServletRequest request) throws SQLException {
 		
 		memberService.modify(member);
 		
 		MemberVO loginUser = memberService.getMemberByID(member.getId());
-		
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", loginUser);
+		
+		String birth = loginUser.getBirth()+"";
+		String year = birth.substring(0,4);
+		String month = birth.substring(4,6);
+		String date = birth.substring(6,8);
+		Map<String,String> birthData = new HashMap<String,String>();
+		birthData.put("year", year);
+		birthData.put("month", month);
+		birthData.put("date", date);
+		
+		model.addAttribute("loginUser",loginUser);
+		model.addAttribute("birthData",birthData);
 		
 		return "/member/myInfo";
 	}

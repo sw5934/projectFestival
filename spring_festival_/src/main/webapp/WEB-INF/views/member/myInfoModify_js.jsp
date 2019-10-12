@@ -4,10 +4,7 @@
 
 <script>
 
-$('#myModifyBtn').click(function(location1, prtPattern) {
-	
-	
-});
+
 
 var nickchk = true;	// 닉네임 검사 실행 여뷰
 var inputnick = null;		// 닉네임 검사가 실시된 닉네임의 값
@@ -96,7 +93,7 @@ function onSubmit(url, form, method) {
 		form.action="<%=request.getContextPath()%>/"+url;
 		form.method=method;
 		form.submit();
-		
+		/* alert("loginUser : "+ ${loginUser.id}); */
 		session.setAttribute("loginUser", loginUser);
 	} else {
 		alert("다시 입력하세요.");

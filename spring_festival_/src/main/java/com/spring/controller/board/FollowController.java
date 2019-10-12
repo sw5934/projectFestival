@@ -79,7 +79,7 @@ public class FollowController {
 							HttpServletRequest request,
 							HttpServletResponse response) throws SQLException {
 		System.out.println("FollowController.f_write() 시작");
-		cri = new Second_Criteria(1,1,5);
+		cri = new Second_Criteria(1,1,3);
 		response.setContentType("text/html;charset=utf-8");
 		
 		
@@ -99,7 +99,7 @@ public class FollowController {
 		dataMap = followService.f_write(cri);
 		// Map = { "three_board_list" , " wantGoList", "wantGoPM", "threeBoardPM" }
 		
-		
+		System.out.println("!!!!!dataMap : "+dataMap.get("three_board_list").toString());
 		
 		
 		dataMap.put("dataMap", dataMap);
