@@ -74,6 +74,15 @@
     </div>   
     
     <div class="col-12 pl-5 pr-5">
+   	 <c:if test="${together.t_writer == loginUser.id }">
+    	<c:if test="${together.articleStatus == 1 }">
+    		<div>생년월일 : ${loginUser.birth }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 성별 : ${loginUser.sex }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 지역 : ${loginUser.location1 }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 성향 : ${loginUser.prtPattern }</div>
+		</c:if>	 
+		<c:if test="${together.articleStatus != 1 }">
+			<div></div>
+		</c:if>
+	 </c:if>  
+	  
 	    <div>${together.t_content }</div>
     </div>
     

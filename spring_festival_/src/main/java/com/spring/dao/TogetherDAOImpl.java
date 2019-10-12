@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.spring.controller.board.SearchCriteria;
+import com.spring.dto.MemberVO;
 import com.spring.dto.TogetherVO;
 
 public class TogetherDAOImpl implements TogetherDAO{
@@ -61,7 +62,7 @@ public class TogetherDAOImpl implements TogetherDAO{
 	@Override
 	public void increaseViewCnt(int tno) throws SQLException {
 		session.update("Together-Mapper.increaseViewCnt", tno);
-	}
+	}	
 
 	@Override
 	public int getSeqNextValue() throws SQLException {
@@ -82,5 +83,5 @@ public class TogetherDAOImpl implements TogetherDAO{
 		data.put("t_state", t_state);
 		session.update("Together-Mapper.deadLineTogether",data);
 	}
-
+	
 }

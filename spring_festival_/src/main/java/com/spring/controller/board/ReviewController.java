@@ -90,14 +90,12 @@ public class ReviewController {
 		
 				
 		File exist = new File(request.getServletContext().getRealPath("/resources/uploadImg/")+review.getId()+"\\"+unq_Id+".jpg");
-		System.out.println("exist:"+!(exist.exists()));
-		System.out.println(request.getServletContext().getRealPath("/resources/uploadImg/")+review.getId()+"\\"+unq_Id+".jpg");
 		if(!(exist.exists())) {
 			File path = new File(request.getServletContext().getRealPath("resources/uploadImg/")+review.getId());
 			
-			System.out.println("path:"+!(path.exists()));
 			if(!(path.exists())) {
 				path.mkdirs();}
+			
 			File newFile = new File(request.getServletContext().getRealPath("resources/images/defaultImg.jpg"));
 			
 			String thumbnailFileName = request.getServletContext().getRealPath("resources/uploadImg/")+review.getId() +  "\\"+unq_Id+".jpg";
@@ -122,9 +120,8 @@ public class ReviewController {
 				fos.close();
 			}			
 		}
-		review.setR_score(starInput);
-		System.out.println("000000" + review.getR_score());
 		
+		review.setR_score(starInput);
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		
@@ -138,20 +135,20 @@ public class ReviewController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public void detail(HttpServletRequest request,ReviewVO review, int rno, Model model, String page, String listSort,SearchCriteria cri) throws Exception {
+		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
 		Map<String, Object> dataMap = reviewService.read(rno, cri);
 		dataMap.put("listSort",listSort);
 		dataMap.put("page",page);
 		
 		int history = reviewService.getLikeHistory(loginUser.getId(), ((ReviewVO)dataMap.get("review")).getUnq_Id());
-		dataMap.put("history",history);
-		
+		dataMap.put("history",history);		
 		model.addAttribute("dataMap", dataMap);
+		
 		review.getR_score();
-		System.out.println("00000000000" + review.getR_score());
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "clickLike", method = RequestMethod.GET)	
 	public ResponseEntity<Integer> like(String id, String unq_Id)throws Exception{	
@@ -183,30 +180,6 @@ public class ReviewController {
 	public String modifyPOST(ReviewVO review, HttpServletRequest request,String listSort, String page, int starInput)
 			throws Exception {
 
-		// if(deleteFile != null) {
-		// //파일하나, db하나 for문으로 반복
-		// for(int a_no:deleteFile) {
-		//
-		// AttachVO attach = attachDAO.selectAttachByA_no(a_no);
-		//
-		// //파일지우기
-		// DeleteFileUtils.delete(uploadPath, attach);
-		//
-		// attachDAO.deleteAttach(a_no);
-		// }
-		// }
-		//
-		// List<AttachVO> attachList = new ArrayList<AttachVO>();
-		// if(uploadFile != null) {
-		// for(MultipartFile file : uploadFile) {
-		//
-		// AttachVO attach = UploadFileUtils.uploadFile(uploadPath,
-		// file.getOriginalFilename(), review.getUnq_Id(), file.getBytes());
-		//
-		// attachList.add(attach);
-		// }
-		// review.setAttachList(attachList);
-		// }
 		review.setR_score(starInput);
 		reviewService.modify(review);
 		
@@ -221,16 +194,7 @@ public class ReviewController {
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String removeReview(int rno) throws Exception {
 
-		/*
-		 * ReviewVO review = reviewService.getReview(rno);
-		 * 
-		 * List<AttachVO> attachList = review.getAttachList(); if(attachList != null) {
-		 * //파일하나, db하나 for문으로 반복 for(AttachVO attach : attachList) {
-		 * 
-		 * //파일지우기 DeleteFileUtils.delete(uploadPath, attach);
-		 * 
-		 * //DB지우기 attachDAO.deleteAttach(attach.getA_no()); } }
-		 */
+		
 		reviewService.remove(rno);
 		return "redirect:list";
 	}

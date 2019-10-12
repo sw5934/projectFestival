@@ -9,7 +9,7 @@
 <!-- 글등록 내용 스마트에디터 적용 -->
 $('#t_content').summernote({	
 	height:200,
-	placeholder:"1000자는 넘기지 말자^^",
+	placeholder:"1000자 이내로 내용을 입력해 주세요.",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],
@@ -91,7 +91,15 @@ function deleteFile(src){
 		}
 	});
 }
-
+/* $(document).ready(function(){
+	$('#infoPublic').click(function(){
+		var radioVal = $('input[name="infoStatus"]:checked').val();
+		alert(radioVal);
+		});
+	$('#infoPrivate').click(function(){
+		$('input[name="infoPrivate"]').val(['0']);
+		});	
+}); */
 
 $('#registBtn').on('click',function(e){
 	alert("등록버튼 클릭");
@@ -115,6 +123,15 @@ $('#registBtn').on('click',function(e){
 			return;
 		}
 		
+		$('#infoPublic').click(function(){
+			var radioVal = $('input[name="infoStatus"]:checked').val('${loginUser.location1}');
+			alert(radioVal);
+			});
+		$('#infoPrivate').click(function(){
+			$('input[name="infoPrivate"]').val([""]);
+			});	
+		
+		
 		onSubmit('${category}',document.registForm,'togetherRegist','post');
 });
 
@@ -127,4 +144,10 @@ $("input").on('keyup',function(e){
 		$(this).removeClass("is-invalid");
 	}
 });
+
+
+
+
+ 
+
 </script>

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.spring.controller.board.SearchCriteria;
+import com.spring.dto.MemberVO;
 import com.spring.dto.TogetherVO;
 
 public interface TogetherDAO {
@@ -19,12 +20,13 @@ public interface TogetherDAO {
 	
 	public void deleteTogether(int tno) throws SQLException;
 	
-	public void increaseViewCnt(int tno) throws SQLException;
+	public void increaseViewCnt(int tno) throws SQLException;	
 	
 	public int getSeqNextValue() throws SQLException;
 	
 	public int getUnqSeqNextValue() throws SQLException;	
 
 	public void deadLineTogether(String tno, String t_state) throws SQLException;
-
+		
+	
 }
