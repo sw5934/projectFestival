@@ -77,13 +77,6 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		reviewDAO.insertReview(review);		
 		
-	/*	List<AttachVO> attachList = review.getAttachList();
-		if(attachList !=null) {
-			for(AttachVO attach:attachList) {
-				attach.setUnqId(unqId);			
-				attachDAO.insertAttach(attach);				
-			}
-		}*/
 	}
 
 	@Override
