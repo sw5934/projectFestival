@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="reviewList" value="${dataMap.reviewList }" />
+<c:set var="togetherList" value="${dataMap.togetherlist }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="listSort" value="${dataMap.listSort }" />
 <c:set var="page" value="${dataMap.page }" />
@@ -18,13 +18,13 @@
 <head>
    
     <meta charset="UTF-8">
-    <title>축제 게시판</title>
+    <title>같이가요 게시판</title>
 </head>
 
 <body>
 
  <style>
-        .reviewHeaderSort {
+        .togetherHeaderSort {
             font-family: bamin-hanna-Pro;
             font-size: 1.4em;
             text-align: center;
@@ -49,7 +49,7 @@
             text-decoration: none;
         }
 
-        .reviewRegist {
+        .togetherRegist {
             font-family: bamin-hanna-Pro;
             font-size: 1.2em;
             line-height: inherit;
@@ -66,49 +66,52 @@
     
     
     <div class="box pt-3 col-10" style="left: 0px; right: 0px; margin-left:auto; margin-right:auto;">
-        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; padding: 0px">후기 게시판
-        
-        ${Date}
-
-</a>
+        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; padding: 0px">같이가요 게시판</a>
     </div>
-    <div class="col-10 mt-3 reviewHeader" style="overflow: hidden; margin: 0 auto;"> 
+    <div class="col-10 mt-3 togetherHeader" style="overflow: hidden; margin: 0 auto;">
         <!-- 정렬 이벤트, 글 작성 이벤트 넣기 -->
-         <div class="float-sm-left col-6 mt-1 p-0">
-            <button id="newBtn" class="reviewRegist ml-2" onclick="location.href='reviewRegist'">글 작성</button></div>
-        <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=rno">최신 일자</a></div>
-        <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=r_viewcnt">조회 수</a></div>
-        <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=r_like">좋아요</a></div>
+         <div class="float-sm-left col-8 mt-1 p-0">
+            <button id="newBtn" class="togetherRegist ml-2" onclick="location.href='togetherRegist'">글 작성</button></div>
+        <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=tno">최신 일자</a></div>
+        <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=t_viewcnt">조회 수</a></div>
     </div>
     <table class="mt-5 col-10" style=" margin: 0 auto;">
-        <c:if test="${empty reviewList }">
+        <c:if test="${empty togetherList }">
             <tr>
                 <td colspan="5" class="text-center">
                     <strong>해당 내용이 없습니다.</strong>
                 </td>
             </tr>
         </c:if>
-        <c:if test="${!empty reviewList }">
-            <c:forEach items="${reviewList }" var="review">
+        
+        <c:if test="${!empty togetherList }">
+            <c:forEach items="${togetherList }" var="together">
                 <tr style="border-bottom: 0px solid black;">
-                    <td style="width: 7%;  text-align: center">${review.rno }</td>
-                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/${review.id }/${review.unq_Id }.jpg" style="width:93px;height:70px"></td>
-                    <td style="width: 56%;"> 
-                        <a href="detail?rno=${review.rno }&listSort=${listSort}&page=${page}">
-                        	<c:if test="${review.newCount == 2}"><span style="font-weight: bold;" >${review.r_title }&nbsp;&nbsp;<img src="<%=request.getContextPath()%>/resources/images/newArticle.png" style="width:30px;height:auto;"></span></c:if>
-                    		<c:if test="${review.newCount != 2}"><span>${review.r_title }</span></c:if>
-                    	                        
-                        <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
+                    <td style="width: 7%;  text-align: center">${together.tno }</td>
+                    
+                   <c:if test="${together.t_state == 1 }">
+                    	<td style="width: 16%;  text-align: center; font-weight: bold">[모집중]</td>
+                   </c:if>
+                   <c:if test="${together.t_state == 2 }">
+                   	 <td style="width: 16%;  text-align: center; font-weight: bold; color: red;">[마감]</td>
+                    </c:if>
+                    <td style="width: 56%;">
+                     <c:set var="t_regDate" value="${together.t_regDate}" />                     
+                        <a href="detail?tno=${together.tno }&listSort=${listSort}&page=${page}">
+                        	<c:if test="${together.newCount == 2}"><span style="font-weight: bold;" >${together.t_title }&nbsp;&nbsp;<img src="<%=request.getContextPath()%>/resources/images/newArticle.png" style="width:30px;height:auto;"></span></c:if>
+                    		<c:if test="${together.newCount != 2}"><span>${together.t_title }</span></c:if>
+                    	
+                        <c:if test="${together.commentcount>0}">[${together.commentcount }]</c:if></a>
                         <p>
-                           <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/>&emsp;
-                         ${review.nickname }</p>
+                           <fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;
+                         ${together.nickname }</p>
                     </td>
                     <td style=";width: 25%">
-                        <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
-                            <p>　좋아요　${review.r_like }</p>
-                        </span>
+                        <%-- <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
+                            <p>　좋아요　${together.r_like }</p>
+                        </span> --%>
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/view.png" style="width: 10%; float: left">
-                            <p>　조회수　${review.r_viewcnt }</p>
+                            <p>　조회수　${together.t_viewcnt }</p>
                         </span>
                     </td>
                 </tr>

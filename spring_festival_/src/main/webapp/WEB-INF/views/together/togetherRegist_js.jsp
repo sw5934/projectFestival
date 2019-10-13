@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote-bs4.css">
 <script>
 <!-- 글등록 내용 스마트에디터 적용 -->
-$('#r_content').summernote({	
+$('#t_content').summernote({	
 	height:200,
-	placeholder:"내용을 작성하세요",
+	placeholder:"1000자 이내로 내용을 입력해 주세요.",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],
@@ -73,13 +73,13 @@ function deleteFile(src){
 			console.log(resp);
 		}
 	});
-}
+} 
 
-function sendFile(file, el){
+ function sendFile(file, el){
 	var form_data = new FormData();
 	form_data.append("file", file);
 	form_data.append("id", "${loginUser.id}");
-	form_data.append("unq_Id","${review.unq_Id}");
+	form_data.append("unq_Id","${together.unq_Id}");
 	$.ajax({
 		data: form_data,
 		type: "POST",
@@ -91,7 +91,15 @@ function sendFile(file, el){
 		}
 	});
 }
-
+/* $(document).ready(function(){
+	$('#infoPublic').click(function(){
+		var radioVal = $('input[name="infoStatus"]:checked').val();
+		alert(radioVal);
+		});
+	$('#infoPrivate').click(function(){
+		$('input[name="infoPrivate"]').val(['0']);
+		});	
+}); */
 
 $('#registBtn').on('click',function(e){
 	alert("등록버튼 클릭");
@@ -101,12 +109,12 @@ $('#registBtn').on('click',function(e){
 		/*  */
 		for(var i=0;i<form.elements.length;i++){
 			var input =form.elements[i];
-			if(input.name == "title" || input.name == "content"){
+			if(input.name == "제목" || input.name == "내용"){
 				if(input.value == ""){
 					$(input).addClass("is-invalid");
 					alert(input.name+"은 필수입니다.")
 					return;
-				}			
+				}		
 			}
 		}
 		
@@ -115,7 +123,16 @@ $('#registBtn').on('click',function(e){
 			return;
 		}
 		
-		onSubmit('${category}',document.registForm,'reviewRegist','post');
+		$('#infoPublic').click(function(){
+			var radioVal = $('input[name="infoStatus"]:checked').val('${loginUser.location1}');
+			alert(radioVal);
+			});
+		$('#infoPrivate').click(function(){
+			$('input[name="infoPrivate"]').val([""]);
+			});	
+		
+		
+		onSubmit('${category}',document.registForm,'togetherRegist','post');
 });
 
 $("#cancelBtn").click(function(){
@@ -127,4 +144,10 @@ $("input").on('keyup',function(e){
 		$(this).removeClass("is-invalid");
 	}
 });
+
+
+
+
+ 
+
 </script>

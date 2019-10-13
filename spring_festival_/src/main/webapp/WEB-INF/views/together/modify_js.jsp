@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 
-
 <!-- summernote -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote-bs4.css">
+
 <script>
 <!-- 글등록 내용 스마트에디터 적용 -->
-$('#r_content').summernote({	
+$('#t_content').summernote({	
 	height:200,
-	placeholder:"내용을 작성하세요",
+	placeholder:"1000자는 넘기지 말자^^",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],
@@ -45,7 +45,6 @@ $('#r_content').summernote({
 	});
 
 
-
 /* onSubmit */
 
 function onSubmit(category, form, url, method) {
@@ -59,7 +58,6 @@ function onSubmit(category, form, url, method) {
 	form.method=method;
 	form.submit();
 }
-
 function deleteFile(src){
 
 	var splitSrc = src.split("/");
@@ -79,7 +77,6 @@ function sendFile(file, el){
 	var form_data = new FormData();
 	form_data.append("file", file);
 	form_data.append("id", "${loginUser.id}");
-	form_data.append("unq_Id","${review.unq_Id}");
 	$.ajax({
 		data: form_data,
 		type: "POST",
@@ -93,7 +90,8 @@ function sendFile(file, el){
 }
 
 
-$('#registBtn').on('click',function(e){
+
+$('#modifyBtn').on('click',function(e){
 	alert("등록버튼 클릭");
 	var form = document.registForm;
 	
@@ -115,7 +113,7 @@ $('#registBtn').on('click',function(e){
 			return;
 		}
 		
-		onSubmit('${category}',document.registForm,'reviewRegist','post');
+		onSubmit('${category}',document.registForm,'modify','post');
 });
 
 $("#cancelBtn").click(function(){

@@ -15,7 +15,6 @@
   		<typeAlias type="com.spring.dto.VoteVO" alias="vote"/>
   		<typeAlias type="com.spring.dto.ReviewVO" alias="review"/>
   		<typeAlias type="com.spring.dto.ReviewAndTogetherVO" alias="reviewTogether"/>
-  		<typeAlias type="com.spring.dto.AttachVO" alias="attach"/>
   		<typeAlias type="com.spring.dto.CommentsVO" alias="comments"/>
   		<typeAlias type="com.spring.dto.TogetherVO" alias="together"/>
   		<typeAlias type="com.spring.dto.LikeVO" alias="like"/>

@@ -24,8 +24,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="reviewDAO" class="com.spring.dao.ReviewDAOImpl"
 		p:session-ref="sqlSession"/>
-	<bean id="attachDAO" class="com.spring.dao.AttachDAOImpl"
-		p:session-ref="sqlSession"/>	
+	<bean id="togetherDAO" class="com.spring.dao.TogetherDAOImpl"
+		p:session-ref="sqlSession"/>		
 	<bean id="commentsDAO" class="com.spring.dao.CommentsDAOImpl"
 		p:session-ref="sqlSession"/>	
 	<bean id="messageDAO" class="com.spring.dao.MessageDAOImpl"
@@ -53,7 +53,9 @@
 		  />
 	<bean id="reviewService" class="com.spring.service.ReviewServiceImpl"
 		p:reviewDAO-ref="reviewDAO"
-		p:attachDAO-ref="attachDAO"
+		p:commentsDAO-ref="commentsDAO"/>
+	<bean id="togetherService" class="com.spring.service.TogetherServiceImpl"
+		p:togetherDAO-ref="togetherDAO"
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="commentsService" class="com.spring.service.CommentsServiceImpl"
 		p:commentsDAO-ref="commentsDAO"/>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="review" value="${dataMap.review }" />
+<c:set var="together" value="${dataMap.together }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <!DOCTYPE html>
 <html>
@@ -12,13 +12,13 @@
 <head>
    
     <meta charset="UTF-8">
-    <title>축제 게시판</title>
+    <title>같이가요</title>
 </head>
 
 <body>
 
- <style>
-        .reviewHeaderSort {
+<style>
+        .togetherHeaderSort {
             font-family: bamin-hanna-Pro;
             font-size: 1.4em;
             text-align: center;
@@ -43,7 +43,7 @@
             text-decoration: none;
         }
 
-        .reviewRegist {
+        .togetherRegist {
             font-family: bamin-hanna-Pro;
             font-size: 1.2em;
             line-height: inherit;
@@ -56,7 +56,7 @@
             border-collapse: separate;
             border-spacing: 0 10px;
         }
-    </style>
+</style>
     
     
     
@@ -64,41 +64,38 @@
    
     <div class="mt-3 col-10" style="margin:0 auto">
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-3">${review.rno}</div>
-	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3">${review.id }</div>
-	    	
+	    <div class="float-sm-left col-3">${together.tno}</div>
+	    <div class="float-sm-left col-6">${together.t_title }</div>
+	    <div class="float-sm-left col-3">${together.t_writer }</div>
     </div>
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-9">${review.r_title }</div>
-	    <div class="float-sm-left col-3">
-	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
-    </div>
-    
-    <div class="col-12" style="overflow:hidden;">
-	    <a class="float-sm-right" id="score">평점 : </a>
-    </div>
-    
+	    <div class="float-sm-left col-9">${together.t_title }</div>
+	    <div class="float-sm-left col-3">${together.t_regDate }</div>
+    </div>   
     
     <div class="col-12 pl-5 pr-5">
-	    <div>${review.r_content }</div>
+   	 <c:if test="${together.t_writer == loginUser.id }">
+    	<c:if test="${together.articleStatus == 1 }">
+    		<div>생년월일 : ${loginUser.birth }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 성별 : ${loginUser.sex }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 지역 : ${loginUser.location1 }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 성향 : ${loginUser.prtPattern }</div>
+		</c:if>	 
+		<c:if test="${together.articleStatus != 1 }">
+			<div></div>
+		</c:if>
+	 </c:if>  
+	  
+	    <div>${together.t_content }</div>
     </div>
     
     
     <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
 	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-1">
-	   			<c:if test="${review.id != null }">
-	   				<c:if test="${dataMap.history==0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/unlike1.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<c:if test="${dataMap.history!=0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
-	   			</c:if>
-	   		</div>	   		
-	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
+	   		<c:if test="${loginUser.id eq together.t_writer }">
+	   			<a class="float-sm-left col-1" id="deadlineBtn" style="cursor: pointer;" onclick="onDeadline()"
+	   			 href="<%=request.getContextPath()%>/together/deadLine?t_state=${together.t_state}&tno=${together.tno}&listSort=${dataMap.listSort}&page=${dataMap.page}"
+	   			><img src="<%=request.getContextPath()%>/resources/images/deadLine${together.t_state}.png"></a>
+	   		</c:if>
+	   		
+	  		<div class="float-sm-left col-1">신고</div>	    	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
 	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
     	
@@ -110,19 +107,19 @@
 					<div class="card-header">
 						<div class="box box-success">
 							<div class="box-header">
-								<h3 class="box-title">ADD NEW REPLY</h3>
+								<h3 class="box-title">댓글목록</h3>
 							</div>
 							<div class="box-body">
 								<input class="form-control" type="hidden"
 										id="newC_Writer" value="chun@naver.com">
-								<label for="newC_Content">Comments Text</label>
-								<input class="form-control" type="text" placeholder="COMMENTS TEXT"
+								<label for="newC_Content">댓글 달기</label>
+								<input class="form-control" type="text" placeholder="댓글을 입력하세요."
 										id="newC_Content">
 							</div>
 							<div class="box-footer">
 								<br/>
 								<button type="button" class="btn btn-primary"
-										id="commentsAddBtn">ADD REPLY</button>
+										id="commentsAddBtn">댓글 추가</button>
 							</div>
 						</div>
 					</div>
@@ -131,7 +128,7 @@
 						<ul class="timeline color-palette-set">
 							<!-- timeline time label -->
 							<li class="bg-green color-palette row" id="commentsDiv">
-								<span class="col-sm-12">Comments List</span>
+								<span class="col-sm-12">댓글 목록</span>
 							</li>
 
 						</ul>
@@ -149,16 +146,20 @@
 
 
 <script>
+
+
 function onModify(){ 
-	if("${loginUser.id eq review.id }"){
-	self.location.href="<%=request.getContextPath()%>/review/modify?rno=${review.rno}&listSort=${dataMap.listSort}&page=${dataMap.page}";
-	return;}
+	if("${loginUser.id eq together.t_writer }"){
+	self.location.href="<%=request.getContextPath()%>/together/modify?tno=${together.tno}&listSort=${dataMap.listSort}&page=${dataMap.page}";
+	return;
+	}
 	alert("수정할 수 없습니다.")
 }
 function onRemove(){
-	if("${loginUser.id eq review.id }"){
-	self.location.href="<%=request.getContextPath()%>/review/remove?rno=${review.rno}";	
-	return;}
+	if("${loginUser.id eq together.t_writer }"){
+	self.location.href="<%=request.getContextPath()%>/together/remove?tno=${together.tno}";	
+	return;
+	}
 	alert("삭제할 수 없습니다.")
 }
 </script>

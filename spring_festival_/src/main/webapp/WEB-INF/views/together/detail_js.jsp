@@ -18,8 +18,6 @@
     <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
-<a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
-  
   </span>
   <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
   <div class="timeline-body">{{c_content}}</div>
@@ -28,33 +26,7 @@
 </script>
 
 <script>
-/* 좋아요 버튼 */
-function like_update(){
-	
-	$.ajax({
-		url : "<%=request.getContextPath()%>/review/clickLike?unq_Id=${review.unq_Id}&id=${loginUser.id}",
-		type : "GET",
-		success: function(history){
-			if(history==0){
-				alert("좋아요가 반영되었습니다.");
-
-				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)+1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like1.png');
-				
-			}else{
-
-				alert("좋아요가 취소되었습니다.");
-
-				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)-1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike1.png');
-				
-			}
-		},
-		error: function(error){
-			
-		}
-	});
-	}
+/* 목록가기 */
 
 
  
@@ -99,7 +71,7 @@ function onSubmit(category, form, url, method) {
 		});
 	}
 
-	getPage("<%=request.getContextPath()%>/comments/${review.unq_Id}/"+commentsPage);
+	getPage("<%=request.getContextPath()%>/comments/${together.unq_Id}/"+commentsPage);
 
 	//comments pagination
 	var printPaging = function(pageMaker, target){
@@ -122,7 +94,7 @@ function onSubmit(category, form, url, method) {
 	$('.pagination').on('click','li a',function(event){
 		event.preventDefault();
 		commentsPage=$(this).attr("href");
-		getPage("<%=request.getContextPath()%>/comments/${review.unq_Id}/"+commentsPage);
+		getPage("<%=request.getContextPath()%>/comments/${together.unq_Id}/"+commentsPage);
 	});
 
 	$('#commentsAddBtn').on('click', function(e){
@@ -140,7 +112,7 @@ function onSubmit(category, form, url, method) {
 			return;
 		}
 		var data={
-				"unq_Id":"${review.unq_Id}",
+				"unq_Id":"${together.unq_Id}",
 				"c_writer":c_writer,
 				"c_content":c_content
 		}
@@ -154,7 +126,7 @@ function onSubmit(category, form, url, method) {
 			success:function(data){
 				if(data=="SUCCESS"){
 					alert('댓글이 등록되었습니다.');
-					getPage("<%=request.getContextPath()%>/comments/${review.unq_Id}/"+commentsPage);
+					getPage("<%=request.getContextPath()%>/comments/${together.unq_Id}/"+commentsPage);
 					$('#newC_Content').val("");
 				}else{
 					alert('댓글 등록이 취소되었습니다.');
@@ -264,7 +236,7 @@ function onSubmit(category, form, url, method) {
 			success:function(result){
 				if(result=="SUCCESS"){
 					alert("삭제되었읍니다.");
-					getPage("<%=request.getContextPath()%>/comments/${review.unq_Id}/"+commentsPage);
+					getPage("<%=request.getContextPath()%>/comments/${together.unq_Id}/"+commentsPage);
 				}
 			},
 			error:function(error){
@@ -275,15 +247,5 @@ function onSubmit(category, form, url, method) {
 			}
 		});
 	});
-		// 별점표시
-		function scoreDraw(){
-			var scoreStar = "";
-			for(var i = 0; i<${review.r_score};i++)
-				scoreStar += "★";
-			for(var i = 5; i>${review.r_score};i--)
-				 scoreStar += "☆";
-			$('#score').append("<a>"+scoreStar+"</a>");
-		}
-		scoreDraw();
 	
 </script>

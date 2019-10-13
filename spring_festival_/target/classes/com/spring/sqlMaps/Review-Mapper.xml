@@ -86,9 +86,9 @@
 	<update id="insertReview" parameterType="review">
 		insert
 		into
-		brd_review(unq_id, rno, r_title, r_writer, r_content, r_regDate, r_viewcnt, r_score,f_no)
+		brd_review(unq_id, rno, r_title, r_writer, r_content, r_regDate, r_viewcnt, r_score, f_no, nickname)
 		values
-		(#{unq_Id}, brd_review_seq.nextval, #{r_title}, #{id}, #{r_content}, sysdate, 0, 3, null)
+		(three_board_seq.nextval, brd_review_seq.nextval, #{r_title}, #{id}, #{r_content}, sysdate, 0, #{r_score}, null, #{nickname})
 	</update>
 	
 	<!--  -->
@@ -96,7 +96,7 @@
 		update
 		brd_review
 		set
-		r_title=#{r_title}, r_content=#{r_content}
+		r_title=#{r_title}, r_content=#{r_content}, r_score=#{r_score}
 		where rno=#{rno}
 	</update>
 	

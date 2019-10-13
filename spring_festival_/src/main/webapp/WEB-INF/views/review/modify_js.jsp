@@ -9,7 +9,7 @@
 <!-- 글등록 내용 스마트에디터 적용 -->
 $('#r_content').summernote({	
 	height:200,
-	placeholder:"1000자는 넘기지 말자^^",
+	placeholder:"1000자 내외로 내용을 입력하세요",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],
@@ -109,7 +109,7 @@ $('#modifyBtn').on('click',function(e){
 		}
 		
 		if(form.content.value.length>1000){
-			alert("글자수가 1000자를 초과할 수 없업");
+			alert("글자수가 1000자를 초과할 수 없습니다.");
 			return;
 		}
 		

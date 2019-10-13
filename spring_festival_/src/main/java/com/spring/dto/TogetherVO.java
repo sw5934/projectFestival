@@ -9,14 +9,19 @@ public class TogetherVO {
 	private String t_writer;
 	private String t_content;
 	private Date t_regDate;
-	private int t_state;
+	private int t_state;						//마감상태
 	private int t_viewcnt;
 	private int f_no;
 	private int unq_Id;
 	private String nickname;
+	private int articleStatus;					//글정보공개여부
+	private int newCount = 1;
 	
+	private List<MemberVO> memberList;
+	private List<AttachVO> attachList;
 	private List<CommentsVO> commentsList;
 	private int commentcount;
+	
 	public int getTno() {
 		return tno;
 	}
@@ -40,7 +45,7 @@ public class TogetherVO {
 	}
 	public void setT_content(String t_content) {
 		this.t_content = t_content;
-	}
+	}	
 	public Date getT_regDate() {
 		return t_regDate;
 	}
@@ -52,7 +57,7 @@ public class TogetherVO {
 	}
 	public void setT_state(int t_state) {
 		this.t_state = t_state;
-	}
+	}	
 	public int getT_viewcnt() {
 		return t_viewcnt;
 	}
@@ -76,6 +81,24 @@ public class TogetherVO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}					
+	public int getArticleStatus() {
+		return articleStatus;
+	}	
+	public int getNewCount() {
+		return newCount;
+	}
+	public void setNewCount(int newCount) {
+		this.newCount = newCount;
+	}
+	public void setArticleStatus(int articleStatus) {
+		this.articleStatus = articleStatus;
+	}
+	public List<MemberVO> getMemberList() {
+		return memberList;
+	}
+	public void setMemberList(List<MemberVO> memberList) {
+		this.memberList = memberList;
 	}
 	public List<CommentsVO> getCommentsList() {
 		return commentsList;
@@ -88,13 +111,20 @@ public class TogetherVO {
 	}
 	public void setCommentcount(int commentcount) {
 		this.commentcount = commentcount;
+	}	
+	public List<AttachVO> getAttachList() {
+		return attachList;
+	}
+	public void setAttachList(List<AttachVO> attachList) {
+		this.attachList = attachList;
 	}
 	@Override
 	public String toString() {
 		return "TogetherVO [tno=" + tno + ", t_title=" + t_title + ", t_writer=" + t_writer + ", t_content=" + t_content
 				+ ", t_regDate=" + t_regDate + ", t_state=" + t_state + ", t_viewcnt=" + t_viewcnt + ", f_no=" + f_no
-				+ ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", commentsList=" + commentsList + ", commentcount="
-				+ commentcount + "]";
+				+ ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", articleStatus=" + articleStatus + ", newCount="
+				+ newCount + ", memberList=" + memberList + ", attachList=" + attachList + ", commentsList="
+				+ commentsList + ", commentcount=" + commentcount + "]";
 	}
 	
 	
