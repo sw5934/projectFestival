@@ -52,6 +52,8 @@ public class ReviewController {
 
 				
 		try {
+			if (cri.getSearchType().equals(""))
+				cri.setSearchType("tcw");
 			if (listSort == null)
 				listSort = "rno";
 			if (page == null)
@@ -63,6 +65,7 @@ public class ReviewController {
 			dataMap.put("page",page);
 
 			model.addAttribute("dataMap", dataMap);
+			model.addAttribute("cri", cri);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

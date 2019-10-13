@@ -46,6 +46,8 @@ public class TogetherController {
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public void listTogether(SearchCriteria cri, Model model, String listSort, String page)throws Exception{
 		try {
+			if(cri.getSearchType().equals(""))
+				cri.setSearchType("tcw");
 			if(listSort == null)
 				listSort = "tno";
 			if(page == null)
@@ -56,6 +58,7 @@ public class TogetherController {
 			
 			dataMap.put("listSort", listSort);
 			dataMap.put("page", page);
+			dataMap.put("cri", cri);
 			
 			model.addAttribute("dataMap", dataMap);
 		} catch (Exception e) {

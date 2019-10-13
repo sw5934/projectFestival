@@ -75,6 +75,21 @@
         <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=tno">최신 일자</a></div>
         <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=t_viewcnt">조회 수</a></div>
     </div>
+    
+    
+    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/together/list" method="get">
+	    <select name="searchType">
+	    	<option value="tcw" <c:if test='${cri.searchType =="tcw"}'>selected</c:if> >전체 </option>
+	    	<option value="title" <c:if test='${cri.searchType =="title"}'>selected</c:if> >제목 </option>
+	    	<option value="contents" <c:if test='${cri.searchType =="contents"}'>selected</c:if> >내용 </option>
+	    	<option value="tc" <c:if test='${cri.searchType =="tc"}'>selected</c:if> >제목+내용 </option>
+	    	<option value="festival" <c:if test='${cri.searchType =="festival"}'>selected</c:if> >축제명 </option>
+	    	<option value="writer" <c:if test='${cri.searchType =="writer"}'>selected</c:if> >작성자 </option>
+	    </select>
+    	<input type="text" name="keyword" value="${cri.keyword }">
+    	<button type="button" onclick="$('#listForm').submit()">검색</button>
+    </form>
+    
     <table class="mt-5 col-10" style=" margin: 0 auto;">
         <c:if test="${empty togetherList }">
             <tr>
