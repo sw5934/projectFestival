@@ -142,18 +142,6 @@ public class FestivalServiceImpl implements FestivalService{
 		return festivalDAO.selectFestivalSeqNext();
 	}
 
-	@Override
-	public void doReportFestival(String reporter, int unq_id) throws SQLException {
-		reportDAO.doReport(reporter, unq_id);
-		
-	}
-
-	@Override
-	public void doReportComments(String reporter, int c_no) throws SQLException {
-		reportDAO.deleteReportComment(c_no);
-		
-	}
-
 	public List<ReviewVO> getReviewList(int fno) throws SQLException{
 		return festivalDAO.selectReviewListByfno(fno);
 	}

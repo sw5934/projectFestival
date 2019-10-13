@@ -37,10 +37,6 @@ public interface FestivalService {
 	
 	public int getFestivalSeqNext() throws SQLException;
 	
-	public void doReportFestival(String reporter, int unq_id) throws SQLException;
-	
-	public void doReportComments(String reporter, int c_no) throws SQLException;
-	
 	public List<ReviewVO> getReviewList(int fno) throws SQLException;
 	
 	public List<TogetherVO> getTogetherList(int fno) throws SQLException;
