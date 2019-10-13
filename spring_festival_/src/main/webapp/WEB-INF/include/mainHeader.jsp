@@ -63,7 +63,7 @@
                                             <a href="<%=request.getContextPath() %>/review/list" class="nav-link">후기게시판</a>
                                         </li>
                                         <li class="nav-item d-none d-sm-inline-block">
-                                            <a href="#" class="nav-link">같이가요</a>
+                                            <a href="<%=request.getContextPath() %>/together/list" class="nav-link">같이가요</a>
                                         </li>
                                     </ul>
                                 </nav>
