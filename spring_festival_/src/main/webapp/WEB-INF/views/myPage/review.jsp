@@ -42,15 +42,15 @@
                 <h3 class="card-title">나의 리뷰(후기) 목록</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-condensed">
+              <div class="card-body" style="width:700px">
+                <table class="table table-condensed" > <!-- border="solid 1px black" -->
                 
                 
                   <thead>                  
                     <tr  align="center">
-                      <th style="width: 40px">글 번호</th>
-                      <th style="width: 40px">제  목</th>
-                      <th style="width: 40px">작성일자</th>
+                      <th>글 번호</th>
+                      <th>제  목</th>
+                      <th>작성일자</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -64,9 +64,13 @@
 						<c:if test="${!empty reviewList }">
 							<c:forEach items="${reviewList }" var="rList"> <!--  begin="0" end="10" step="1" -->
 				                    <tr  align="center">
-				                      	<td width="120px">${rList.rno}</td>
-				                      	<td width="300px">${rList.r_title}</td>
-				                      	<td width="200px">${rList.r_regDate}</td>
+				                      	<td width="100px" >${rList.bno}</td>
+				                      	<td width="400px"><a href='<%= request.getContextPath()%>/review/detail/?rno=${rList.bno }'>${rList.title}
+				                      	<c:if test="${rList.comments ne 0 }">
+				                      	(${rList.comments })
+				                      	</c:if>
+				                      	</a></td>
+				                      	<td width="100px">a${rList.regDate}</td>
 				                    </tr>
 			    			</c:forEach>
 			    		</c:if>
@@ -108,7 +112,7 @@
 										${pageMaker.makeQuery(pageMaker.endPage+1) }
 									</c:if>
 									<c:if test="${!pageMaker.next }">
-										${pageMaker.makeQuery(pageMaker.cri.page) }
+										${pageMaker.makeQuery(pageMaker.endPage) }
 									</c:if>
 								">&gt;</a>
 							</li>			

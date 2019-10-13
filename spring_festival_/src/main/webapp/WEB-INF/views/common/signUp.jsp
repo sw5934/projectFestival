@@ -29,43 +29,44 @@
   <div class="card">
     <div class="card-body register-card-body">
 
-      <form action="<%=request.getContextPath()%>/login" class="form-horizontal" method="post">
-        
+      <form name="signUpForm" id="signForm" action="signUp" class="form-horizontal" method="post" enctype="multipart/form-data">
         <div class="form-group row">
           <label class="col-sm-2 control-label">아이디</label>
           <div class="col-sm-8">
-            <input type="email" class="form-control" id="id" name="id">
+            <input type="text" class="form-control" id="id" name="id" onkeyup="idChecking()">
           </div>&nbsp;&nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" id="idCheckBtn">중복 확인</button>
+          <button type="button" class="btn btn-primary" id="idCheckBtn" disabled="disabled">중복 확인</button>
         </div>
         
-        <div class="form-group row">
+        <div class="form-group row"> 
           <label class="col-sm-2 control-label">비밀번호</label>
           <div class="col-sm-8">
-            <input type="password" class="form-control" id="pwd" name="pwd">
+            <input type="password" class="form-control" id="pwd" name="pwd" onkeyup="pwdChecking()">
+            <p id="pwdValid"></p>
           </div>
         </div>
         
         <div class="form-group row">
           <label class="col-sm-2 control-label">비밀번호 확인</label>
           <div class="col-sm-8">
-            <input type="password" class="form-control" id="pwdChk">
+            <input type="password" class="form-control" id="pwdConf" onkeyup="pwdConfChecking()">
+            <p id="pwdConfValid"></p>
           </div>
         </div>
         
         <div class="form-group row">
           <label class="col-sm-2 control-label">이름</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" onkeyup="nameChecking()">
           </div>
         </div>
         
         <div class="form-group row">
           <label class="col-sm-2 control-label">닉네임</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="nickName" name="nickName">
+            <input type="text" class="form-control" id="nickName" name="nickName" onkeyup="nickChecking()">
           </div>&nbsp;&nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" id="nickCheckBtn">중복 확인</button>
+          <button type="button" class="btn btn-primary" id="nickCheckBtn" disabled="disabled">중복 확인</button>
         </div>
         
         <div class="form-group row">
@@ -73,8 +74,8 @@
           <div class="col-sm-8">
             
             <select class="form-control" id="birthY" name="birthY">
-            	<c:forEach begin="0" end="${2019-1900 }" var="i">
-            	<c:set var="year" value="${2019-i} "/>
+            	<c:forEach begin="0" end="${2019-1900}" var="i">
+            	<c:set var="year" value="${2019-i}"/>
             		<option value="${year}">${year}</option>
             	</c:forEach>
             </select>
@@ -97,8 +98,8 @@
         <div class="form-group row">
           <label class="col-sm-2 control-label">성별</label>
           <div class="col-sm-8">
-            <select class="form-control" name="sex">
-            	<option>선택</option>
+            <select class="form-control" id="sex" name="sex">
+            	<option value="선택">선택</option>
             	<option value="남자">남자</option>
             	<option value="여자">여자</option>
             </select>
@@ -115,15 +116,20 @@
         <div class="form-group row">
           <label class="col-sm-2 control-label">이메일</label>
           <div class="col-sm-8">
-            <input type="email" class="form-control" id="email" name="email">
+            <input type="email" class="form-control" id="mailAddress" onkeyup="emailChecking()"></input>
+            <input type="hidden" id="realMail"  name="mailAddress" value=""></input>
           </div>&nbsp;&nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" id="emailConfirmBtn">인증</button>
+          <button type="button" class="btn btn-primary" id="emailCheckBtn" disabled="disabled"><div>인증</div></button>
+        </div>
+        <div id="emailValidDiv" style="display:none;">
+        	<input type="text" class="form-control" id="emailValid"></input>
+        	<button type="button" class="btn btn-primary" id="emailValidCheckBtn">확인</button>
         </div>
         
         <div class="form-group row">
           <label class="col-sm-2 control-label">지역</label>
           <div class="col-sm-8">
-            <select class="form-control" name="region">
+            <select class="form-control" id="location1" name="location1">
             	<option>선택</option>
             	<option value="서울특별시">서울특별시</option>
             	<option value="인천광역시">인천광역시</option>
@@ -140,9 +146,9 @@
             	<option value="전라북도">전라북도</option>
             	<option value="전라남도">전라남도</option>
             	<option value="경상북도">경상북도</option>
-            	<option value="경상남도">경상남도</option>
+            	<option value="경상남도">경상남도</option> 
             </select>
-            <input type="text" class="form-control" placeholder="세부 주소를 입력하세요">
+            <input type="text" class="form-control" placeholder="세부 주소를 입력하세요" id="location2" name="location2">
           </div>
         </div>
         
@@ -160,13 +166,21 @@
             </select>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">정보공개여부</label>
+          <div class="col-sm-8">
+            <input type="radio" id="infoPublic" name="infoStatus" value='1' checked="checked"> 동의 &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="infoPrivate" name="infoStatus" value='0'> 비동의
+          </div>
+        </div>
         
         <div class="">
-          <input type="submit" class="btn btn-info float-center">Sign in</input>
-          <input type="submit" class="btn btn-default float-center">Cancel</input>
+          
+       
         </div>
        </form>
-
+<button type="button" class="btn btn-info float-center" id="submit" onClick="signUpCheck()">Sign in</button>
+       <button type="button" class="btn btn-default float-center">Cancel</button>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

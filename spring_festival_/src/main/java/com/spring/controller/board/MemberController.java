@@ -40,7 +40,7 @@ public class MemberController {
 		System.out.println("MemberController.memInfo(),   pwd="+pwd);
 
 		
-		MemberVO memberVO = memberService.getMember(id);
+		MemberVO memberVO = memberService.getMemberByID(id);
 		System.out.println("MemberController.memInfo(),   memberVO = " + memberVO);
 		
 		

@@ -46,11 +46,11 @@
 	
 	<!-- 팔로워가 작성한 3개 게시판의 모든 글들을 출력한다 -->
 	<select id="followBoard" resultType="followBoard">
-		select distinct '축제' "boardType", fe.F_TITLE "title", m.nickName "nickName", to_date(to_char(bf.F_REGDATE, 'yy-mm-dd')) "writeDate", bf.fno "bno"
+		select distinct '축제' "boardType", bf.F_TITLE "title", m.nickName "nickName", to_date(to_char(bf.F_REGDATE, 'yy-mm-dd')) "writeDate", bf.fno "bno"
 		from (select distinct follow
 		      from follow fo
-		      where fo.id=#{str}) fo, member m, brd_festival bf, festival fe
-		where fo.follow = m.id and bf.f_writer = fo.follow and bf.f_no = fe.f_no
+		      where fo.id=#{str}) fo, member m, brd_festival bf
+		where fo.follow = m.id and bf.f_writer = fo.follow
 		
 		union
 		
@@ -73,17 +73,17 @@
 	
 	<!-- 팔로워가 작성한 3개 게시판의 모든 글들의 갯수를 카운트한다. -->
 	<select id="f_WriteTotalCount" resultType="int">
-		select count(*)
+		select distinct count(*)
 		from (
-			select distinct '축제' "boardType", fe.F_TITLE "title", m.nickName "nickName", to_date(to_char(bf.F_REGDATE, 'yy-mm-dd')) "writeDate"
+			select distinct '축제' "boardType", bf.F_TITLE "title", m.nickName "nickName", to_date(to_char(bf.F_REGDATE, 'yy-mm-dd')) "writeDate", bf.fno "bno"
 			from (select distinct follow
 			      from follow fo
-			      where fo.id=#{str}) fo, member m, brd_festival bf, festival fe
-			where fo.follow = m.id and bf.f_writer = fo.follow and bf.f_no = fe.f_no
+			      where fo.id=#{str}) fo, member m, brd_festival bf
+			where fo.follow = m.id and bf.f_writer = fo.follow
 			
 			union
 			
-			select distinct '후기' "boardType", br.R_TITLE "title", m.nickName "nickName", to_date(to_char(br.r_REGDATE, 'yy-mm-dd')) "writeDate"
+			select distinct '후기' "boardType", br.R_TITLE "title", m.nickName "nickName", to_date(to_char(br.r_REGDATE, 'yy-mm-dd')) "writeDate", br.rno "bno"
 			from (select distinct follow
 			      from follow fo
 			      where fo.id=#{str}) fo, member m, brd_review br
@@ -91,7 +91,7 @@
 			
 			union
 			
-			select distinct '같이가요' "boardType", bt.t_TITLE "title", m.nickName "nickName", to_date(to_char(bt.t_REGDATE, 'yy-mm-dd')) "writeDate"
+			select distinct '같이가요' "boardType", bt.t_TITLE "title", m.nickName "nickName", to_date(to_char(bt.t_REGDATE, 'yy-mm-dd')) "writeDate", bt.tno "bno"
 			from (select distinct follow
 			      from follow fo
 			      where fo.id=#{str}) fo, member m, brd_together bt
@@ -107,27 +107,27 @@
 	<!-- 팔로워가 작성한 같이가요 게시판의 모든 글들을 출력한다. -->
 	
 	<select id="followWantGo" resultType="followBoard">
-		select distinct '가고싶어요' "boardType", bf.F_CONTENT "title", bf.nickName "nickName", to_date(to_char(v.chkdate, 'yy-mm-dd')) "writeDate"
-		from (select follow
-		      from follow
-		      where id=#{str}) fo, vote v, member m, brd_festival bf
-		where fo.follow = v.id
-		and v.id = m.id
-		and m.nickName = bf.nickName
-		and v.f_seperate=1 <!-- 1:가고싶어요 2:다녀왔어요-->
+		select distinct '가고싶어요' "boardtype", fo.follow "nickName", bf.f_title "title", to_date(to_char(v.chkdate, 'yy-mm-dd')) "writeDate" 
+		from follow fo, member m, vote v, brd_festival bf
+		where fo.id = #{str}
+		and fo.follow = m.id
+		and fo.follow = v.id
+		and v.unq_id = bf.unq_id
+		and v.f_seperate = 1
 	</select>
 	
 	
 	<!-- 팔로워가 작성한 같이가요 게시판의 모든 글들의 갯수를 카운트한다. -->
 	<select id="f_WantGoTotalCount" resultType="int">
-		select count(*)
+		select distinct count(*)
 		from(
-			select distinct '가고싶어요' "boardType", bf.f_content "title", bf.nickName "nickName", to_date(to_char(bf.f_REGDATE,'yy-mm-dd')) "writeDate"
+			select distinct '가고싶어요' "boardtype", fo.follow "nickName", bf.f_title "title", to_date(to_char(v.chkdate, 'yy-mm-dd')) "writeDate" 
 			from follow fo, member m, vote v, brd_festival bf
-			where fo.id=#{str} and bf.unq_id=v.unq_id
-			and m.id=fo.follow
-			and fo.follow=v.id
-			and v.f_seperate=1 <!-- 1:가고싶어요 2:다녀왔어요-->
+			where fo.id = #{str}
+			and fo.follow = m.id
+			and fo.follow = v.id
+			and v.unq_id = bf.unq_id
+			and v.f_seperate = 1
 		)
 	</select>
 	

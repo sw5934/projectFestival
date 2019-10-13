@@ -16,20 +16,20 @@ import com.spring.service.CommentsService;
 
 @RestController
 @RequestMapping("/comments")
-public class CommnetsController {
+public class CommentsController {
 	
 	@Autowired
 	private CommentsService service;
 	
-	@RequestMapping(value = "/{unq_id}/{page}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("unq_id") int unq_id, @PathVariable("page") int page) throws Exception{
+	@RequestMapping(value = "/{unq_Id}/{page}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("unq_Id") int unq_Id, @PathVariable("page") int page) throws Exception{
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		Criteria cri = new Criteria();
 		cri.setPage(page);
 		
 		try {
-			Map<String, Object> dataMap = service.getCommentsList(unq_id, cri);
+			Map<String, Object> dataMap = service.getCommentsList(unq_Id, cri);
 			
 			entity = new ResponseEntity<Map<String,Object>>(dataMap, HttpStatus.OK);
 		} catch (Exception e) {
@@ -41,13 +41,13 @@ public class CommnetsController {
 	}
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody CommentsVO comments) throws Exception{
+	public ResponseEntity<String> register(@RequestBody CommentsVO comments, String unq_Id) throws Exception{
 		
 		ResponseEntity<String> entity = null;
-		
 		try {
 			service.registComments(comments);
-			entity = new ResponseEntity<String>("SUCESS", HttpStatus.OK);
+			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -81,7 +81,7 @@ public class CommnetsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		}		
 		return entity;
 	}
 

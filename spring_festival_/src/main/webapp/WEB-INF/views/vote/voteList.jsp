@@ -15,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>가고싶어요 / 다녀왔어요</title>
+  <title>가고싶어요 / 다녀왔어요!</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -33,17 +33,16 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-
+<a id="hlist" href=""></a>
 <div class="wrapper">
 		<div class="col-md-6">
-            <div class="card">
+            <div class="card" style="width:800px">
               <div class="card-header">
-                <h3 class="card-title">가고 싶어요 , 총 ${wantGoPM.totalCount}개 중 ${ wantGoList.size() }개 출력</h3>
+                <h3 class="card-title">!가고 싶어요 , 총 ${wantGoPM.totalCount}개 중 ${ wantGoList.size() }개 출력</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-condensed">
-                
+              <div class="card-body" style="width:800px">
+                <table class="table table-condensed" border="1px solid black" width="700px">
                 
                   <thead>                  
                     <tr  align="center">
@@ -66,10 +65,10 @@
 			                    <c:if test="${vl.f_seperate==1 }"><!-- 1:가고싶어요 -->
 				                    <tr  align="center">
 				                      <td>${vl.unq_id}</td>
-				                      <td align="left">${vl.f_content}</td>
+				                      <td align="left">${vl.f_title}</td>
 				                      <td>${vl.chkdate}</td>
 				                      <td><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
-				                    </tr  align="center">
+				                    </tr>
 				                </c:if>
 			    			</c:forEach>
 			    		</c:if>
@@ -80,24 +79,31 @@
 
 
 
-					<div class="card-footer clearfix"  >
+					<div class="card-footer clearfix"  style="sidth:800px">
 						<div class="text-center">															
 						<ul class="pagination pagination-sm m-0 float-right"> 							
 							<li class="page-item">
 								<!-- 제일 첫번째 페이지로 이동하기 위한 href이다. makeQuery()를 통해 url을 반환받고, 클릭시 수행된다. -->
 								<input type="button" value="&lt;&lt;" class="page-link" 
-									onclick="pageMove(1, 'wantGo' )"/>
+									onclick="pageMove(1, 'VwantGo' )"/>
 							</li>
 							
 							<li class="page-item">
 								<input type="button" value="&lt;" class="page-link" 
-									onclick='pageMove(${wantGoPM.startPage-1 }, "wantGo")'/>
+									onclick='
+									<c:if test="${wantGoPM.next }">
+									pageMove(${wantGoPM.endPage+1 }, "VwantGo")
+									</c:if>
+									<c:if test="${!wantGoPM.next }">
+									pageMove(${wantGoPM.cri.second_page }, "VwantGo" )
+									</c:if>
+									'/>
 							</li>
 							<c:forEach begin="${wantGoPM.startPage }" 
 							           end="${wantGoPM.endPage }" var="pageNum">
-							<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>"`>
+							<li class="page-item <c:out value="${wantGoPM.cri.first_page == pageNum ?'active':''}"/>"`>
 							 <input type="button" id="followedBtn" value="${pageNum }"
-									 class="page-link" onclick="pageMove($(this).val(), 'wantGo')"/>
+									 class="page-link" onclick="pageMove($(this).val(), 'VwantGo')"/>
 							</li>
 							</c:forEach>	
 							
@@ -105,18 +111,18 @@
 							<li class="page-item">
 								<input type="button" value="&gt;" class="page-link" 
 									onclick='
-									<c:if test="${wantGoPM.next }">
-									pageMove(${wantGoPM.endPage+1 }, "wantGo")
+									<c:if test="${wantGoPM.prev }">
+									pageMove(${wantGoPM.startPage-1 }, "VwantGo")
 									</c:if>
-									<c:if test="${!wantGoPM.next }">
-									pageMove(${wantGoPM.cri.second_page }, "wantGo" )
+									<c:if test="${!wantGoPM.prev }">
+									pageMove(${wantGoPM.startPage }, "VwantGo" )
 									</c:if>
 									'/>
 							</li>			
 							
 							<li class="page-item">
 								<input type="button" value="&gt;&gt;" class="page-link" 
-									onclick='pageMove(${wantGoPM.realEndPage},"wantGo")'/>
+									onclick='pageMove(${wantGoPM.realEndPage},"VwantGo")'/>
 							</li>
 					
 						</ul>
@@ -128,18 +134,18 @@
             
 <!-- //////////////////////////////////////////////////////////////////////////////////////// -->
             
-           <div class="card">
+           <div class="card" style="width:800px">
               <div class="card-header">
                 <h3 class="card-title">다녀왔어요 ,  총 ${goAndBackPM.totalCount}개 중 ${ goAndBackList.size() }개 출력</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-condensed">
+              <div class="card-body" style="width:800px">
+                <table class="table table-condensed" border="solid 1px black" width="700px">
                 
                 
                   <thead>                  
                     <tr  align="center">
-                      <th style="width: 100px">번호</th>
+                      <th style="width: 100px">번호!</th>
                       <th>축제 이름</th>
                       <th>저장일시</th>
                       <th style="width: 90px">취소</th>
@@ -158,7 +164,7 @@
 								<c:if test="${vl.f_seperate==2 }">
 				                    <tr  align="center">
 				                      <td>${vl.unq_id}</td>
-				                      <td align="left">${vl.f_content}</td>
+				                      <td align="left">${vl.f_title}</td>
 				                      <td>${vl.chkdate}</td>
 				                      <td><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
 				                    </tr  align="center">
@@ -187,7 +193,14 @@
 							
 							<li class="page-item">
 								<input type="button" value="&lt;" class="page-link" 
-									onclick='pageMove(${goAndBackPM.startPage-1 }, "goAndBack")'/>
+									onclick='
+										<c:if test="${goAndBackPM.prev }">
+									pageMove(${goAndBackPM.startPage-1 }, "goAndBack")
+									</c:if>
+									<c:if test="${!goAndBackPM.prev }">
+									pageMove(${goAndBackPM.startPage }, "goAndBack" )
+									</c:if>
+									'/>
 							</li>
 							<c:forEach begin="${goAndBackPM.startPage }" 
 							           end="${goAndBackPM.endPage }" var="pageNum">
@@ -240,16 +253,16 @@
    		alert('클릭 타입 : '+type); 
    		
    		
-   		if (type=='follow') { // 클릭한 페이지가 follow라면 follow는 클릭한 페이지를,  followed는 기존 페이지를 로딩한다.
-   				alert('if == follow');
-   				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+click_page
+   		if (type=='VwantGo') { // 클릭한 페이지가 follow라면 follow는 클릭한 페이지를,  followed는 기존 페이지를 로딩한다.
+   				alert('if == VwantGo');
+   				var varUrl='<%= request.getContextPath()%>/vote/voteList/?first_page='+click_page
 				+'&second_page='+goAndBack_now_page
 				+'&perPageNum=5';
-		} else if(type=='followed') {
-				alert('if == followed');
-				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+wantGo_now_page
-				+'&second_page='+click_page
-				+'&perPageNum=5';
+		} else if(type=='goAndBack') {
+			alert('if == goAndBack');
+			var varUrl='<%= request.getContextPath()%>/vote/voteList/?first_page='+wantGo_now_page
+			+'&second_page='+click_page
+			+'&perPageNum=5';
 		}
    	
    		$("#hlist").attr("href", varUrl);
@@ -261,11 +274,12 @@
   
   
   	function unVote(id, u_id) {
+  		<%-- 
   		alert('deleteVote 버튼을 클릭하셨습니다.');
   		alert('<%= request.getContextPath()%>');
   		alert('id = ' + id);
   		alert('u_id = ' + u_id);
-		
+ 		--%>
   		
   		var data = {id:id, u_id:u_id};
   		

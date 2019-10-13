@@ -1,0 +1,27 @@
+http://localhost/festival/common/memInfoCall => member/memInfo      [ 완성도 : 100% ]
+ : 로그인 => 로그인한 회원의 정보출력
+ 
+http://localhost/festival/follow/followList      [ 완성도 : 100% ]
+ : 내가 팔로우한 사람, 나를 팔로우한 사람 목록 출력 + 삭제기능 + 2중 페이징 기능
+
+http://localhost/festival/follow/f_write      [ 완성도 : 100% ]
+ : 나의 팔로워들이 게시판(3개)에 작성한 모든 글 출력 + 2중 페이징 기능
+ : 나의 팔로워들이 '가고싶어요'에 작성한 모든 글 출력 + 2중 페이징 기능
+
+http://localhost/festival/vote/voteList      [ 완성도 : 100% ]
+ : 나의 '가고싶어요/다녀왔어요'에 작성한 모든 글 출력 + 삭제기능 + 2중 페이징 기능
+
+http://localhost/festival/myPage/review      [ 완성도 : 100% ]
+ : 마이페이지 나의 리뷰(후기)게시판에 작성한 모든 글 출력 + 페이징기능
+
+http://localhost/festival/myPage/together      [ 완성도 : 100% ]
+ : 마이페이지 나의 '같이가요' 게시판에 작성한 모든 글 출력 + 페이징기능
+
+http://localhost/festival/myPage/comments	[ 완성도 : 80% ]
+ : 마이페이지 내가 게시판에 작성한 모든 댓글 리스트업 + 페이징기능 + 원문으로 링크는 후기글만 구현(축제, 같이가요 글에 대한 링크는 미완성)
+
+http://localhost/festival/myPage/holding		[ 완성도 : 100% ]
+ : 개최자의 마이페이지 - 개최자가 작성한 축제 글 리스트업 + 페이징기능 + 원문으로 링크 구현 
+ 
+http://http://localhost/festival/myPage/authoritySet		[ 완성도 : 90% ]
+ : 관리자의 회원 권한 설정 기능

@@ -17,19 +17,19 @@ public class CommentsDAOImpl implements CommentsDAO {
 	}
 
 	@Override
-	public List<CommentsVO> selectCommentsListPage(int unq_id, Criteria cri) throws SQLException {
+	public List<CommentsVO> selectCommentsListPage(int unq_Id, Criteria cri) throws SQLException {
 		int offset = cri.getPageStartRowNum();
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<CommentsVO> commentsList = session.selectList("Comments-Mapper.selectCommentsList", unq_id, rowBounds);
+		List<CommentsVO> commentsList = session.selectList("Comments-Mapper.selectCommentsList", unq_Id, rowBounds);
 		
 		return commentsList;
 	}
 
 	@Override
-	public int countComments(int unq_id) throws SQLException {
-		int count = session.selectOne("Comments-Mapper.countComments",unq_id);
+	public int countComments(int unq_Id) throws SQLException {
+		int count = session.selectOne("Comments-Mapper.countComments",unq_Id);
 		return count;
 	}
 
@@ -45,7 +45,7 @@ public class CommentsDAOImpl implements CommentsDAO {
 
 	@Override
 	public void deleteComments(int cno) throws SQLException {
-		session.update("Comments-Mapper.deletComments",cno);		
+		session.update("Comments-Mapper.deleteComments",cno);		
 	}
 
 }

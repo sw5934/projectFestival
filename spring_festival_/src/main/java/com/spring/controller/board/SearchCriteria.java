@@ -7,7 +7,6 @@ public class SearchCriteria extends Criteria {
 	private String listSort;
 	
 	
-	
 	public SearchCriteria() {
 		this("","","new");
 	}

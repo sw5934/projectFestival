@@ -29,24 +29,24 @@
 	<bean id="commentsDAO" class="com.spring.dao.CommentsDAOImpl"
 		p:session-ref="sqlSession"/>	
 	<bean id="messageDAO" class="com.spring.dao.MessageDAOImpl"
+		p:session-ref="sqlSession"/>	
+	<bean id="reportDAO" class="com.spring.dao.ReportDAOImpl"
 		p:session-ref="sqlSession"/>
-	<bean id="voteDAO" 
-		  class="com.spring.dao.VoteDAOImpl"
-		  p:session-ref="sqlSession" 
-		  />
-	<bean id="followDAO" 
-		  class="com.spring.dao.FollowDAOImpl"
-		  p:session-ref="sqlSession" 
-		  />
-	<bean id="boardDAO" 
-		  class="com.spring.dao.BoardDAOImpl"
-		  p:session-ref="sqlSession" 
-		  />	
+	<bean id="voteDAO" class="com.spring.dao.VoteDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="followDAO" class="com.spring.dao.FollowDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="myPageDAO" class="com.spring.dao.MyPageDAOImpl"
+		p:session-ref="sqlSession"/>
 		  
 		  
 	<!-- service -->	
 	<bean id="memberService"
 		  class="com.spring.service.MemberServiceImpl"
+		  p:memberDAO-ref="memberDAO"
+		  />
+	<bean id="mailService"
+		  class="com.spring.service.MailService"
 		  p:memberDAO-ref="memberDAO"
 		  />
 	<bean id="reviewService" class="com.spring.service.ReviewServiceImpl"
@@ -57,6 +57,9 @@
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="messageService" class="com.spring.service.MessageServiceImpl"
 		p:messageDAO-ref="messageDAO"/>
+	<bean id="manageService" class="com.spring.service.ManageServiceImpl"
+		p:reportDAO-ref="reportDAO"
+		p:memberDAO-ref="memberDAO"/>
 	
 	<bean id="voteService"
 		  class="com.spring.service.VoteServiceImpl"
@@ -66,8 +69,8 @@
 		  class="com.spring.service.FollowServiceImpl"
 		  p:followDAO-ref="followDAO"
 		  />
-	<bean id="boardService"
-		  class="com.spring.service.BoardServiceImpl"
-		  p:boardDAO-ref="boardDAO"
+	<bean id="myPageService"
+		  class="com.spring.service.MyPageServiceImpl"
+		  p:myPageDAO-ref="myPageDAO"
 		  />
 </beans>
