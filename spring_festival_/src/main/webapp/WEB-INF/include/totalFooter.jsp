@@ -23,10 +23,9 @@ function userBox(tar){
 	var afterData = "<div class='user_data' style='position:absolute;display:block;z-index:10;left:0px;top:22px;windth:100px;"+
 					"border:2px solid black'>"+
 					"<ul class='user_data_list m-0 p-0'>"+ 
-					"<li><a href=''>회원 정보 보기</a></li>"+
+					"<li><a style='cursor:pointer;' onclick=window.open('<%=request.getContextPath()%>/member/memInfo?nick="+tar.html()+"','마이페이지','height=700,width=1000,resizable=0')>회원 정보 보기</a></li>"+
 					"<li><a style='cursor:pointer;' onclick=window.open('<%=request.getContextPath()%>/message/sendMessage?m_sender_Nick="+tar.html()+"','마이페이지','height=700,width=1000,resizable=0')>쪽지 보내기</a></li>"+ 
 					"<li><a href=''>작성글 보기</a></li>"+
-					"<li><a href=''>팔로우</a></li>"+
 					"<li><a style='cursor:pointer;' onclick="+"$('.user_data').remove()"+">닫기</a></li>"+ 
 					"</ul>"+
 					"</div>";
@@ -36,7 +35,7 @@ function userBox(tar){
 }
 </script>
 
-
+ onclick="location.href='<%=request.getContextPath() %>/member/follow?me=${loginUser.id}&follow=${member.id}'"
 
 
 

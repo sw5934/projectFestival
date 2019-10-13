@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.MemberVO;
+import com.spring.service.FollowService;
 import com.spring.service.MemberService;
 
 
@@ -26,6 +28,9 @@ import com.spring.service.MemberService;
 public class MemberController {
 	@Resource(name="memberService")
 	private MemberService memberService;
+	
+	@Autowired
+	private FollowService followService;
 	
 
 	@ModelAttribute("category")
@@ -40,7 +45,7 @@ public class MemberController {
 	
 	// 회원 본인의 마이페이지 회원정보 조회 // 닉네임 , 연락처, 이메일, 생년월일, 성별, 지역, 여행타입, 정보공개여부
 	@RequestMapping("/myInfo")
-	public String myInfo(Model model, String id,HttpServletRequest request) throws SQLException {
+	public String myInfo(Model model,String id,HttpServletRequest request) throws SQLException {
 
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -62,6 +67,48 @@ public class MemberController {
 		else
 			return "redirect:main.htm";
 	}
+	
+
+	@RequestMapping(value="/memInfo", method=RequestMethod.GET)
+	public String memInfo(Model model,String nick,HttpServletRequest request) throws SQLException {
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		System.out.println(nick);
+		
+		MemberVO member = memberService.getMemberByNickName(nick);
+		
+		System.out.println(member.toString());
+		
+		System.out.println("loginUser.getId()="+loginUser.getId());
+
+		
+		
+		
+		
+		if(followService.checkFollow(loginUser.getId(), member.getId())==0) {
+			model.addAttribute("followRecord", 0);
+		}else {
+			model.addAttribute("followRecord", 1);
+		}
+		
+	
+			String birth = member.getBirth()+"";
+			String year = birth.substring(0,4);
+			String month = birth.substring(4,6);
+			String date = birth.substring(6,8);
+			Map<String,String> birthData = new HashMap<String,String>();
+			birthData.put("year", year);
+			birthData.put("month", month);
+			birthData.put("date", date);
+			
+			model.addAttribute("otherPage",123);
+			model.addAttribute("member",member); 
+			model.addAttribute("birthData",birthData);
+			return "/member/memInfo";
+	}
+	
 
 	@RequestMapping(value="/myInfoPwdConfirm",method=RequestMethod.GET)
 	public void myInfoPwdConfirmGET() throws SQLException {

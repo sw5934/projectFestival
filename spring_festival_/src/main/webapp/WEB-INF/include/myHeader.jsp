@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
        
         
         .side-menu{
@@ -53,6 +54,14 @@
             </aside> 
             <div style="position: absolute;right:0px;width: 75%; height: 100%">
                 <div style="height: 26%">
-                    <p class="baminfont-my-title" style="cursor:pointer;" onClick='self.location.href="${request.getContextPath()}${categoryMain}"'>${loginUser.nickName} 님의 ${view}</p> 
+                
+                <c:if test="${otherPage!=null}">
+                	<p class="baminfont-my-title" style="cursor:pointer;" onClick='self.location.href="${request.getContextPath()}${categoryMain}"'>${member.nickName} 님의 ${view}</p> 
+                </c:if>
+                <c:if test="${otherPage==null}"> 
+                	<p class="baminfont-my-title" style="cursor:pointer;" onClick='self.location.href="${request.getContextPath()}${categoryMain}"'>${loginUser.nickName} 님의 ${view}</p> 
+                </c:if>
+                
+                
                 </div>
                 <div style="height: 70%">
