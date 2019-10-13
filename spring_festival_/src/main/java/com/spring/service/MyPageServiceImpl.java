@@ -9,8 +9,9 @@ import java.util.Map;
 import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.Second_Criteria;
 import com.spring.dao.MyPageDAO;
+import com.spring.dto.AuthSettingVO;
 import com.spring.dto.CommentsBoardVO;
-import com.spring.dto.HoldingVO;
+import com.spring.dto.MemSearchVO;
 import com.spring.dto.ReviewAndTogetherVO;
 
 public class MyPageServiceImpl implements MyPageService {
@@ -84,7 +85,7 @@ public class MyPageServiceImpl implements MyPageService {
 	public Map<String, Object> holdingList(Second_Criteria cri) throws SQLException {
 		Map<String, Object> dataMap = myPageDAO.holdingList(cri);
 		
-		int totalCount = myPageDAO.holdingTotalCount(cri);
+		int totalCount = myPageDAO.holdingTotalCount(cri); // ((List<String>)dataMap.get("holdingMap")).size();
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -92,6 +93,56 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		dataMap.put("pageMaker", pageMaker);
 		
+		
+		return dataMap;
+	}
+	
+	
+	@Override
+	public Map<String, Object> authSetting(Second_Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<AuthSettingVO> authSetList = new ArrayList<AuthSettingVO>();
+		
+		
+		
+		authSetList = myPageDAO.authSetting(cri);
+		
+		int totalCount = myPageDAO.authSetTotalCount(cri);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("authSetList", authSetList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		
+		return dataMap;
+	}
+	
+	
+	
+	public void authUpdate(Map<String, String> strMap) throws SQLException {
+		
+		myPageDAO.authUpdate(strMap);
+	}
+	
+	
+	
+	
+	public Map<String, Object> memSearch(Second_Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<MemSearchVO> memSearchList = new ArrayList<MemSearchVO>();
+		memSearchList = myPageDAO.memSearch(cri);
+		
+		int totalCount = myPageDAO.memSearchTotalCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		
+		dataMap.put("memSearchList", memSearchList);
 		
 		return dataMap;
 	}

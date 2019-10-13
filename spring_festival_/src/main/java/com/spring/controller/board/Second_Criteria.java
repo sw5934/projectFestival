@@ -6,10 +6,24 @@ public class Second_Criteria extends SearchCriteria {
 	private int first_page;			// "내가 팔로우한 사람들"에서 사용할 page
 	private int second_page;			// "나를 팔로우한 사람들"에서 사용할 page
 	private String str;
+	private String str2;
 	
 	
 	
-
+/*
+	public int getFirst_endPage() {
+		return first_endPage;
+	}
+	public void setFirst_endPage(int first_endPage) {
+		this.first_endPage = first_endPage;
+	}
+	public int getSecond_endPage() {
+		return second_endPage;
+	}
+	public void setSecond_endPage(int second_endPage) {
+		this.second_endPage = second_endPage;
+	}
+*/
 	public int getSecond_page() {
 		return second_page;
 	}
@@ -85,6 +99,12 @@ public class Second_Criteria extends SearchCriteria {
 		return "Second_Criteria.toString : [super.page=" + super.getPage() + ", super.perPageNum=" + super.getPerPageNum() + 
 						", first_page="+first_page+
 						", second_page="+second_page +"]";
+	}
+	public String getStr2() {
+		return str2;
+	}
+	public void setStr2(String str2) {
+		this.str2 = str2;
 	}
 	
 	

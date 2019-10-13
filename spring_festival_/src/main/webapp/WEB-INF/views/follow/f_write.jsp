@@ -48,7 +48,6 @@
 	<a class="baminfont-Pro" style="border-left:3px solid black; border-right:3px solid black; padding-left: 8px; padding-right: 8px; margin-left: 10px; color: black;">팔로워의 글</a></div>
 	<div style="height: 145px;">
 
-         <!-- /////////////////////////////////////////////////////////////////////////// -->
 		
 		<div style="margin:0px 15px 5px 15px;height: 116px;">
 			<table class="table-condensed" style="width:100%;">
@@ -242,9 +241,11 @@
    				// alert('if == threeBoard');
    				var varUrl='<%= request.getContextPath()%>/follow/f_write/?first_page='+click_page
 				+'&second_page='+wantGO_now_page
+
 				+'&perPageNum=3';
 		} else if(type=='wantGo') {
 				// alert('if == wantGo');
+				
 				var varUrl='<%= request.getContextPath()%>/follow/f_write/?first_page='+threeBoard_now_page
 				+'&second_page='+click_page
 				+'&perPageNum=3';

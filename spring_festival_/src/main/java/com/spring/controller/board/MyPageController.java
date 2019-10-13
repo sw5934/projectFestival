@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,6 +70,8 @@ public class MyPageController {
 		dataMap = ms.myTogetherList(cri);
 		// dataMap = { "myTogetherList", "pageMaer" }
 		
+		System.out.println(dataMap);
+		
 		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName("/myPage/together");
@@ -100,14 +105,17 @@ public class MyPageController {
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(2);
 		
 		Map<String, Object> dataMap = ms.holdingList(cri); 
 		// dataMap = { "holdingList", "pageMaker" }
 
 		model.addAttribute("dataMap", dataMap);
+		System.out.println("컨트롤러 : " + dataMap);
 
 		
 		return "/myPage/holding";
 	}
+	
+	
 }

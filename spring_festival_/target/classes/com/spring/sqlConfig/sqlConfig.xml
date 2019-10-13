@@ -25,6 +25,8 @@
   		<typeAlias type="com.spring.dto.HoldingVO" alias="holding"/>
   		<typeAlias type="com.spring.dto.FestivalVO" alias="festival"/>
   		<typeAlias type="com.spring.dto.HashTagVO" alias="hashTag"/>
+  		<typeAlias type="com.spring.dto.AuthSettingVO" alias="authSet"/>
+  		<typeAlias type="com.spring.dto.MemSearchVO" alias="memSearch"/>
   	</typeAliases>
   	
   </configuration>

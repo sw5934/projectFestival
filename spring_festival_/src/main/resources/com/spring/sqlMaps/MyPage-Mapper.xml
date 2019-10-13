@@ -5,6 +5,27 @@
    
     
 <mapper namespace="MyPage-Mapper">
+	<sql id="search">
+		<if test="searchType == 'i_id'.toString()">
+			and m.id like '%${str2}%'		
+		</if>
+		
+		<if test="searchType == 'i_name'.toString()">
+			and m.name like '%${str2}%'			
+		</if>
+		
+		<if test="searchType == 'i_nName'.toString()">
+			and m.nickName like '%${str2}%'			
+		</if>
+	</sql>
+
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
 
 	<select id="reviewBoard" resultType="reviewTogether">
 		select distinct rno "bno", r_title "title", to_date(to_char(r_regDate, 'yy-mm-dd')) "regDate", r_writer "writer", unq_id "unq_id"
@@ -69,6 +90,19 @@
 		where m.id = #{str}
 		and m.id = bf.f_writer
 	</select>
+	
+	
+	<select id="holdingTagList" resultType="str">
+		select distinct hs.hashtag "hashTag"
+		from member m, organization og, brd_festival bf, hashtag hs
+		where m.id = #{str}
+		and m.id = og.id
+		and og.id = bf.f_writer
+		and bf.fno = hs.fno
+		and bf.f_title = #{str2}
+	</select>
+	
+	
 
 
 
@@ -80,12 +114,103 @@
 	</select>
 
 
-
 	<select id="holdingCommentsCount" resultType="int">
 		select distinct count(*)
 		from brd_festival bf, comments c
 		where bf.unq_id = #{unq_id}
 		and bf.unq_id = c.unq_id
 	</select>
+	
+	
+	
+	
+	<!-- 모든 멤버들에 대한 권한 관련 정보들을 조회한다. -->
+	<!-- member(id), has_authority(id), blackList(id) -->
+	<select id="memAuthSet" resultType="authSet">
+		select m.id "id", m.name "name", m.sex "gender", m.email "email", m.tel "tel", m.nickName "nickName", MAX(ha.auth_no) "auth_no", au.authority "auth"
+		from member m, (select id ,MAX(AUTH_NO) as AUTH_NO from  has_authority ha group by(id)) ha, authority au
+		
+		where m.id = ha.id
+		<include refid="search"/>
+		and ha.auth_no = au.auth_no
+        group by (m.id , m.name , m.sex, m.email, m.tel , m.nickName, au.authority)
+	</select>
+	
+	
+	
+	<select id="authSetTotalCount" resultType="int">
+		select count(*)
+		from (
+			select m.id "id", m.name "name", m.sex "gender", m.email "email", m.tel "tel", m.nickName "nickName", ha.auth_no "auth_no", au.authority "auth"
+			from member m, has_authority ha, authority au
+			
+			where m.id = ha.id
+			and ha.auth_no = au.auth_no
+			<include refid="search"/>
+		)
+	</select>
+	
+	
+	<!-- 모든 회원들 중, 권한번호가 1(제재회원)에 해당하는 회원은 제재 기간을 조회한다. -->
+	<select id="searchBlackListRecord" resultType="int">
+			select count(*)
+			from blackList
+			where id=#{id}
+	</select>
+	
+	<select id="blackListPeriod" resultType="int">
+			select distinct (BK_ENDDATE - BK_STARTDATE) "제재기간"
+			from blackList
+			where id=#{id}
+	</select>
+	
+	
+	
+	
+	<update id="authUpdate">
+		insert into HAS_AUTHORITY
+		values(#{mem},#{authNo})
+	</update>
+	
+	<update id="deleteAuth">
+		delete from HAS_AUTHORITY
+		where id=#{mem}
+	</update>
+	
+	
+	
+	<update id="deleteBlackList">
+		delete from blacklist
+		where id=#{mem}
+	</update>
+	<update id="insertBlackList">
+		insert into blacklist
+		values(#{mem}, to_date(to_char(sysdate, 'yy-mm-dd')), sysdate+${period}, 'memo')
+	</update>
+
+
+	<!-- 
+	<select id="MemSearch" resultType="memSearch">
+		select m.id "id", m.name "name", m.sex "gender", m.nickName "nName", m.tel "tel", m.email "email", au.AUTHORITY "auth"
+		from member m, has_authority hs, authority au
+		where 
+		<include refid="search"/>
+		
+		and m.id = hs.id
+		and hs.auth_no = au.auth_no
+	</select>
+	
+	<select id="MemSearchTotalCount" resultType="int">
+		select distinct count(*)
+		from (
+			select m.id "id", m.name "name", m.sex "gender", m.nickName "nName", m.tel "tel", m.email "email", au.AUTHORITY "auth"
+			from member m, has_authority hs, authority au
+			where 
+			<include refid="search"/>
+			and m.id = hs.id
+			and hs.auth_no = au.auth_no
+		)
+	</select>
+	-->
 </mapper>
     

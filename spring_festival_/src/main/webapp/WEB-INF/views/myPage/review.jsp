@@ -71,7 +71,6 @@
 				</table>
             </div>
 		</div>
-
 		<div class="clearfix">
 			<div class="text-center">															
 				<ul class="pagination pagination-sm m-0" style="justify-content: center; margin-left: auto; margin-right: auto;">
@@ -114,7 +113,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

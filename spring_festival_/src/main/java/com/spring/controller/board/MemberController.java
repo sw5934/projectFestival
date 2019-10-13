@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.dto.MemberVO;
 import com.spring.service.FollowService;
 import com.spring.service.MemberService;
+import com.spring.service.MyPageService;
 
 
 @Controller
