@@ -13,5 +13,7 @@ public interface MyPageService {
 	public Map<String, Object> authSetting(Second_Criteria cri) throws SQLException;
 	public void authUpdate(Map<String, String> strMap) throws SQLException;
 	
+	
+	
 	public Map<String, Object> memSearch(Second_Criteria cri) throws SQLException;
 }

@@ -116,6 +116,7 @@ public class MyPageController {
 		cri.setPerPageNum(5);
 		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
 		dataMap = ms.authSetting(cri);
 		
 		model.addAttribute("dataMap", dataMap);
@@ -155,6 +156,35 @@ public class MyPageController {
 		
 		try {
 			responseEntity = new ResponseEntity(HttpStatus.OK);			
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+		
+		return responseEntity;
+	}
+
+
+	
+	
+	
+	
+	@RequestMapping("/memSearch")
+	public ResponseEntity<Map<String, Object>> memSearch(@RequestBody Map<String, String> strMap,
+			Second_Criteria cri, HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		ResponseEntity<Map<String, Object>> responseEntity = null;
+		
+		cri.setStr2(strMap.get("searchStr"));
+		cri.setSearchType(strMap.get("searchType"));
+		cri.setPerPageNum(10);
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		dataMap = ms.memSearch(cri);
+		
+		
+		try {
+			responseEntity = new ResponseEntity(dataMap, HttpStatus.OK);			
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 			e.printStackTrace();

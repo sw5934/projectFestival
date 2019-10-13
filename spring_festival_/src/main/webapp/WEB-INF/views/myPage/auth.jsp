@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>권한 지정(설정z)</title>
+<title>권한 지정(설정)</title>
 
 
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
@@ -23,11 +23,26 @@
 
 </head>
 <body onload="startSet()">
+<a id="hlist" href=""></a>
+									<div class="input-group input-group-sm">
+                                        <select name="searchOption" id="sltMem" class="mr-3">
+                                            <option value="i_id">아이디</option>
+                                            <option value="i_name">이름</option>
+                                            <option value="i_nName">닉네임</option>
+                                        </select>
+                                        <input class="form-control form-control-navbar" id="inputVal" type="search" placeholder="Search" aria-label="Search" style="border:0; border-bottom:solid #65ddda">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-navbar" onclick="memSearch(inputVal)">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
 <div class="row" style="width:900px" border="solid 1px black">
 <br/>
   <table class="table table-condensed" width="800px">
   	<tr>
-  		<th width="100px" align="center">아이디</th>
+  		<th width="100px" align="center">아z이디</th>
   		<th width="200px" align="center">이메일</th>
   		<th width="100px" align="center">닉네임</th>
   		<th width="" align="center">이름</th>
@@ -166,6 +181,41 @@ $(function() {
 	startSet();
 
 });
+
+
+function memSearch(sVal) {
+	alert('검색 시작!');
+	
+	var searchStr = $(sVal).val();
+	var searchType = $('#sltMem').val();
+	var varUrl='<%= request.getContextPath()%>/myPage/authoritySet?str2='+searchStr+'&searchType='+searchType;
+	
+
+	$("#hlist").attr("href", varUrl);
+ 	$('#hlist').get(0).click();
+	
+	
+	
+	<%-- 
+	var data = {searchStr:searchStr,  searchType:searchType};
+	$.ajax({
+		url:"<%= request.getContextPath()%>/myPage/memSearch",
+		type:"post",
+		data:JSON.stringify(data),
+		contentType:'application/json',
+		success: function(data) {
+			alert('!!ㅎㅎㅎㅎㅎ성공했습니다!!!.');
+			alert(Object.keys(data));
+			console.log( Object.values(data) );
+			reload();
+		},
+		error : function() {
+			alert('실패했습니다.');
+		}		
+	})
+	--%>
+}
+
 
 function authUpdate(tag, mem, auth) {		/* tag : <select>태그 자체가 넘어온다. */
 	var sltTag = tag.getAttribute("id");	/* <select>태그의 id값을 반환 */

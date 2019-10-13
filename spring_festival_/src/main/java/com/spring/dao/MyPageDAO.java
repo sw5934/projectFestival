@@ -8,6 +8,7 @@ import com.spring.controller.board.Criteria;
 import com.spring.controller.board.Second_Criteria;
 import com.spring.dto.AuthSettingVO;
 import com.spring.dto.CommentsBoardVO;
+import com.spring.dto.MemSearchVO;
 import com.spring.dto.ReviewAndTogetherVO;
 
 public interface MyPageDAO {
@@ -26,6 +27,7 @@ public interface MyPageDAO {
 	
 	public void authUpdate(Map<String, String> strMap) throws SQLException;
 	
-	
-	public Map<String, Object> memSearch(Criteria cri) throws SQLException;
+
+	public List<MemSearchVO> memSearch(Criteria cri) throws SQLException;
+	public int memSearchTotalCount(Criteria cri) throws SQLException;
 }

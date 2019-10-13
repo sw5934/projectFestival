@@ -11,6 +11,11 @@ public class MemSearchVO {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "[id = " + id + " , Name = " + nName + "]";
+	}
+	
 	
 	public String getId() {
 		return id;

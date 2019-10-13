@@ -32,10 +32,6 @@
   
 </head>
 <body>
-!zzz<br/>
-${wantGoPM.startPage }<br/>
-${threeBoardPM.startPage }<br/>
-
 <a id="hlist" href=""></a>
 
  <div class="wrapper">

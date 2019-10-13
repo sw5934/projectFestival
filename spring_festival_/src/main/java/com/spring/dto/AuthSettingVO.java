@@ -1,14 +1,16 @@
 package com.spring.dto;
 
 public class AuthSettingVO {
-	private int period;
-	private int auth_no; // 고유번호
+
 	private String id;
-	private String email;
-	private String nickName;
 	private String name;
+	private String gender;
+	private String email;
+	private String tel;
+	private String nickName;
+	private int auth_no; // 고유번호
 	private String auth; // 권한
-	
+	private int period;	
 	
 	
 	@Override
@@ -61,6 +63,26 @@ public class AuthSettingVO {
 
 	public void setPeriod(int period) {
 		this.period = period;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	public String getTel() {
+		return tel;
+	}
+
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	
 }

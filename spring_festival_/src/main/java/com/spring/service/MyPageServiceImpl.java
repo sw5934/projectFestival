@@ -11,6 +11,7 @@ import com.spring.controller.board.Second_Criteria;
 import com.spring.dao.MyPageDAO;
 import com.spring.dto.AuthSettingVO;
 import com.spring.dto.CommentsBoardVO;
+import com.spring.dto.MemSearchVO;
 import com.spring.dto.ReviewAndTogetherVO;
 
 public class MyPageServiceImpl implements MyPageService {
@@ -127,9 +128,22 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	
+	
+	
 	public Map<String, Object> memSearch(Second_Criteria cri) throws SQLException {
-		Map<String, Object> memSearchList = new HashMap<String, Object>();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<MemSearchVO> memSearchList = new ArrayList<MemSearchVO>();
+		memSearchList = myPageDAO.memSearch(cri);
 		
-		return memSearchList;
+		int totalCount = myPageDAO.memSearchTotalCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		
+		dataMap.put("memSearchList", memSearchList);
+		
+		return dataMap;
 	}
 }

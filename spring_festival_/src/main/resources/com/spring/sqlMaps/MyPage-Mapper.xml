@@ -5,6 +5,27 @@
    
     
 <mapper namespace="MyPage-Mapper">
+	<sql id="search">
+		<if test="searchType == 'i_id'.toString()">
+			and m.id like '%${str2}%'		
+		</if>
+		
+		<if test="searchType == 'i_name'.toString()">
+			and m.name like '%${str2}%'			
+		</if>
+		
+		<if test="searchType == 'i_nName'.toString()">
+			and m.nickName like '%${str2}%'			
+		</if>
+	</sql>
+
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
 
 	<select id="reviewBoard" resultType="reviewTogether">
 		select distinct rno "bno", r_title "title", to_date(to_char(r_regDate, 'yy-mm-dd')) "regDate", r_writer "writer", unq_id "unq_id"
@@ -149,10 +170,12 @@
 	<!-- 모든 멤버들에 대한 권한 관련 정보들을 조회한다. -->
 	<!-- member(id), has_authority(id), blackList(id) -->
 	<select id="memAuthSet" resultType="authSet">
-		select m.id "id", m.email "email", m.nickName "nickName", m.name "name", ha.auth_no "auth_no", au.authority "auth"
+		select m.id "id", m.name "name", m.sex "gender", m.email "email", m.tel "tel", m.nickName "nickName", ha.auth_no "auth_no", au.authority "auth"
 		from member m, has_authority ha, authority au
+		
 		where m.id = ha.id
 		and ha.auth_no = au.auth_no
+		<include refid="search"/>
 	</select>
 	
 	
@@ -160,10 +183,12 @@
 	<select id="authSetTotalCount" resultType="int">
 		select count(*)
 		from (
-			select m.id , ha.id, ha.auth_no, au.authority
+			select m.id "id", m.name "name", m.sex "gender", m.email "email", m.tel "tel", m.nickName "nickName", ha.auth_no "auth_no", au.authority "auth"
 			from member m, has_authority ha, authority au
+			
 			where m.id = ha.id
 			and ha.auth_no = au.auth_no
+			<include refid="search"/>
 		)
 	</select>
 	
@@ -191,6 +216,9 @@
 		and hs.id = #{mem})
 	</update>
 	
+	
+	
+	
 	<update id="authUpdate2">
 		delete from blacklist
 		where id=#{mem}
@@ -201,14 +229,29 @@
 	</update>
 
 
-
+	<!-- 
 	<select id="MemSearch" resultType="memSearch">
 		select m.id "id", m.name "name", m.sex "gender", m.nickName "nName", m.tel "tel", m.email "email", au.AUTHORITY "auth"
 		from member m, has_authority hs, authority au
-		where m.id like '%${str2}%'
+		where 
+		<include refid="search"/>
+		
 		and m.id = hs.id
 		and hs.auth_no = au.auth_no
 	</select>
+	
+	<select id="MemSearchTotalCount" resultType="int">
+		select distinct count(*)
+		from (
+			select m.id "id", m.name "name", m.sex "gender", m.nickName "nName", m.tel "tel", m.email "email", au.AUTHORITY "auth"
+			from member m, has_authority hs, authority au
+			where 
+			<include refid="search"/>
+			and m.id = hs.id
+			and hs.auth_no = au.auth_no
+		)
+	</select>
+	-->
 </mapper>
     
     

@@ -241,20 +241,21 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 	
 	
-	
+
 	@Override
-	public Map<String, Object> memSearch(Criteria cri) throws SQLException {
+	public List<MemSearchVO> memSearch(Criteria cri) throws SQLException {
 		int offset = cri.getPageStartRowNum();
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<MemSearchVO> memSearchList = session.selectList("MyPage-Mapper.MemSearch", cri, rowBounds);
-		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		
-		dataMap.put("memSearchList", memSearchList);
-		
-		
-		return dataMap;
+		System.out.println("DAO - searchList.size = " + memSearchList.size());
+		return memSearchList;
+	}
+	
+	@Override
+	public int memSearchTotalCount(Criteria cri) throws SQLException {
+		int totalCount = session.selectOne("MyPage-Mapper.MemSearchTotalCount", cri);
+		return totalCount;
 	}
 }
 

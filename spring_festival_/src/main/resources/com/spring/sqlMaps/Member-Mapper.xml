@@ -92,6 +92,22 @@
     		from member
     		where id=#{id}
     	</update>
+    	
+    	
+    	<update id="deleteBlackList">
+    	<![CDATA[
+    		delete 
+    		from blacklist
+			where id = #{id}
+			and bk_enddate < sysdate
+		]]>
+    	</update>
+    	
+    	<update id="deleteBlackList2">
+    		update has_authority
+    		set auth_no = 2
+			where id = #{id}
+    	</update>
     
     </mapper>
     
