@@ -134,35 +134,59 @@
         </c:if>
         <c:if test="${!empty festivalList }">
             <c:forEach items="${festivalList }" var="festival">
-                <tr style="border-bottom: 0px solid black;">
-                    <td style="width: 7%;  text-align: center">${festival.fno }</td>
-                    <td style="width: 16%;  text-align: center"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${festival.f_writer }/${festival.unq_Id }.jpg" style="width:93px;height:70px"></td>
-                    <td style="width: 56%;"> 
-                    <p>개최기간 [${festival.f_period }]</p>
-                        <a href="detail?fno=${festival.fno }&listSort=${listSort}&page=${page}">${festival.f_title } <c:if test="${festival.commentCount>0}">[${festival.commentCount }]</c:if></a>
-                        <p><fmt:formatDate value="${festival.f_regDate }" pattern="MM-dd HH:mm"/></p>
-                         <p>${festival.f_name }</p>
-                         <p>${festival.f_location1}${festival.f_location2 }</p>
-                         <p>${festival.f_org}</p>
-                         <p>${festival.f_type}</p>
-                         <c:if test="${festival.scoreAvg==0}">
-                         	<p>후기 없음</p>
-                         </c:if>
-                         <c:if test="${festival.scoreAvg!=0}">
-                         	<p>${festival.scoreAvg}</p>
-                         </c:if>
+                <tr style="border-bottom: 0px solid black;cursor:default;">
+                    <td style="width: 7%;  text-align: center; border-bottom:1px solid #B9B9B9">${festival.fno }</td>
+                    <td style="width: 16%; text-align: center; border-bottom:1px solid #B9B9B9"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${festival.f_writer }/${festival.unq_Id }.jpg" style="width:93px;height:70px"></td>
+                    <td style="width: 56%; overflow:hidden; border-bottom:1px solid #B9B9B9">
+                    
+                         <div class="col-12 m-0 p-0" style="cursor:default;">개최기간 : [${festival.f_period }]</div>
+                         <div class="col-12 m-0 p-0">
+                         	<a href="detail?fno=${festival.fno }&listSort=${listSort}&page=${page}">${festival.f_title } <c:if test="${festival.commentCount>0}">[${festival.commentCount }]</c:if></a>
+                         </div>
+                         <div class="col-12 m-0 p-0" style="cursor:default;">축제 명 : ${festival.f_name }</div>
+                         <div class="col-12 m-0 p-0" style="overflow:hidden;"> 
+	                         <div class="col-6 m-0 p-0 float-sm-left">장소 : <a href="<%=request.getContextPath()%>/festival/list?searchType2=${festival.f_location1}">${festival.f_location1}${festival.f_location2 }</a></div>
+	                         <div class="col-6 m-0 p-0 float-sm-left">주최·주관 : <a href="<%=request.getContextPath()%>/festival/list?searchType=f_org&keyword=${festival.f_org}">${festival.f_org}</a></div>
+                         </div>
                          
+                         <div class="col-12 m-0 p-0" style="overflow:hidden;">
+	                         <div class="col-6 m-0 p-0 float-sm-left">
+	                         	참여 유형 : <a href="<%=request.getContextPath()%>/festival/list?searchType3=${festival.f_type}">${festival.f_type}</a>
+	                         </div> 
+	                         <div class="col-6 m-0 p-0 float-sm-left"> 
+		                         <c:if test="${festival.scoreAvg==0}">
+		                         	후기 없음  
+		                         </c:if>
+		                         <c:if test="${festival.scoreAvg>=1&&festival.scoreAvg<2}">
+		                         	후기 평점 : ★☆☆☆☆
+		                         </c:if>
+		                         <c:if test="${festival.scoreAvg>=2&&festival.scoreAvg<3}">
+		                         	후기 평점 : ★★☆☆☆
+		                         </c:if>
+		                         <c:if test="${festival.scoreAvg>=3&&festival.scoreAvg<4}">
+		                         	후기 평점 : ★★★☆☆
+		                         </c:if>
+		                         <c:if test="${festival.scoreAvg>=4&&festival.scoreAvg<5}">
+		                         	후기 평점 : ★★★★☆
+		                         </c:if>
+		                         <c:if test="${festival.scoreAvg>=5}">
+		                         	후기 평점 : ★★★★★
+		                         </c:if>
+	                         </div>
+                         </div> 
                          
-                         <c:if test="${festival.hashTagList!=null}">
-	                         <div class="col-12">
+                          
+                         <c:if test="${festival.hashTagList.size()!=0}"> 
+	                         <div class="col-12 m-0 p-0"> 
+	                         <a>축제 관련 태그 : </a>
 	                         	<c:forEach items="${festival.hashTagList}" var="tag">
-	                         		<a>#${tag.hashTag }</a>
+	                         		<a href="<%=request.getContextPath() %>/festival/list?searchType=hashTag&keyword=${tag.hashTag }"> #${tag.hashTag } </a>
 	                         	</c:forEach>
 	                         </div>
-                         </c:if>
+                         </c:if> 
                          
                     </td>
-                    <td style=";width: 25%">
+                    <td style="width: 25%; border-bottom:1px solid #B9B9B9">
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
                             <p>　가고싶어요　${festival.vote1 }</p>
                         </span>

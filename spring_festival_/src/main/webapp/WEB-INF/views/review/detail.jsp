@@ -64,10 +64,10 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.2em">
+    <div class="col-12" style="border-bottom: 3px solid black;font-family: bamin-hanna-Pro; font-size: 1.2em">
 	    <div class="float-sm-left col-3">${review.rno}</div>
 	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3">작성자 : ${review.nickname }</div>
+	    <div class="float-sm-left col-3"><a class="user_Box" onclick="userBox($(this))">작성자 : ${review.nickname }</a></div>
 	    	
     </div>
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
@@ -99,7 +99,7 @@
 	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
 	   			</c:if>
 	   		</div>	   		
-	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
+	  		<div class="float-sm-left col-2"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:26px;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
 	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
     	

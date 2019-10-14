@@ -21,7 +21,7 @@
 <a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
   
   </span>
-  <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
+  <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong><a class="user_Box" onclick="userBox($(this))">{{c_writer}}</a></h3>
   <div class="timeline-body">{{c_content}}</div>
 </li>
 {{/each}}	
