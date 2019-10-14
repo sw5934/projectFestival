@@ -43,6 +43,8 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 							<%
 								int f_no = Integer.parseInt(request.getParameter("fno"));
 								String f_name = request.getParameter("f_name");
+								System.out.println("f_no : "+f_no);
+								System.out.println("f_name : "+f_name);
 							%>
 							<input type="hidden" name="id" id="writer" value="${loginUser.id}">		
 							<input type="hidden" name="unq_Id" value="${review.unq_Id}">

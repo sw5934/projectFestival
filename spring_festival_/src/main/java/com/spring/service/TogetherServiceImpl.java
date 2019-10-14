@@ -105,8 +105,11 @@ public class TogetherServiceImpl implements TogetherService{
 		
 		
 		together.setCommentsList(commentsDAO.selectCommentsListPage(together.getUnq_Id(), cri));
-		
+
 		FestivalVO festival = festivalDAO.selectFestival(together.getF_no());
+		
+		System.out.println("together.getF_no() : "+together.getF_no());
+		System.out.println("festival : "+festival);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

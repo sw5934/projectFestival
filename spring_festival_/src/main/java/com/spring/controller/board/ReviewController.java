@@ -151,11 +151,6 @@ public class ReviewController {
 		dataMap.put("history",history);		
 		model.addAttribute("dataMap", dataMap);
 		
-		ReviewVO reviewV = (ReviewVO) dataMap.get("review");
-		Date registDate = reviewV.getR_regDate();
-		String rdate = registDate.toString();
-		String subrdate = rdate.substring(0, 10);
-		
 		review.getR_score();
 	}
 	

@@ -118,7 +118,7 @@
 	    	<button id="togetherBtn" hidden="true" class="regist ml-2" onclick="location.href='<%=request.getContextPath()%>/together/togetherRegist?fno=${festival.fno}&f_name=${festival.f_name}'">글 작성</button>
 	    </div>
     </div>
-    	<div id="relateBrd">
+    	<div id="relateBrd" style="margin-bottom: 20px;">
     	
     	 
     	

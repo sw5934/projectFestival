@@ -211,12 +211,12 @@ function onSubmit(category, form, url, method) {
 					} 
 					for(var i=0; i<loop;i++){
 						var d = new Date(data.dataMap[i].r_regDate);
-						$('#relateBrd').append("<a>"+data.dataMap[i].rno+"</a>");
-						$('#relateBrd').append("<a>"+data.dataMap[i].r_title+"</a>");
-						$('#relateBrd').append("<a>"+data.dataMap[i].nickName+"</a>");
-						$('#relateBrd').append("<a>  "+d.getMonth()+"."+d.getDate()+"  </a>");
-						$('#relateBrd').append("<a>"+data.dataMap[i].r_viewcnt+"</a>"); 
-						$('#relateBrd').append("<a>"+data.dataMap[i].r_score+"</a><br>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].rno+"&nbsp;&nbsp;</a>");
+						$('#relateBrd').append("<span style='width:300px;'><a>"+data.dataMap[i].r_title+"&nbsp;&nbsp;</a></span>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].nickname+"&nbsp;&nbsp;</a>");
+						$('#relateBrd').append("<a>"+(d.getMonth()+1)+"."+d.getDate()+"&nbsp;&nbsp;</a>");
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_viewcnt+"&nbsp;&nbsp;</a>"); 
+						$('#relateBrd').append("<a>"+data.dataMap[i].r_score+"&nbsp;&nbsp;</a><br>");
 					}
 				}
 			},
