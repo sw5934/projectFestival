@@ -14,13 +14,10 @@
 				<user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_MANAGER,ROLE_USER"/>
 			</user-service>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select username, password, enabled
-										from authority_view
-										where username=?"
-				authorities-by-username-query="select username, authority
-											from authority_view
-											where username=?"
-			/>
+				
+				authorities-by-username-query="select id, authority
+											from has_authority
+											where username=?" />
 		</authentication-provider> -->
 		
 		<authentication-provider ref="authenticator"/>
@@ -32,18 +29,43 @@
 				p:memberService-ref="memberService"
 				/>
 
+<!-- 1 : 제재회원('ROLE_LIMIT')
+	 2 : 회원('ROLE_USER')
+	 3 : 개최자('ROLE_HOST')
+	 4 : 관리자('ROLE_ADMIN') -->
+
 
 	<http use-expressions="true" pattern="/**">
-		<access-denied-handler error-page="/security/accessDenied" />
+		<access-denied-handler error-page="/error" />
 		<intercept-url pattern="/*.htm" access="isAuthenticated()" />
-		<intercept-url pattern="/**/regist*" access="hasAuthority('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**/modify*" access="hasAuthority('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**/remove*" access="hasAuthority('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**/modify/**" access="hasAuthority('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**/remove/**" access="hasAuthority('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**/detail*" access="isAuthenticated()"/>
-		<intercept-url pattern="/**/list*" access="isAuthenticated()"/>
-		<intercept-url pattern="/**" access="permitAll"/>
+		<!-- 마이페이지 -->
+		<intercept-url pattern="/member/**" access="isAuthenticated()" />
+		<intercept-url pattern="/follow/**" access="hasAuthority('1')" />
+		<intercept-url pattern="/vote/**" access="hasAuthority('1')" />
+		<intercept-url pattern="/myPage/**" access="hasAuthority('1')" />
+		<intercept-url pattern="/message/**" access="hasAuthority('2')" />
+		
+		<!-- 관리자페이지 -->
+		<intercept-url pattern="/manage/**" access="hasAuthority('4')" />
+		
+		<!-- 축제게시판 -->
+		<intercept-url pattern="/festival/festivalRegist*" access="hasAuthority('3')" />
+		<intercept-url pattern="/festival/modify**" access="hasAuthority('3')" />
+		<intercept-url pattern="/festival/remove**" access="hasAuthority('3')" />
+		
+		<!-- 같이가요게시판 -->
+		<intercept-url pattern="/together/togetherRegist*" access="hasAuthority('2')" />
+		<intercept-url pattern="/together/modify*" access="hasAuthority('1')" />
+		<intercept-url pattern="/together/remove*" access="hasAuthority('1')" />
+		
+		<!-- 후기게시판 -->
+		<intercept-url pattern="/review/reviewRegist*" access="hasAuthority('2')" />
+		<intercept-url pattern="/review/modify*" access="hasAuthority('1')" />
+		<intercept-url pattern="/review/remove*" access="hasAuthority('1')" />
+		
+		<intercept-url pattern="/**/detail*" access="permitAll" />
+		<intercept-url pattern="/**/list*" access="permitAll" />
+		<intercept-url pattern="/**" access="permitAll" />
 		
 		<form-login
 			login-page="/login"

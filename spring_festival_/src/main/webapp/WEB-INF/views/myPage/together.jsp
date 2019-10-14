@@ -39,6 +39,8 @@
 	<div class="col-11 mt-3" style="padding: 0px; overflow:hidden; width: 100%; height:40px;"> 
 	<div class="float-sm-left" style="padding: 0px; top: 0px; width: 100%;">
 	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
+	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/holding" style="color: black;">축제</a></div>
+	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/review" style="color: black;">후기</a></div>
 	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em;background: #E4E4E4;">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/together" style="color: black;">같이가요</a></div>
@@ -68,7 +70,7 @@
 						<c:forEach items="${togetherList }" var="tList"> <!--  begin="0" end="10" step="1" -->
 	                    <tr  align="center" style="border-bottom:1px solid lightgrey;">
 	                      	<td width="150px" style="margin: 5px;padding: 0;">${tList.bno}</td>
-	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a href='<%= request.getContextPath()%>/together/detail/?tno=${tList.bno }'>${tList.title}(${tList.comments })</a></td>
+	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/together/detail/?tno=${tList.bno }')"><u>${tList.title}</u>(${tList.comments })</a></td>
 	                      	<td width="150px" style="margin: 5px;padding: 0;">${tList.regDate}</td>
 						</tr>
 						</c:forEach>

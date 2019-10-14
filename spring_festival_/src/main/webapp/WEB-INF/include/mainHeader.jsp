@@ -18,7 +18,7 @@
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/findID">ID/PW찾기</a>
                     </c:if>
                     <c:if test="${loginUser!=null}">                    
-                        <a class="nav-link float-sm-right" onClick="window.open('<%=request.getContextPath()%>/message/sendList', '마이 페이지', 'height=700,width=1000,resizable=0');" style="cursor:pointer;color:blue;">마이페이지</a>
+                        <a class="nav-link float-sm-right" onClick="window.open('<%=request.getContextPath()%>/member/myInfo?id=${loginUser.id}', '마이 페이지', 'height=700,width=1000,resizable=0');" style="cursor:pointer;color:blue;">마이페이지</a>
                         <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
                         <a class="nav-link float-sm-right"><b>${loginUser.nickName }</b>&nbsp;<span>님 어서 오세요</span></a>
                     </c:if>

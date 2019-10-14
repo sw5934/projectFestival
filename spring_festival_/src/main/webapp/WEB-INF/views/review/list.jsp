@@ -81,8 +81,8 @@
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=r_like">좋아요</a></div>
     </div>
     
-    
-    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/review/list" method="get">
+    <div style="width: 100%; margin-top: 10px;">
+    <form class="col-12" style="width: 400px;float: right; margin-right: 80px;" id="listForm" action="<%=request.getContextPath() %>/review/list" method="get">
 	    <select name="searchType">
 	    	<option value="tcw" <c:if test='${cri.searchType =="tcw"}'>selected</c:if> >전체 </option>
 	    	<option value="title" <c:if test='${cri.searchType =="title"}'>selected</c:if> >제목 </option>
@@ -94,6 +94,7 @@
     	<input type="text" name="keyword" value="${cri.keyword }">
     	<button type="button" onclick="$('#listForm').submit()">검색</button>
     </form>
+    </div>
     
     <table class="mt-5 col-10" style=" margin: 0 auto;">
         <c:if test="${empty reviewList }">
@@ -130,9 +131,9 @@
             </c:forEach>
         </c:if>
     </table>
-    <div class="mt-3 col-10" style="margin:0 auto">
+    <div class="" style="margin:0 auto">
         <div class="text-center">
-            <ul class="pagination">   
+            <ul class="pagination pagination-sm" style="justify-content: center; margin-left: auto; margin-right: auto;">   
             
                 <c:if test="${pageMaker.prev }">
                 	<li class="page-item">

@@ -84,22 +84,20 @@
 
 
 	<!-- 해시태그는 일대다 관계이므로 따로 호출해서 서비스에서 붙여줘야함. fno에 맞는 해시태그 '리스트'를 불러오는 쿼리 추가 작성하여 적용시킬것. -->
-	<select id="holdingList" resultType="holding">
-		select bf.f_title "title", bf.unq_id "unq_id", m.id "id"
-		from member m,brd_festival bf
-		where m.id = #{str}
-		and m.id = bf.f_writer
+	<select id="holdingList" resultType="festival">
+		select *
+		from brd_festival
+		where f_writer = #{str}
 	</select>
 	
 	
-	<select id="holdingTagList" resultType="str">
-		select distinct hs.hashtag "hashTag"
-		from member m, organization og, brd_festival bf, hashtag hs
-		where m.id = #{str}
-		and m.id = og.id
-		and og.id = bf.f_writer
-		and bf.fno = hs.fno
-		and bf.f_title = #{str2}
+	<select id="holdingTagList" resultType="hashTag">
+	select hs.*
+	from member m,brd_festival bf, hashtag hs
+	where m.id = #{f_writer}
+		and bf.f_writer = #{f_writer}
+		and bf.fno = #{fno}
+		and hs.fno = #{fno}
 	</select>
 	
 	

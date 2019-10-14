@@ -105,15 +105,11 @@ public class MyPageController {
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(4);
 		
 		Map<String, Object> dataMap = ms.holdingList(cri); 
-		// dataMap = { "holdingList", "pageMaker" }
 
-		model.addAttribute("dataMap", dataMap);
-		System.out.println("컨트롤러 : " + dataMap);
-
-		
+		model.addAttribute("dataMap", dataMap);		
 		return "/myPage/holding";
 	}
 	

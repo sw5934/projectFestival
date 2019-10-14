@@ -4,7 +4,7 @@ import java.util.List;
 
 public class HoldingVO {
 	private String title;
-	private List<String> hashTag;
+	private List<HashTagVO> hashTag;
 	private int comments; // 각각의 축제글의 댓글 총 갯수
 	private int unq_id;
 	private int fno;
@@ -29,12 +29,6 @@ public class HoldingVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public List<String> getHashTag() {
-		return hashTag;
-	}
-	public void setHashTag(List<String> hashTag) {
-		this.hashTag = hashTag;
-	}
 	public int getComments() {
 		return comments;
 	}
@@ -53,17 +47,20 @@ public class HoldingVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
 	public int getFno() {
 		return fno;
 	}
-
-
 	public void setFno(int fno) {
 		this.fno = fno;
 	}
-	
 
 
+	public List<HashTagVO> getHashTag() {
+		return hashTag;
+	}
+
+
+	public void setHashTag(List<HashTagVO> hashTag) {
+		this.hashTag = hashTag;
+	}
 }

@@ -9,6 +9,7 @@
 <c:set var="wantGoList" value="${dataMap.wantGoList}"/>
 <c:set var="wantGoPM" value="${dataMap.wantGoPM}"/>
 <c:set var="threeBoardPM" value="${dataMap.threeBoardPM}"/>
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -91,40 +92,48 @@
 			<div class="text-center">															
 			<ul class="pagination pagination-sm" style="justify-content: center; margin-left: auto; margin-right: auto;"> 
 				
-				<li class="page-item">
-					<input type="button" value="&lt;&lt;" class="" style="border: 0px; background: none;"
-					onclick='pageMove(1, "threeBoard")'/>
-				</li>
+				<c:if test="${pageMaker.prev }">
+					<li class="page-item">
+						<input type="button" value="&lt;&lt;" class="" style="border: 0px; background: none;"
+						onclick='pageMove(1, "threeBoard")'/>
+					</li>
+				</c:if>
 				
-				<li class="page-item">
-					<input type="button" value="&lt;" class="" style="border: 0px; background: none;"
-						onclick='
-						<c:if test="${threeBoardPM.prev }">
-							pageMove(${threeBoardPM.startPage-1 }, "threeBoard")
-						</c:if>
-						'/>
-				</li>
+				<c:if test="${pageMaker.prev }">
+					<li class="page-item">
+						<input type="button" value="&lt;" class="" style="border: 0px; background: none;"
+							onclick='
+							<c:if test="${threeBoardPM.prev }">
+								pageMove(${threeBoardPM.startPage-1 }, "threeBoard")
+							</c:if>
+							'/>
+					</li>
+				</c:if>
 				<c:forEach begin="${threeBoardPM.startPage }" end="${threeBoardPM.endPage }" var="pageNum">
 				<li class="page-item <c:out value="${threeBoardPM.cri.first_page == pageNum ?'active':''}"/>">
 					<input type="button" id="followBtn${pageNum}" value="${pageNum}" class="" style="border: 0px; background: none;" onclick="pageMove($(this).val(), 'threeBoard')" />
 				</li>
 				</c:forEach>	
 				
-				<li class="page-item">
-					<input type="button" value="&gt;" class="" style="border: 0px; background: none;"
-						onclick='
-						<c:if test="${threeBoardPM.next }">
-							pageMove(${threeBoardPM.first_endPage+2},"threeBoard")
-						</c:if>
-						<c:if test="${!threeBoardPM.next }">
-							pageMove(${threeBoardPM.cri.first_page},"threeBoard")
-						</c:if>
-						'/>
-				</li>			
+				<c:if test="${pageMaker.next }">
+					<li class="page-item">
+						<input type="button" value="&gt;" class="" style="border: 0px; background: none;"
+							onclick='
+							<c:if test="${threeBoardPM.next }">
+								pageMove(${threeBoardPM.first_endPage+2},"threeBoard")
+							</c:if>
+							<c:if test="${!threeBoardPM.next }">
+								pageMove(${threeBoardPM.cri.first_page},"threeBoard")
+							</c:if>
+							'/>
+					</li>
+				</c:if>			
 				
-				<li class="page-item">
-					<input type="button" value="&gt;&gt;" class="" style="border: 0px; background: none;" onclick='pageMove(${threeBoardPM.realEndPage}, "threeBoard")'/>
-				</li>
+				<c:if test="${pageMaker.next }">
+					<li class="page-item">
+						<input type="button" value="&gt;&gt;" class="" style="border: 0px; background: none;" onclick='pageMove(${threeBoardPM.realEndPage}, "threeBoard")'/>
+					</li>
+				</c:if>
 		
 			</ul>
 			</div>
@@ -173,19 +182,24 @@
 			<div class="text-center">															
 			<ul class="pagination pagination-sm m-0" style="justify-content: center; margin-left: auto; margin-right: auto;"> 
 				
-				<li class="page-item">
-					<input type="button" value="&lt;&lt;" class="" style="border: 0px; background: none;"
-					onclick='pageMove(1, "wantGo")'/>
-				</li>
+				<c:if test="${pageMaker.prev }">
+					<li class="page-item">
+						<input type="button" value="&lt;&lt;" class="" style="border: 0px; background: none;"
+						onclick='pageMove(1, "wantGo")'/>
+					</li>
+				</c:if>
 				
-				<li class="page-item">
-					<input type="button" value="&lt;" class="" style="border: 0px; background: none;"
-						onclick='
-						<c:if test="${wantGoPM.prev }">
-							pageMove(${wantGoPM.startPage-1 }, "wantGo")
-						</c:if>
-					'/>
-				</li>
+				<c:if test="${pageMaker.prev }">
+					<li class="page-item">
+						<input type="button" value="&lt;" class="" style="border: 0px; background: none;"
+							onclick='
+							<c:if test="${wantGoPM.prev }">
+								pageMove(${wantGoPM.startPage-1 }, "wantGo")
+							</c:if>
+						'/>
+					</li>
+				</c:if>
+				
 				<c:forEach begin="${wantGoPM.startPage }" 
 				           end="${wantGoPM.endPage }" var="pageNum">
 				<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>"`>
@@ -194,22 +208,26 @@
 				</li>
 				</c:forEach>	
 				
-				<li class="page-item">
-					<input type="button" value="&gt;" class="" style="border: 0px; background: none;"
-						onclick='
-						<c:if test="${wantGoPM.next }">
-							pageMove(${wantGoPM.second_endPage+1},"wantGo")
-						</c:if>
-						<c:if test="${!wantGoPM.next }">
-							pageMove(${wantGoPM.cri.first_page},"wantGo")
-						</c:if>
-						'/>
-				</li>			
+				<c:if test="${pageMaker.next }">
+					<li class="page-item">
+						<input type="button" value="&gt;" class="" style="border: 0px; background: none;"
+							onclick='
+							<c:if test="${wantGoPM.next }">
+								pageMove(${wantGoPM.second_endPage+1},"wantGo")
+							</c:if>
+							<c:if test="${!wantGoPM.next }">
+								pageMove(${wantGoPM.cri.first_page},"wantGo")
+							</c:if>
+							'/>
+					</li>
+				</c:if>			
 				
-				<li class="page-item">
-					<input type="button" value="&gt;&gt;" class="" style="border: 0px; background: none;"
-					 onclick='pageMove(${wantGoPM.realEndPage}, "wantGo")'/>
-				</li>
+				<c:if test="${pageMaker.next }">
+					<li class="page-item">
+						<input type="button" value="&gt;&gt;" class="" style="border: 0px; background: none;"
+						 onclick='pageMove(${wantGoPM.realEndPage}, "wantGo")'/>
+					</li>
+				</c:if>
 		
 			</ul>
 			</div>

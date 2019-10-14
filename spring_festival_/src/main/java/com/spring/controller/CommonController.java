@@ -1,11 +1,14 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,17 @@ public class CommonController {
 		
 	@RequestMapping("/main.htm")
 	public void main() {
+	}
+	
+	// 권한 없는 회원이 접근 시 에러페이지
+	@RequestMapping("/error")
+	public void error(HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("alert('접근할 수 없습니다.');");
+		out.println("history.go(-1)();");
+		out.println("</script>");
 	}
 	
 	

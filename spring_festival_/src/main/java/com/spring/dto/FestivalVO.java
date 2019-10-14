@@ -24,6 +24,7 @@ public class FestivalVO {
 	private float scoreAvg;
 	private List<CommentsVO> commentsList;
 	private List<HashTagVO> hashTagList;
+	private String hashTagString;
 	public int getUnq_Id() {
 		return unq_Id;
 	}
@@ -145,6 +146,13 @@ public class FestivalVO {
 	}
 	public void setScoreAvg(float scoreAvg) {
 		this.scoreAvg = scoreAvg;
+	}
+	
+	public String getHashTagString() {
+		return hashTagString;
+	}
+	public void setHashTagString(String hashTagString) {
+		this.hashTagString = hashTagString;
 	}
 	@Override
 	public String toString() {
