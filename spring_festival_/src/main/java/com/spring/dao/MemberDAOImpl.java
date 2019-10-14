@@ -29,8 +29,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO selectMemberByID(String id) throws SQLException {
 		
 		MemberVO member = session.selectOne("Member.selectMemberByID", id);
-		session.update("Member.deleteBlackList", id);
-		session.update("Member.deleteBlackList2", id);
 		
 		return member;
 	}
