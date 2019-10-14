@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.controller.board.SearchCriteria;
 import com.spring.dto.MemberVO;
 import com.spring.service.MailService;
+import com.spring.service.MainPageService;
 import com.spring.service.MainService;
 import com.spring.service.MemberService;
 
@@ -37,10 +38,19 @@ public class CommonController {
 	
 	@Autowired
     private MailService mailService;
+	@Autowired
+	
+	private MainPageService mainPageService;
 		
 	@RequestMapping("/main.htm")
-	public void main() {
-	}
+	public String main(Model model) throws Exception {
+		model.addAttribute("festivalFromRegist",mainPageService.FestivalListToMain());
+		model.addAttribute("reviewFromLike",mainPageService.LikeListToMain());
+		model.addAttribute("reviewFromRegist",mainPageService.ReviewListToMain());
+		model.addAttribute("festivalFromVote",mainPageService.Vote1ListToMain());
+		
+		return "common/main";
+		}
 	
 	// 권한 없는 회원이 접근 시 에러페이지
 	@RequestMapping("/error")

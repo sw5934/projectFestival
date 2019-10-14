@@ -39,14 +39,14 @@ function like_update(){
 				alert("좋아요가 반영되었습니다.");
 
 				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)+1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like1.png');
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like.png');
 				
 			}else{
 
 				alert("좋아요가 취소되었습니다.");
 
 				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)-1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike1.png');
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike.png');
 				
 			}
 		},

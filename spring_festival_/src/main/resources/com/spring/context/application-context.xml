@@ -44,6 +44,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="mainDAO" class="com.spring.dao.MainDAOImpl"
 		p:session-ref="sqlSession"/>
+	<bean id="mainPageDAO" class="com.spring.dao.MainPageDAOImpl"
+		p:session-ref="sqlSession"/>
 		  
 		  
 	<!-- service -->	
@@ -95,5 +97,9 @@
 		  p:commentsDAO-ref="commentsDAO"
 		  p:festivalDAO-ref="festivalDAO"
 		  p:reviewDAO-ref="reviewDAO"
+		  />
+	<bean id="mainPageService"
+		  class="com.spring.service.MainPageServiceImpl"
+		  p:mainPageDAO-ref="mainPageDAO"
 		  />
 </beans>

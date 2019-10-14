@@ -88,15 +88,16 @@
     
     <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
 	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-1">
-	   			<c:if test="${review.id != null }">
+	   		<div class="float-sm-left col-3"> 
+	   			<c:if test="${loginUser.id != null }">
 	   				<c:if test="${dataMap.history==0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/unlike1.png" style="width: 20px; float: left" id="like_update">
+	   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/unlike.png" style="width: 20px; float: left" id="like_update">
 	   				</c:if>
 	   				<c:if test="${dataMap.history!=0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
+	   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
 	   				</c:if>
-	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
+	   				<a onclick="like_update()"> 좋아요! </a>
+	   				<a id="r_LikeCnt" onclick="like_update()">${review.r_like }</a>
 	   			</c:if>
 	   		</div>	   		
 	  		<div class="float-sm-left col-2"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:26px;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
