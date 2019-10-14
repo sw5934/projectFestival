@@ -137,10 +137,6 @@ public class TogetherController {
 		dataMap.put("page", page);
 		model.addAttribute("dataMap",dataMap);
 		
-		TogetherVO togetherV = (TogetherVO) dataMap.get("together");
-		Date registDate = togetherV.getT_regDate();
-		String rdate = registDate.toString();
-		String subrdate = rdate.substring(0, 10);
 		
 		together.getArticleStatus();
 		//memberDAO.selectMemberByID(together.getT_writer());

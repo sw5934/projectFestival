@@ -70,7 +70,7 @@
 	    <div class="float-sm-left col-3">작성자 : ${together.nickname }</div>
     </div>
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	     <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
+	     <div class="float-sm-left col-9"> 축제명 : ${together.f_no }</div>
 	    <div class="float-sm-left col-3">
 	    <fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>   
