@@ -1,10 +1,11 @@
 package com.spring.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class FestivalVO {
 	private int unq_Id;
-	private int f_no;
+	private int fno;
 	private String f_writer;
 	private String f_title;
 	private Date f_regDate;
@@ -16,17 +17,24 @@ public class FestivalVO {
 	private String f_period;
 	private String f_org;
 	private String f_type;
+	private String f_ref;
+	private int vote1;
+	private int vote2;
+	private int commentCount;
+	private float scoreAvg;
+	private List<CommentsVO> commentsList;
+	private List<HashTagVO> hashTagList;
 	public int getUnq_Id() {
 		return unq_Id;
 	}
 	public void setUnq_Id(int unq_Id) {
 		this.unq_Id = unq_Id;
 	}
-	public int getF_no() {
-		return f_no;
+	public int getFno() {
+		return fno;
 	}
-	public void setF_no(int f_no) {
-		this.f_no = f_no;
+	public void setFno(int fno) {
+		this.fno = fno;
 	}
 	public String getF_writer() {
 		return f_writer;
@@ -94,13 +102,60 @@ public class FestivalVO {
 	public void setF_type(String f_type) {
 		this.f_type = f_type;
 	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	
+	public List<CommentsVO> getCommentsList() {
+		return commentsList;
+	}
+	public void setCommentsList(List<CommentsVO> commentsList) {
+		this.commentsList = commentsList;
+	}
+	public int getVote1() {
+		return vote1;
+	}
+	public void setVote1(int vote1) {
+		this.vote1 = vote1;
+	}
+	public int getVote2() {
+		return vote2;
+	}
+	public void setVote2(int vote2) {
+		this.vote2 = vote2;
+	}
+	public String getF_ref() {
+		return f_ref;
+	}
+	public void setF_ref(String f_ref) {
+		this.f_ref = f_ref;
+	}
+	public List<HashTagVO> getHashTagList() {
+		return hashTagList;
+	}
+	public void setHashTagList(List<HashTagVO> hashTagList) {
+		this.hashTagList = hashTagList;
+	}
+	
+	public float getScoreAvg() {
+		return scoreAvg;
+	}
+	public void setScoreAvg(float scoreAvg) {
+		this.scoreAvg = scoreAvg;
+	}
 	@Override
 	public String toString() {
-		return "FestivalVO [unq_Id=" + unq_Id + ", f_no=" + f_no + ", f_writer=" + f_writer + ", f_title=" + f_title
+		return "FestivalVO [unq_Id=" + unq_Id + ", fno=" + fno + ", f_writer=" + f_writer + ", f_title=" + f_title
 				+ ", f_regDate=" + f_regDate + ", f_viewCnt=" + f_viewCnt + ", f_content=" + f_content + ", f_name="
 				+ f_name + ", f_location1=" + f_location1 + ", f_location2=" + f_location2 + ", f_period=" + f_period
-				+ ", f_org=" + f_org + ", f_type=" + f_type + "]";
+				+ ", f_org=" + f_org + ", f_type=" + f_type + ", vote1=" + vote1 + ", vote2=" + vote2
+				+ ", commentCount=" + commentCount + "]";
 	}
+	
+	
 	
 	
 	

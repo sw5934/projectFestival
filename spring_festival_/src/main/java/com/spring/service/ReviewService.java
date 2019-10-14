@@ -31,5 +31,8 @@ public interface ReviewService {
 	public ReviewVO get(int rno) throws SQLException;
 
 	public int getNextUnq_Id() throws SQLException;
+
+	public int getLikeHistory(String id, int unq_Id) throws SQLException;
 	
+	public void updateLike(String id, int unq_id, int history) throws SQLException;
 	}

@@ -18,6 +18,8 @@
     <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
+<a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
+  
   </span>
   <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
   <div class="timeline-body">{{c_content}}</div>
@@ -26,7 +28,33 @@
 </script>
 
 <script>
-/* 목록가기 */
+/* 좋아요 버튼 */
+function like_update(){
+	
+	$.ajax({
+		url : "<%=request.getContextPath()%>/review/clickLike?unq_Id=${review.unq_Id}&id=${loginUser.id}",
+		type : "GET",
+		success: function(history){
+			if(history==0){
+				alert("좋아요가 반영되었습니다.");
+
+				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)+1);
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like1.png');
+				
+			}else{
+
+				alert("좋아요가 취소되었습니다.");
+
+				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)-1);
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike1.png');
+				
+			}
+		},
+		error: function(error){
+			
+		}
+	});
+	}
 
 
  
@@ -247,5 +275,15 @@ function onSubmit(category, form, url, method) {
 			}
 		});
 	});
+		// 별점표시
+		function scoreDraw(){
+			var scoreStar = "";
+			for(var i = 0; i<${review.r_score};i++)
+				scoreStar += "★";
+			for(var i = 5; i>${review.r_score};i--)
+				 scoreStar += "☆";
+			$('#score').append("<a>"+scoreStar+"</a>");
+		}
+		scoreDraw();
 	
 </script>

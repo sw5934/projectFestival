@@ -9,15 +9,17 @@ public class ReviewVO {
 	private String id;
 	private String r_content;
 	private int r_viewcnt;				
-	private int fno;
+	private int f_no;
 	private int r_like;				//좋아요
 	private int r_score;				//평점
 	private Date r_regDate;
 	private int unq_Id;
+	private String nickname;
+	private int newCount = 1;
+	
 	private List<CommentsVO> commentsList;
 	private List<AttachVO> attachList;
 	private int commentcount;
-	private String nickName;
 
 	public String getR_title() {
 		return r_title;
@@ -38,11 +40,11 @@ public class ReviewVO {
 	public void setR_viewcnt(int r_viewcnt) {
 		this.r_viewcnt = r_viewcnt;
 	}
-	public int getFno() {
-		return fno;
+	public int getF_no() {
+		return f_no;
 	}
-	public void setFno(int fno) {
-		this.fno = fno;
+	public void setF_no(int f_no) {
+		this.f_no = f_no;
 	}
 	public int getR_like() {
 		return r_like;
@@ -79,6 +81,18 @@ public class ReviewVO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}	
+	public int getNewCount() {
+		return newCount;
+	}
+	public void setNewCount(int newCount) {
+		this.newCount = newCount;
 	}
 	public List<AttachVO> getAttachList() {
 		return attachList;
@@ -98,11 +112,13 @@ public class ReviewVO {
 	public void setUnq_Id(int unq_Id) {
 		this.unq_Id = unq_Id;
 	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
 	
+	@Override
+	public String toString() {
+		return "ReviewVO [rno=" + rno + ", r_title=" + r_title + ", id=" + id + ", r_content=" + r_content
+				+ ", r_viewcnt=" + r_viewcnt + ", f_no=" + f_no + ", r_like=" + r_like + ", r_score=" + r_score
+				+ ", r_regDate=" + r_regDate + ", unq_Id=" + unq_Id + ", nickname=" + nickname + ", newCount="
+				+ newCount + ", commentsList=" + commentsList + ", attachList=" + attachList + ", commentcount="
+				+ commentcount + "]";
+	}
 }

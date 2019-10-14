@@ -1,6 +1,5 @@
 package com.spring.utils;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
@@ -80,7 +79,7 @@ public class UploadFileUtils {
 		return savePath;
 	}
 	//재미있는 썸네일이미지 만들기^^(원본 이미지, 썸네일이미지 두개로 저장)
-		public void makeThumbnail(String savePath, String fileName, String unq_Id) throws Exception{
+		public static void makeThumbnail(String savePath, String fileName, String unq_Id) throws Exception{
 			BufferedImage sourceImg = ImageIO.read(new File(savePath, fileName));
 			BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,70);
 			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);

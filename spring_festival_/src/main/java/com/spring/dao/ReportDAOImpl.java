@@ -30,15 +30,16 @@ public class ReportDAOImpl implements ReportDAO {
 	
 
 	@Override
-	public int selectReportListCount() throws SQLException {
-		return session.selectList("Utils-Mapper.selectReportList").size();
+	public int selectReportListCount(SearchCriteria cri) throws SQLException {
+		return session.selectList("Utils-Mapper.selectReportList",cri).size();
 	}
 	
 	
 	@Override
-	public void doReport(String reporter, int unq_id) throws SQLException {
+	public void doReport(String reporter, String nickName, int unq_id) throws SQLException {
 		Map<String, Object> reportInfo = new HashMap<String, Object>();
-		
+
+		reportInfo.put("nickName", nickName);
 		reportInfo.put("reporter", reporter);
 		reportInfo.put("unq_id", unq_id);
 		
@@ -58,17 +59,18 @@ public class ReportDAOImpl implements ReportDAO {
 		return reportList;
 	}
 	@Override
-	public int selectReportCommentListCount() throws SQLException {
-		return session.selectList("Utils-Mapper.selectReportCommentList").size();
+	public int selectReportCommentListCount(SearchCriteria cri) throws SQLException {
+		return session.selectList("Utils-Mapper.selectReportCommentList",cri).size();
 	}
 	@Override
-	public void doReportComment(String reporter, int c_no) throws SQLException {
+	public void doReportComment(String reporter, String nickName, int c_no) throws SQLException {
 		Map<String, Object> reportInfo = new HashMap<String, Object>();
 		
+		reportInfo.put("nickName", nickName);
 		reportInfo.put("reporter", reporter);
-		reportInfo.put("unq_id", c_no);
+		reportInfo.put("c_no", c_no);
 		
-		session.update("Utils-Mapper.doReport",reportInfo);
+		session.update("Utils-Mapper.doReportComment",reportInfo);
 		
 	}
 	@Override

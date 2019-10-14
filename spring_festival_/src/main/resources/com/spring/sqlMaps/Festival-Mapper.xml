@@ -5,64 +5,85 @@
 
 
 <mapper namespace="Festival-Mapper">
+	
+	<sql id="tag">
+		<if test="searchType == 'hashTag'.toString()">
+			,(select fno from hashtag where hashtag like '%'||#{keyword}||'%') t 
+		</if>
+	
+	</sql>
 	<sql id="search">
-		<if test="searchType == 't'.toString()">
-			and r_title like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_title'.toString()">
+			and f_title like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'w'.toString()">
-			and r_writer like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_name'.toString()">
+			and f_name like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'c'.toString()">
-			and r_content like '%'||#{keyword}||'%'			
+		<if test="searchType == 'f_content'.toString()">
+			and f_content like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'tc'.toString()">
+		<if test="searchType == 'f_org'.toString()">
 			and (
-			r_title like '%'||#{keyword}||'%'
-			or
-			r_content like '%'||#{keyword}||'%'						
+			f_org like '%'||#{keyword}||'%'				
 			)			
 		</if>
 		
 		<if test="searchType == 'tcw'.toString()">
 			and (
-			r_title like '%'||#{keyword}||'%'
+			f_title like '%'||#{keyword}||'%'
 			or
-			r_writer like '%'||#{keyword}||'%'
+			f_name like '%'||#{keyword}||'%'
 			or
-			r_content like '%'||#{keyword}||'%'						
+			f_content like '%'||#{keyword}||'%'
+			or
+			f_org like '%'||#{keyword}||'%'						
 			)			
 		</if>
+		
+		<if test="searchType == 'hashTag'.toString()">
+			and b.fno=t.fno
+		</if>
+		
+		
+		<if test="searchType2 != '전국'.toString()">
+			and f_location1 like '%'||#{searchType2}||'%'			
+		</if>
+		
+		<if test="searchType3 != '전체'.toString()">
+			and f_type like '%'||#{searchType3}||'%'			
+		</if>
+		
 	</sql>
 	
+	
+	
+	
+	
 	<select id="selectSearchFestivalList" resultType="festival">
-		select
-		*
-		from
-		brd_festival
-		where unq_id is not null
-		<include refid="search"/>
-		order by ${listSort} desc
+		select *
+		from brd_festival b
+				<include refid="tag"/>
+		where unq_Id is not null
+				<include refid="search"/>
+		order by b.${listSort} desc
 	</select>
 	
-	<select id="selectSearchFestivalListByVote" resultType="festival">
-		select distinct f.*,v.vote
-		from brd_festival f,
-			(select v.unq_id,count(v.unq_id)as vote
-			from brd_festival f, vote v
-			where f.f_no=v.unq_id and v.f_seperate=1 group by v.unq_id) v
-		where f.f_no=v.unq_id
-		order by vote desc;
+	<select id="selectSearchFestivalListCount" resultType="int">
+		select count(*)
+		from brd_festival b
+				<include refid="tag"/>
+		where unq_Id is not null
+				<include refid="search"/>
 	</select>
 	
 	<!-- 상세보기 -->
 	<select id="selectFestival" resultType="festival">
-		select 
-		*
+		select *
 		from brd_festival
-		where unq_id=#{unq_id}
+		where fno=#{fno}
 	</select>
 	
 	<select id="selectFestivalSeqNext" resultType="int">
@@ -76,7 +97,7 @@
 	<update id="insertFestival" parameterType="festival">
 		insert into brd_festival
 		values
-		(#{unq_id}, #{f_no},#{f_writer},#{f_title},sysdate,#{f_viewCnt}, #{f_content}, #{f_name}, #{f_location1}, #{f_location2},#{f_period}, #{f_org}, #{f_type})
+		(#{unq_Id}, #{fno},#{f_writer},#{f_title},sysdate,#{f_viewCnt}, #{f_content}, #{f_name}, #{f_location1}, #{f_location2},#{f_period}, #{f_org}, #{f_type},0,0,#{f_ref})
 	</update>
 	
 	<!--  -->
@@ -84,14 +105,14 @@
 		update
 		brd_festival
 		set
-		f_title=#{f_title}, f_content=#{f_content},  f_name=#{f_name},  f_location1=#{f_location1},  f_location2=#{f_location2},  f_period=#{f_period},  f_org=#{f_org},  f_type=#{f_type} 
-		where f_no=#{f_no}
+		f_title=#{f_title}, f_content=#{f_content},  f_name=#{f_name},  f_location1=#{f_location1},  f_location2=#{f_location2},  f_period=#{f_period},  f_org=#{f_org},  f_type=#{f_type}, f_ref=#{f_ref} 
+		where fno=#{fno}
 	</update>
 	
 	<update id="deleteFestival" parameterType="int">
 		delete
 		from brd_festival
-		where f_no=#{f_no}
+		where fno=#{fno}
 	</update>	
 	
 	<update id="increaseViewCnt" parameterType="int">
@@ -99,11 +120,88 @@
 		brd_festival
 		set
 		f_viewcnt = f_viewcnt + 1
-		where f_no=#{f_no}
+		where fno=#{fno}
+	</update>
+	<update id="increaseVote1" parameterType="int">
+		update
+		brd_festival
+		set
+		vote1 = vote1 + 1
+		where fno=#{fno}
+	</update>
+	<update id="increaseVote2" parameterType="int">
+		update
+		brd_festival
+		set
+		vote2 = vote2 + 1
+		where fno=#{fno}
+	</update>
+	<update id="decreaseVote1" parameterType="int">
+		update
+		brd_festival
+		set
+		vote1 = vote1 - 1
+		where fno=#{fno}
+	</update>
+	<update id="decreaseVote2" parameterType="int">
+		update
+		brd_festival
+		set
+		vote2 = vote2 - 1
+		where fno=#{fno}
+	</update>
+	
+	<select id="selectVoteRecord" resultType="vote">
+		select *
+		from vote
+		where unq_id=#{fno} and id=#{id} and f_seperate=#{seperate}
+	</select>
+	<update id="createVoteRecord">
+		insert into vote
+		values(#{id},#{unq_Id},sysdate,#{seperate})
+	</update>
+	<update id="deleteVoteRecord">
+		delete from vote
+		where unq_id=#{unq_Id} and id=#{id} and f_seperate=#{seperate}
 	</update>
 	
 	
-	<!-- 좋아요 수 카운트,-->
+	<update id="insertTag">
+		insert into HashTag
+		values(#{fno},#{tag})
+	</update>
+	
+	<update id="deleteTag">
+		delete
+		from HashTag
+		where fno=#{fno}
+	</update>
+	
+	<select id="selectTag" resultType="hashTag">
+		select *
+		from HashTag
+		where fno=#{fno}
+	</select>
+	
+	<select id="selectReviewListByfno" resultType="review">
+		select *
+		from brd_review
+		where f_no=#{fno}
+		order by rno desc
+	</select>
+	<select id="selectTogetherListByfno" resultType="together">
+		select *
+		from brd_together
+		where f_no=#{fno}
+			and t_state=1
+		order by tno desc
+	</select>
+	
+	<select id="selectScoreAvg" resultType="float">
+ 	    select nvl(avg(r_score),0)
+    	from brd_review
+ 	    where f_no=#{fno}
+	</select>
 </mapper>
 
     

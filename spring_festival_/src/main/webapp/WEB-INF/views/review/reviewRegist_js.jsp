@@ -9,7 +9,7 @@
 <!-- 글등록 내용 스마트에디터 적용 -->
 $('#r_content').summernote({	
 	height:200,
-	placeholder:"1000자는 넘기지 말자^^",
+	placeholder:"내용을 작성하세요",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Together-Mapper">
+
+	<sql id="searchFrom">
+		<if test="searchType == 'festival'.toString()">
+			 , (select fno from brd_festival where f_name  like '%' ||#{keyword}|| '%')	f		
+		</if>	
+	</sql>
+	
+	<sql id="searchWhere">
+	
+		<if test="searchType == 'title'.toString()">
+			and t_title like '%' ||#{keyword}|| '%'					
+		</if>
+		
+		<if test="searchType == 'writer'.toString()">
+			and nickname like '%' ||#{keyword}|| '%'
+		</if>
+		
+		<if test="searchType =='contents'.toString()">
+			and t_content like '%' ||#{keyword}|| '%'
+		</if>
+		
+		<if test="searchType =='tc'.toString()">
+			and (
+			t_title like '%' ||#{keyword}|| '%'
+			or
+			t_content like '%' ||#{keyword}|| '%'	
+			)		
+		</if>
+		
+		<if test="searchType =='tcw'.toString()">
+			and (
+			t_title like '%' ||#{keyword}|| '%'
+			or
+			t_content like '%' ||#{keyword}|| '%'
+			or
+			t_writer like '%' ||#{keyword}|| '%'
+			)			
+		</if>
+		
+		<if test="searchType == 'festival'.toString()">
+			and t.f_no = f.fno	
+		</if>		
+	</sql>
+	
+	<select id="selectSearchTogetherList" resultType="together">
+		select
+		UNQ_ID, TNO, T_TITLE, T_WRITER, T_CONTENT, T_REGDATE, T_STATE, T_VIEWCNT, F_NO, NICKNAME, articleStatus
+		from
+		brd_together t
+		<include refid="searchFrom"/>
+		where tno is not null
+		<include refid="searchWhere"/>
+		order by ${listSort} desc
+	</select>
+	
+	<select id="selectSearchTogetherListCount" resultType="int">
+		select
+		count(*)
+		from
+		brd_together t
+		<include refid="searchFrom"/>
+		where tno is not null
+		<include refid="searchWhere"/>
+		order by tno desc	
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="selectTogetherByTno" resultType="together">
+		select
+		*
+		from
+		brd_together
+		where tno=#{tno}
+	</select>
+	
+	<select id="selectTogetherSeqNext" resultType="int">
+		select brd_together_seq.nextval from dual
+	</select>
+	
+	<select id="selectUnqSeqNext" resultType="int">
+		select three_board_seq.nextval from dual
+	</select>	
+	
+	<update id="insertTogether" parameterType="together">
+		insert
+		into
+		brd_together(unq_Id, tno, t_title, t_writer, t_content, t_regDate, t_state, t_viewcnt, f_no, nickname, articleStatus)
+		values
+		(#{unq_Id}, #{tno}, #{t_title}, #{t_writer}, #{t_content}, #{t_regDate}, 1, 0, null, #{nickname}, #{articleStatus})
+	</update>
+	
+	<update id="updateTogether" parameterType="together">
+		update
+		brd_together
+		set
+		t_title=#{t_title}, t_content=#{t_content}, articleStatus=#{articleStatus}
+		where tno = #{tno}
+	</update>
+	
+	<update id="deadLineTogether">
+		update
+		brd_together
+		set
+		t_state = #{t_state}
+		where tno=#{tno}
+	</update>
+	
+	<update id="deleteTogether" parameterType="int">
+		delete
+		from
+		brd_together
+		where tno=#{tno}
+	</update>
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update
+		brd_together
+		set
+		t_viewcnt = t_viewcnt + 1
+		where tno=#{tno}
+	</update>
+</mapper>    

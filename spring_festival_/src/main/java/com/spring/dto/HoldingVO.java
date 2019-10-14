@@ -7,6 +7,7 @@ public class HoldingVO {
 	private int comments; // 각각의 축제글의 댓글 총 갯수
 	private int unq_id;
 	private String id;
+	private int fno;
 	
 
 	public String[] getArrHash() {
@@ -49,5 +50,11 @@ public class HoldingVO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getFno() {
+		return fno;
+	}
+	public void setFno(int fno) {
+		this.fno = fno;
 	}
 }

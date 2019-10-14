@@ -107,12 +107,4 @@ public class MemberVO {
 		this.failCnt = failCnt;
 	}
 	
-	@Override
-	public String toString() {
-		return "MemberVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", nickName=" + nickName + ", tel=" + tel
-				+ ", email=" + email + ", birth=" + birth + ", sex=" + sex + ", location1=" + location1 + ", location2=" + location2 + ", prtPattern="
-				+ prtPattern + ", infoStatus=" + infoStatus + ", authority=" + authority + ", failCnt=" + failCnt
-				+ "]";
-	}
-	
 }

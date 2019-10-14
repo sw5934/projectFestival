@@ -5,6 +5,35 @@
 
 
 <mapper namespace="Utils-Mapper">
+
+	<sql id="reportBoard">
+	
+	
+		<if test="searchType == 'title'.toString()">
+		and t.title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'reporter'.toString()">
+			and r.nickname like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'nickname'.toString()">
+		and t.nickname like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+
+	<sql id="reportComment">
+		<if test="searchType == 'title'.toString()">
+		and c.title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'contents'.toString()">
+		and c.contents like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'reporter'.toString()">
+			and r.nickname like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'nickname'.toString()">
+		and c.nickname like '%'||#{keyword}||'%'
+		</if>
+	</sql>
 	
 	<select id="selectLikeCount" resultType="int">
 		select count(*)
@@ -32,10 +61,12 @@
 		select rpt_no,reporter,rpt_date,r.unq_id,type,bno,id,title
 		from report r, totalboard t
 		where r.unq_id=t.unq_id
+				<include refid="reportBoard"/>
+		order by rpt_no desc
 	</select>
 	<update id="doReport">
 		insert into report
-		values(rpt_seq.nextval,#{reporter},#{unq_id},sysdate)
+		values(rpt_seq.nextval,#{reporter},#{unq_id},sysdate,#{nickName})
 	</update>
 	<update id="deleteReport">
 		delete from report
@@ -46,13 +77,15 @@
 		select *
 		from report_comment r, totalcomments c
 		where r.c_no=c.c_no
+				<include refid="reportComment"/>
+		order by rpt_no_c desc
 	</select>
 	<update id="doReportComment">
-		insert into report
-		values(rpt_comment_seq.nextval,#{reporter},#{c_no},sysdate)
+		insert into report_comment
+		values(rpt_comment_seq.nextval,#{reporter},#{c_no},sysdate,#{nickName})
 	</update>
 	<update id="deleteReportComment">
-		delete from report
+		delete from report_comment
 		where unq_id=#{c_no}
 	</update>
 </mapper>

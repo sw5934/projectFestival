@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,14 +16,15 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.dao.AttachDAO;
 import com.spring.dto.MemberVO;
 import com.spring.dto.ReviewVO;
 import com.spring.service.ReviewService;
@@ -37,9 +39,6 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 
-	@Autowired
-	private AttachDAO attachDAO;
-
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
 	// ???
@@ -51,7 +50,10 @@ public class ReviewController {
 	@RequestMapping("/list")
 	public void listReview(SearchCriteria cri, Model model, String listSort, String page) throws Exception {
 
+				
 		try {
+			if (cri.getSearchType().equals(""))
+				cri.setSearchType("tcw");
 			if (listSort == null)
 				listSort = "rno";
 			if (page == null)
@@ -63,6 +65,7 @@ public class ReviewController {
 			dataMap.put("page",page);
 
 			model.addAttribute("dataMap", dataMap);
+			model.addAttribute("cri", cri);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,27 +73,28 @@ public class ReviewController {
 
 	@RequestMapping(value = "/reviewRegist", method = RequestMethod.GET)
 	public void registGET(Model model) throws Exception {
-		ReviewVO review = new ReviewVO();
-		
+		ReviewVO review = new ReviewVO();		
 
 		review.setUnq_Id(reviewService.getNextUnq_Id());
 		model.addAttribute("review",review);
+		
+		
 	}
+	
+	
 
 	@RequestMapping(value = "/reviewRegist", method = RequestMethod.POST)
-	public String registPost(ReviewVO review, HttpServletRequest request, String unq_Id) throws Exception {
-
-		System.out.println("00000000" +review.getId());
+	public String registPost(ReviewVO review, HttpServletRequest request, String unq_Id, int starInput) throws Exception {
 		
+		
+				
 		File exist = new File(request.getServletContext().getRealPath("/resources/uploadImg/")+review.getId()+"\\"+unq_Id+".jpg");
-		System.out.println("exist:"+!(exist.exists()));
-		System.out.println(request.getServletContext().getRealPath("/resources/uploadImg/")+review.getId()+"\\"+unq_Id+".jpg");
 		if(!(exist.exists())) {
 			File path = new File(request.getServletContext().getRealPath("resources/uploadImg/")+review.getId());
 			
-			System.out.println("path:"+!(path.exists()));
 			if(!(path.exists())) {
 				path.mkdirs();}
+			
 			File newFile = new File(request.getServletContext().getRealPath("resources/images/defaultImg.jpg"));
 			
 			String thumbnailFileName = request.getServletContext().getRealPath("resources/uploadImg/")+review.getId() +  "\\"+unq_Id+".jpg";
@@ -116,24 +120,54 @@ public class ReviewController {
 			}			
 		}
 		
+		review.setR_score(starInput);
 		HttpSession session = request.getSession();
-		String loginUser = ((MemberVO) session.getAttribute("loginUser")).getId();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		
-		review.setId(loginUser);
+		review.setId(loginUser.getId());
+		review.setNickname(loginUser.getNickName());
 		System.out.println(review.toString());
 		reviewService.regist(review);
-
+		
 		return "redirect:list";
-
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public void detail(int rno, Model model, String page, String listSort,SearchCriteria cri) throws Exception {
-
+	public void detail(HttpServletRequest request,ReviewVO review, int rno, Model model, String page, String listSort,SearchCriteria cri) throws Exception {
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		Map<String, Object> dataMap = reviewService.read(rno, cri);
 		dataMap.put("listSort",listSort);
 		dataMap.put("page",page);
+		
+		int history = reviewService.getLikeHistory(loginUser.getId(), ((ReviewVO)dataMap.get("review")).getUnq_Id());
+		dataMap.put("history",history);		
 		model.addAttribute("dataMap", dataMap);
+		
+		ReviewVO reviewV = (ReviewVO) dataMap.get("review");
+		Date registDate = reviewV.getR_regDate();
+		String rdate = registDate.toString();
+		String subrdate = rdate.substring(0, 10);
+		
+		review.getR_score();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "clickLike", method = RequestMethod.GET)	
+	public ResponseEntity<Integer> like(String id, String unq_Id)throws Exception{	
+		ResponseEntity<Integer> entity = null;
+		try {
+			int parseUnq_Id = Integer.parseInt(unq_Id);
+			int history = reviewService.getLikeHistory(id, parseUnq_Id);
+			reviewService.updateLike(id, parseUnq_Id, history);
+			
+			entity = new ResponseEntity<Integer>(history,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
@@ -147,35 +181,13 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPOST(ReviewVO review, MultipartFile[] uploadFile, int[] deleteFile, HttpServletRequest request,String listSort, String page)
+	public String modifyPOST(ReviewVO review, HttpServletRequest request,String listSort, String page, int starInput)
 			throws Exception {
 
-		// if(deleteFile != null) {
-		// //파일하나, db하나 for문으로 반복
-		// for(int a_no:deleteFile) {
-		//
-		// AttachVO attach = attachDAO.selectAttachByA_no(a_no);
-		//
-		// //파일지우기
-		// DeleteFileUtils.delete(uploadPath, attach);
-		//
-		// attachDAO.deleteAttach(a_no);
-		// }
-		// }
-		//
-		// List<AttachVO> attachList = new ArrayList<AttachVO>();
-		// if(uploadFile != null) {
-		// for(MultipartFile file : uploadFile) {
-		//
-		// AttachVO attach = UploadFileUtils.uploadFile(uploadPath,
-		// file.getOriginalFilename(), review.getUnq_Id(), file.getBytes());
-		//
-		// attachList.add(attach);
-		// }
-		// review.setAttachList(attachList);
-		// }
-
+		review.setR_score(starInput);
 		reviewService.modify(review);
+		
+		
 		
 		System.out.println(review.toString());
 
@@ -186,16 +198,7 @@ public class ReviewController {
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String removeReview(int rno) throws Exception {
 
-		/*
-		 * ReviewVO review = reviewService.getReview(rno);
-		 * 
-		 * List<AttachVO> attachList = review.getAttachList(); if(attachList != null) {
-		 * //파일하나, db하나 for문으로 반복 for(AttachVO attach : attachList) {
-		 * 
-		 * //파일지우기 DeleteFileUtils.delete(uploadPath, attach);
-		 * 
-		 * //DB지우기 attachDAO.deleteAttach(attach.getA_no()); } }
-		 */
+		
 		reviewService.remove(rno);
 		return "redirect:list";
 	}

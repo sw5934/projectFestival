@@ -2,6 +2,9 @@ package com.spring.controller.board;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.dto.CommentsVO;
+import com.spring.dto.MemberVO;
 import com.spring.service.CommentsService;
 
 @RestController
@@ -41,10 +45,13 @@ public class CommentsController {
 	}
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody CommentsVO comments, String unq_Id) throws Exception{
+	public ResponseEntity<String> register(@RequestBody CommentsVO comments, String unq_Id,HttpServletRequest request) throws Exception{
 		
 		ResponseEntity<String> entity = null;
 		try {
+			
+			HttpSession session = request.getSession();
+			comments.setNickName(((MemberVO)session.getAttribute("loginUser")).getNickName());
 			service.registComments(comments);
 			
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

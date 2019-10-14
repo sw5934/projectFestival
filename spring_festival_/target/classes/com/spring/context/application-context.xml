@@ -24,8 +24,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="reviewDAO" class="com.spring.dao.ReviewDAOImpl"
 		p:session-ref="sqlSession"/>
-	<bean id="attachDAO" class="com.spring.dao.AttachDAOImpl"
-		p:session-ref="sqlSession"/>	
+	<bean id="togetherDAO" class="com.spring.dao.TogetherDAOImpl"
+		p:session-ref="sqlSession"/>		
 	<bean id="commentsDAO" class="com.spring.dao.CommentsDAOImpl"
 		p:session-ref="sqlSession"/>	
 	<bean id="messageDAO" class="com.spring.dao.MessageDAOImpl"
@@ -37,6 +37,10 @@
 	<bean id="followDAO" class="com.spring.dao.FollowDAOImpl"
 		p:session-ref="sqlSession"/>
 	<bean id="myPageDAO" class="com.spring.dao.MyPageDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="festivalDAO" class="com.spring.dao.FestivalDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="attachDAO" class="com.spring.dao.AttachDAOImpl"
 		p:session-ref="sqlSession"/>
 		  
 		  
@@ -51,7 +55,10 @@
 		  />
 	<bean id="reviewService" class="com.spring.service.ReviewServiceImpl"
 		p:reviewDAO-ref="reviewDAO"
-		p:attachDAO-ref="attachDAO"
+		p:festivalDAO-ref="festivalDAO"
+		p:commentsDAO-ref="commentsDAO"/>
+	<bean id="togetherService" class="com.spring.service.TogetherServiceImpl"
+		p:togetherDAO-ref="togetherDAO"
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="commentsService" class="com.spring.service.CommentsServiceImpl"
 		p:commentsDAO-ref="commentsDAO"/>
@@ -72,5 +79,11 @@
 	<bean id="myPageService"
 		  class="com.spring.service.MyPageServiceImpl"
 		  p:myPageDAO-ref="myPageDAO"
+		  />
+	<bean id="festivalService"
+		  class="com.spring.service.FestivalServiceImpl"
+		  p:festivalDAO-ref="festivalDAO"
+		  p:commentsDAO-ref="commentsDAO"
+		  p:reportDAO-ref="reportDAO"
 		  />
 </beans>

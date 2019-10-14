@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="review" value="${dataMap.review }" />
+<c:set var="festival" value="${dataMap.festival }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <!DOCTYPE html>
 <html>
@@ -63,30 +64,42 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.2em">
 	    <div class="float-sm-left col-3">${review.rno}</div>
 	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3">${review.id }</div>
+	    <div class="float-sm-left col-3">작성자 : ${review.nickname }</div>
+	    	
     </div>
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-9">${review.r_title }</div>
-	    <div class="float-sm-left col-3">${review.r_regDate }</div>
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
+	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_title }</div>
+	    <div class="float-sm-left col-3">
+	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>
     
     <div class="col-12" style="overflow:hidden;">
-	    <a class="float-sm-right">평점모듈</a>
+	    <a class="float-sm-right" id="score">평점 : </a>
     </div>
     
     
-    <div class="col-12 pl-5 pr-5">
+    <div class="col-12 pl-5 pr-5" style="min-height: 200px;">
 	    <div>${review.r_content }</div>
     </div>
     
     
     <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
 	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-1">${review.r_like }</div>
-	  		<div class="float-sm-left col-1">신고</div>	    	  		
+	   		<div class="float-sm-left col-1">
+	   			<c:if test="${review.id != null }">
+	   				<c:if test="${dataMap.history==0}">
+	   				<img src="/festival/resources/bootstrap/plugins/cm/unlike1.png" style="width: 20px; float: left" id="like_update">
+	   				</c:if>
+	   				<c:if test="${dataMap.history!=0}">
+	   				<img src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
+	   				</c:if>
+	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
+	   			</c:if>
+	   		</div>	   		
+	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
 	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
     	

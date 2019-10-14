@@ -5,16 +5,24 @@
 
 
 <mapper namespace="Review-Mapper">
-	<sql id="search">
-		<if test="searchType == 't'.toString()">
+
+
+	<sql id="searchFrom">
+		<if test="searchType == 'festival'.toString()">
+			 , (select fno from brd_festival where f_name  like '%' ||#{keyword}|| '%')	f		
+		</if>	
+	</sql>
+	
+	<sql id="searchWhere">
+		<if test="searchType == 'title'.toString()">
 			and r_title like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'w'.toString()">
-			and r_writer like '%'||#{keyword}||'%'			
+		<if test="searchType == 'writer'.toString()">
+			and nickname like '%'||#{keyword}||'%'			
 		</if>
 		
-		<if test="searchType == 'c'.toString()">
+		<if test="searchType == 'contents'.toString()">
 			and r_content like '%'||#{keyword}||'%'			
 		</if>
 		
@@ -35,15 +43,20 @@
 			r_content like '%'||#{keyword}||'%'						
 			)			
 		</if>
+		
+		<if test="searchType == 'festival'.toString()">
+			 and r.f_no = f.fno			
+		</if>	
 	</sql>
 	
 	<select id="selectSearchReviewList" resultType="review">
 		select
 		UNQ_ID,RNO,R_TITLE,R_WRITER as id,R_CONTENT,R_REGDATE,R_VIEWCNT,R_SCORE,F_NO,NICKNAME
 		from
-		brd_review
+		brd_review r
+		<include refid="searchFrom"/>
 		where rno is not null
-		<include refid="search"/>
+		<include refid="searchWhere"/>
 		order by ${listSort} desc
 	</select>
 	
@@ -51,9 +64,10 @@
 		select
 		*
 		from
-		ReviewLikeStatus
+		ReviewLikeStatus r
+		<include refid="searchFrom"/>
 		where rno is not null
-		<include refid="search"/>
+		<include refid="searchWhere"/>
 		order by r_like desc
 	</select>
 	
@@ -61,9 +75,10 @@
 		select
 		count(*)
 		from
-		brd_review
+		brd_review r
+		<include refid="searchFrom"/>
 		where rno is not null
-		<include refid="search"/>
+		<include refid="searchWhere"/>
 		order by rno desc
 	</select>
 	
@@ -86,9 +101,9 @@
 	<update id="insertReview" parameterType="review">
 		insert
 		into
-		brd_review(unq_id, rno, r_title, r_writer, r_content, r_regDate, r_viewcnt, r_score,f_no)
+		brd_review(unq_id, rno, r_title, r_writer, r_content, r_regDate, r_viewcnt, r_score, f_no, nickname)
 		values
-		(#{unq_Id}, brd_review_seq.nextval, #{r_title}, #{id}, #{r_content}, sysdate, 0, 3, null)
+		(#{unq_Id},#{rno}, #{r_title}, #{id}, #{r_content}, sysdate, 0, #{r_score}, #{f_no}, #{nickname})
 	</update>
 	
 	<!--  -->
@@ -96,7 +111,7 @@
 		update
 		brd_review
 		set
-		r_title=#{r_title}, r_content=#{r_content}
+		r_title=#{r_title}, r_content=#{r_content}, r_score=#{r_score}
 		where rno=#{rno}
 	</update>
 	

@@ -39,14 +39,13 @@ public class CustomAuthentication implements AuthenticationProvider {
 		//임시적으로 admin role 부여
 				if(member != null && login_pwd.equals(member.getPwd())) {
 					List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-					roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 					
-				/*	List<Integer> authority = member.getAuthority();
+					List<Integer> authority = member.getAuthority();
 					
 					for(int i = 0; authority != null && i < authority.size(); i++) {
 						// 사용자에게 권한 부여
 						roles.add(new SimpleGrantedAuthority(authority.get(i).toString()));
-					}*/
+					}
 					
 					// 스프링 시큐리티 내부 클래스로 인증 토큰 생성한다.
 					UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member.getId(), member.getPwd(), roles);
