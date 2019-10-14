@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.controller.board.SearchCriteria;
 import com.spring.dto.MemberVO;
 import com.spring.service.MailService;
+import com.spring.service.MainService;
 import com.spring.service.MemberService;
 
 @Controller
@@ -30,6 +31,9 @@ public class CommonController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MainService mainService;
 	
 	@Autowired
     private MailService mailService;
@@ -232,6 +236,15 @@ public class CommonController {
 	public String memInfoCall() {
 		System.out.println("CommonController.memInfoCall(), memInfoCall.jsp를 리턴.");
 		return "/memInfo/memInfoCall";
+	}
+	
+	@RequestMapping("/totalSearch")
+	public String totalSearch(Model model,SearchCriteria cri) throws Exception{
+		if(cri.getSearchType()==null)
+			cri.setSearchType("tcw");
+		model.addAttribute("dataList",mainService.searchThreeBoard(cri));		
+		model.addAttribute("searchCri",cri);	
+		return "common/totalSearch";
 	}
 	
 }

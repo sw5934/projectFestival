@@ -126,6 +126,11 @@ public class TogetherController {
 	
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+		if(listSort==null)
+			listSort="tno";
+		if(page==null)
+			page="1";
 		
 		Map<String, Object> dataMap = togetherService.read(tno, cri);
 		dataMap.put("listSort", listSort);

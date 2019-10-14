@@ -80,6 +80,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public void insertMember(MemberVO member) throws SQLException {
 
 		session.update("Member.insertMember",member);
+		session.update("Member.insertAuthority",member);
 
 	}
 

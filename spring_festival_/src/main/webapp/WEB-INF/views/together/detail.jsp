@@ -95,7 +95,7 @@
 	   			><img src="<%=request.getContextPath()%>/resources/images/deadLine${together.t_state}.png"></a>
 	   		</c:if>
 	   		
-	  		<div class="float-sm-left col-1">신고</div>	    	  		
+	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${together.unq_Id}&no=${together.tno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	    	  		
 	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
 	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
     	

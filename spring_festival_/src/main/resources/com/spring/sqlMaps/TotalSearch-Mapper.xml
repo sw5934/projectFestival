@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="TotalSearch-Mapper">
+
+	<sql id="searchFestival">
+		<if test="searchType == 'title'.toString()">
+			and(f_title like '%'||#{keyword}||'%'
+			or  f_name like '%'||#{keyword}||'%')
+		</if>
+		
+		<if test="searchType == 'content'.toString()">
+			and f_content like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'tc'.toString()">
+			and(f_title like '%'||#{keyword}||'%'
+			or  f_name like '%'||#{keyword}||'%'		
+			or  f_content like '%'||#{keyword}||'%')		
+		</if>
+		
+		<if test="searchType == 'writer'.toString()">
+			and f_org like '%'||#{keyword}||'%'		
+		</if>
+		
+		<if test="searchType == 'tcw'.toString()">
+			and(f_title like '%'||#{keyword}||'%'
+			or  f_name like '%'||#{keyword}||'%'
+			or  f_content like '%'||#{keyword}||'%'
+			or  f_org like '%'||#{keyword}||'%')			
+		</if>
+	</sql>
+	
+	<sql id="searchReview">
+		<if test="searchType == 'title'.toString()">
+			and r_title like '%'||#{keyword}||'%'
+		</if>
+		
+		<if test="searchType == 'content'.toString()">
+			and r_content like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'tc'.toString()">
+			and(r_title like '%'||#{keyword}||'%'		
+			or  r_content like '%'||#{keyword}||'%')		
+		</if>
+		
+		<if test="searchType == 'writer'.toString()">
+			and nickname like '%'||#{keyword}||'%'		
+		</if>
+		
+		<if test="searchType == 'tcw'.toString()">
+			and(r_title like '%'||#{keyword}||'%'
+			or  r_content like '%'||#{keyword}||'%'
+			or  nickname like '%'||#{keyword}||'%')			
+		</if>
+	</sql>
+	
+	<sql id="searchTogether">
+		<if test="searchType == 'title'.toString()">
+			and t_title like '%'||#{keyword}||'%'
+		</if>
+		
+		<if test="searchType == 'content'.toString()">
+			and t_content like '%'||#{keyword}||'%'			
+		</if>
+		
+		<if test="searchType == 'tc'.toString()">
+			and(t_title like '%'||#{keyword}||'%'		
+			or  t_content like '%'||#{keyword}||'%')		
+		</if>
+		
+		<if test="searchType == 'writer'.toString()">
+			and nickname like '%'||#{keyword}||'%'		
+		</if>
+		
+		<if test="searchType == 'tcw'.toString()">
+			and(t_title like '%'||#{keyword}||'%'
+			or  t_content like '%'||#{keyword}||'%'
+			or  nickname like '%'||#{keyword}||'%')			
+		</if>
+	</sql>
+	
+	
+	
+	<select id="selectSearchFestivalList" resultType="festival">
+		select *
+		from brd_festival 
+		where unq_Id is not null
+			<include refid="searchFestival"/>
+	</select>
+	
+	<select id="selectSearchReviewList" resultType="review">
+		select
+		UNQ_ID,RNO,R_TITLE,R_WRITER as id,R_CONTENT,R_REGDATE,R_VIEWCNT,R_SCORE,F_NO,NICKNAME
+		from
+		brd_review 
+		where rno is not null
+			<include refid="searchReview"/>
+	</select>
+	
+	<select id="selectSearchTogetherList" resultType="together">
+		select
+		UNQ_ID, TNO, T_TITLE, T_WRITER, T_CONTENT, T_REGDATE, T_STATE, T_VIEWCNT, F_NO, NICKNAME, articleStatus
+		from
+		brd_together 
+		where tno is not null
+			<include refid="searchTogether"/>
+	</select>
+	
+</mapper>
+
+    

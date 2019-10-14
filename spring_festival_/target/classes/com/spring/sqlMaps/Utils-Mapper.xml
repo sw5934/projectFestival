@@ -8,7 +8,6 @@
 
 	<sql id="reportBoard">
 	
-	
 		<if test="searchType == 'title'.toString()">
 		and t.title like '%'||#{keyword}||'%'
 		</if>

@@ -134,14 +134,20 @@ public class ReviewController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public void detail(HttpServletRequest request,ReviewVO review, int rno, Model model, String page, String listSort,SearchCriteria cri) throws Exception {
+
+		if(listSort==null)
+			listSort="rno";
+		if(page==null)
+			page="1";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		Map<String, Object> dataMap = reviewService.read(rno, cri);
 		dataMap.put("listSort",listSort);
 		dataMap.put("page",page);
-		
-		int history = reviewService.getLikeHistory(loginUser.getId(), ((ReviewVO)dataMap.get("review")).getUnq_Id());
+		int history =0;
+		if(loginUser!=null)
+			history = reviewService.getLikeHistory(loginUser.getId(), ((ReviewVO)dataMap.get("review")).getUnq_Id());
 		dataMap.put("history",history);		
 		model.addAttribute("dataMap", dataMap);
 		
