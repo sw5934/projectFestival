@@ -46,16 +46,16 @@ public class FollowController {
 							HttpServletResponse response) throws SQLException {
 		cri = new Second_Criteria(1,1,5);
 		
+
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
+		cri.setStr(loginUser.getId());
 		
 		
 		response.setContentType("text/html;charset=utf-8");
 		Map<String, Object> dataMap = followService.followList(cri);
 		
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		cri.setStr(loginUser.getId());
 		
 		
 		if( (null != request.getParameter("first_page")) && (null != request.getParameter("second_page"))) {			
@@ -79,6 +79,9 @@ public class FollowController {
 	public String f_write(Model model, Second_Criteria cri,
 							HttpServletRequest request,
 							HttpServletResponse response) throws SQLException {
+
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		System.out.println("FollowController.f_write() 시작");
 		cri = new Second_Criteria(1,1,3);
 		response.setContentType("text/html;charset=utf-8");
@@ -89,8 +92,6 @@ public class FollowController {
 			cri.setSecond_page(Integer.parseInt(request.getParameter("second_page")));
 		}
 		
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
 		System.out.println("로그인 아이디 : "+cri.getStr());

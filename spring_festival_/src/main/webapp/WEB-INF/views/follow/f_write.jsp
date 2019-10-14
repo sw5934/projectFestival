@@ -86,6 +86,7 @@
 			</table>
 		</div>
 
+				<c:if test="${!empty three_board_list }">
 		<div class="clearfix">
 			<div class="text-center">															
 			<ul class="pagination pagination-sm" style="justify-content: center; margin-left: auto; margin-right: auto;"> 
@@ -128,6 +129,7 @@
 			</ul>
 			</div>
 		</div>
+		</c:if>
 	</div>
 <!-- //////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -166,6 +168,7 @@
 			</div>
 		</div>
 		
+					<c:if test="${!empty wantGoList }">
 		<div class="clearfix">
 			<div class="text-center">															
 			<ul class="pagination pagination-sm m-0" style="justify-content: center; margin-left: auto; margin-right: auto;"> 
@@ -211,6 +214,7 @@
 			</ul>
 			</div>
 		</div>
+		</c:if>
 	</div>
 </div>
 
