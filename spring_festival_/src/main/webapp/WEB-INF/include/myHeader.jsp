@@ -64,4 +64,4 @@
                 
                 
                 </div>
-                <div style="height: 70%">
+                <div class="col-11" style="height: 70%">

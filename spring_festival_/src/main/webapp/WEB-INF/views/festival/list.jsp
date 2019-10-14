@@ -75,11 +75,12 @@
             <button id="newBtn" class="reviewRegist ml-2" onclick="location.href='festivalRegist'">글 작성</button></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=fno">최신 일자</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=f_viewCnt">조회 수</a></div>
-        <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=vote1">가고싶어요</a></div>
+        <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=vote1">가고싶어요</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=vote2">다녀왔어요</a></div>
     </div>
     
-    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/festival/list" method="get">
+    <div style="width: 100%; margin-top: 10px;">
+    <form class="col-12" style="width: 700px;float: right; margin-right: 80px;" id="listForm" action="<%=request.getContextPath() %>/festival/list" method="get">
 	    <select name="searchType">
 	    	<option value="tcw">전체 </option>
 	    	<option value="f_title" <c:if test='${cri.searchType =="f_title"}'>selected</c:if> >글 제목 </option>
@@ -121,6 +122,7 @@
     	<input type="hidden" name="listSort" value="${listSort}">
     	<button type="button" onclick="$('#listForm').submit()">검색</button>
     </form>
+    </div>
     
     <table class="mt-5 col-10" style=" margin: 0 auto;">
         <c:if test="${empty festivalList }">

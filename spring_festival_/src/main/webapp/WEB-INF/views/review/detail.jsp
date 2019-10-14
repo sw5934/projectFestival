@@ -71,7 +71,7 @@
 	    	
     </div>
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
-	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_title }</div>
+	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
 	    <div class="float-sm-left col-3">
 	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>
