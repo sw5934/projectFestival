@@ -96,8 +96,22 @@ public class FollowDAOImpl implements FollowDAO {
 	
 	public void unFollow(String nickName, String myId) throws SQLException {
 		HashMap<String,String> data = new HashMap<String,String>();
-		data.put("nickName",nickName);
+		data.put("id",nickName);
 		data.put("myId",myId);
 		session.update("Follow-Mapper.deleteFollow", data);
 	}
+
+	public int selectFollowThis(String me, String follow) throws SQLException{
+		HashMap<String,String> data = new HashMap<String,String>();
+		data.put("me",me);
+		data.put("follow",follow);
+		return session.selectOne("Follow-Mapper.selectFollowThis",data);
+	};
+	
+	public void insertFollow(String me, String follow) throws SQLException{
+		HashMap<String,String> data = new HashMap<String,String>();
+		data.put("me",me);
+		data.put("follow",follow);
+		session.update("Follow-Mapper.insertFollow",data);
+	};
 }

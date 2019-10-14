@@ -28,7 +28,7 @@ public class VoteServiceImpl implements VoteService {
 		PageMaker wantGoPM = new PageMaker();
 		wantGoPM.setCri(cri);
 		int totalCount = voteDAO.wantGoTotalCount(cri);
-		wantGoPM.setTotalCount(totalCount, "wantGo");
+		wantGoPM.setTotalCount(totalCount, "VwantGo");
 		
 		
 		

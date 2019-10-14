@@ -15,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>가고싶어요 / 다녀왔어요</title>
+  <title>가고싶어요 / 다녀왔어요!</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -33,7 +33,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-
+<a id="hlist" href=""></a>
 <div class="wrapper">
             <div class="col-11" style="margin: 0 auto;">
                 <div class="baminfont-Pro" style="font-size:1.2em">가고 싶어요</div>
@@ -63,6 +63,7 @@
 				                      <td  class="p-1" align="left">${vl.f_title}</td>
 				                      <td  class="p-1">${vl.chkdate}</td>
 				                      <td  class="p-1"><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
+
 				                    </tr>
 				                </c:if>
 			    			</c:forEach>
@@ -76,18 +77,26 @@
 							<li class="page-item">
 								<!-- 제일 첫번째 페이지로 이동하기 위한 href이다. makeQuery()를 통해 url을 반환받고, 클릭시 수행된다. -->
 								<input type="button" value="&lt;&lt;" class="page-link" 
-									onclick="pageMove(1, 'wantGo' )"/>
+									onclick="pageMove(1, 'VwantGo' )"/>
 							</li>
 							
 							<li class="page-item">
 								<input type="button" value="&lt;" class="page-link" 
-									onclick='pageMove(${wantGoPM.startPage-1 }, "wantGo")'/>
+									onclick='
+									<c:if test="${wantGoPM.next }">
+									pageMove(${wantGoPM.endPage+1 }, "VwantGo")
+									</c:if>
+									<c:if test="${!wantGoPM.next }">
+									pageMove(${wantGoPM.cri.second_page }, "VwantGo" )
+									</c:if>
+									'/>
 							</li>
 							<c:forEach begin="${wantGoPM.startPage }" 
 							           end="${wantGoPM.endPage }" var="pageNum">
 							<li class="page-item <c:out value="${wantGoPM.cri.second_page == pageNum ?'active':''}"/>">
+
 							 <input type="button" id="followedBtn" value="${pageNum }"
-									 class="page-link" onclick="pageMove($(this).val(), 'wantGo')"/>
+									 class="page-link" onclick="pageMove($(this).val(), 'VwantGo')"/>
 							</li>
 							</c:forEach>	
 							
@@ -95,18 +104,18 @@
 							<li class="page-item">
 								<input type="button" value="&gt;" class="page-link" 
 									onclick='
-									<c:if test="${wantGoPM.next }">
-									pageMove(${wantGoPM.endPage+1 }, "wantGo")
+									<c:if test="${wantGoPM.prev }">
+									pageMove(${wantGoPM.startPage-1 }, "VwantGo")
 									</c:if>
-									<c:if test="${!wantGoPM.next }">
-									pageMove(${wantGoPM.cri.second_page }, "wantGo" )
+									<c:if test="${!wantGoPM.prev }">
+									pageMove(${wantGoPM.startPage }, "VwantGo" )
 									</c:if>
 									'/>
 							</li>			
 							
 							<li class="page-item">
 								<input type="button" value="&gt;&gt;" class="page-link" 
-									onclick='pageMove(${wantGoPM.realEndPage},"wantGo")'/>
+									onclick='pageMove(${wantGoPM.realEndPage},"VwantGo")'/>
 							</li>
 					
 						</ul>
@@ -152,6 +161,7 @@
 				                      <td class="p-1">${vl.chkdate}</td>
 				                      <td class="p-1"><button class="badge bg-danger" onclick='unVote("${vl.id}", "${vl.unq_id}")'>X</button></td>
 				                    </tr>
+
 			                    </c:if>
 			    			</c:forEach>
 			    		</c:if>
@@ -177,7 +187,14 @@
 							
 							<li class="page-item">
 								<input type="button" value="&lt;" class="page-link" 
-									onclick='pageMove(${goAndBackPM.startPage-1 }, "goAndBack")'/>
+									onclick='
+										<c:if test="${goAndBackPM.prev }">
+									pageMove(${goAndBackPM.startPage-1 }, "goAndBack")
+									</c:if>
+									<c:if test="${!goAndBackPM.prev }">
+									pageMove(${goAndBackPM.startPage }, "goAndBack" )
+									</c:if>
+									'/>
 							</li>
 							<c:forEach begin="${goAndBackPM.startPage }" 
 							           end="${goAndBackPM.endPage }" var="pageNum">
@@ -229,16 +246,16 @@
    		alert('클릭 타입 : '+type); 
    		
    		
-   		if (type=='follow') { // 클릭한 페이지가 follow라면 follow는 클릭한 페이지를,  followed는 기존 페이지를 로딩한다.
-   				alert('if == follow');
-   				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+click_page
+   		if (type=='VwantGo') { // 클릭한 페이지가 follow라면 follow는 클릭한 페이지를,  followed는 기존 페이지를 로딩한다.
+   				alert('if == VwantGo');
+   				var varUrl='<%= request.getContextPath()%>/vote/voteList/?first_page='+click_page
 				+'&second_page='+goAndBack_now_page
 				+'&perPageNum=5';
-		} else if(type=='followed') {
-				alert('if == followed');
-				var varUrl='<%= request.getContextPath()%>/follow/followList/?first_page='+wantGo_now_page
-				+'&second_page='+click_page
-				+'&perPageNum=5';
+		} else if(type=='goAndBack') {
+			alert('if == goAndBack');
+			var varUrl='<%= request.getContextPath()%>/vote/voteList/?first_page='+wantGo_now_page
+			+'&second_page='+click_page
+			+'&perPageNum=5';
 		}
    	
    		$("#hlist").attr("href", varUrl);
@@ -250,11 +267,12 @@
   
   
   	function unVote(id, u_id) {
+  		<%-- 
   		alert('deleteVote 버튼을 클릭하셨습니다.');
   		alert('<%= request.getContextPath()%>');
   		alert('id = ' + id);
   		alert('u_id = ' + u_id);
-		
+ 		--%>
   		
   		var data = {id:id, u_id:u_id};
   		

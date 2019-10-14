@@ -1,8 +1,8 @@
 package com.spring.controller.board;
 
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.dto.MemberVO;
@@ -45,16 +46,16 @@ public class FollowController {
 							HttpServletResponse response) throws SQLException {
 		cri = new Second_Criteria(1,1,5);
 		
+
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
+		cri.setStr(loginUser.getId());
 		
 		
 		response.setContentType("text/html;charset=utf-8");
 		Map<String, Object> dataMap = followService.followList(cri);
 		
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		cri.setStr(loginUser.getId());
 		
 		
 		if( (null != request.getParameter("first_page")) && (null != request.getParameter("second_page"))) {			
@@ -78,6 +79,9 @@ public class FollowController {
 	public String f_write(Model model, Second_Criteria cri,
 							HttpServletRequest request,
 							HttpServletResponse response) throws SQLException {
+
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		System.out.println("FollowController.f_write() 시작");
 		cri = new Second_Criteria(1,1,3);
 		response.setContentType("text/html;charset=utf-8");
@@ -88,8 +92,6 @@ public class FollowController {
 			cri.setSecond_page(Integer.parseInt(request.getParameter("second_page")));
 		}
 		
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
 		System.out.println("로그인 아이디 : "+cri.getStr());
@@ -122,30 +124,32 @@ public class FollowController {
 	   2) "@RequestBody"타입의 매개변수를 작성("data:JSON.stringify(nName)" 데이터를 받아내는 변수).         -> 최소조건
 	   3) 요청 측의 각종 데이터를 받아낼 HttpServletRequest request 작성.            -> 최대조건
 	*/
-	@RequestMapping("/unFollow")
-	public ResponseEntity<String> unFollow(@RequestBody Map<String, String> strMap
-											) throws SQLException {
-		System.out.println("FollowController.unFollow() 시작");
-		System.out.println("FollowController.unFollow(),   넘어온 데이터 nickName = " + (String)strMap.get("nName"));
-		System.out.println("FollowController.unFollow(),   넘어온 데이터 nickName = " + (String)strMap.get("myId"));
+	
+	@RequestMapping(value="follow",method=RequestMethod.GET)
+	public String follow(String follow,String me,String nick) throws Exception{
 		
+		String nickName= URLEncoder.encode(nick, "UTF-8");
+		
+		if(followService.checkFollow(me, follow)==0) {
+			followService.doFollow(me, follow);
+		}else {
+			followService.unFollow(follow, me);}
+		return "redirect:/member/memInfo?nick="+nickName;
+	}
+	
+	
+	
+	@RequestMapping("/unFollow")
+	public ResponseEntity<String> unFollow(@RequestBody Map<String, String> strMap) throws SQLException {		
 		String follower_Nick = (String)strMap.get("nName");
 		String myId = (String)strMap.get("myId");
 		
-		
-		
-		
 		followService.unFollow(follower_Nick, myId);
-		
-		
-		
 		
 		ResponseEntity<String> responseEntity = null; 
 		
-		try {
-//			responseEntity = new ResponseEntity(menuList, HttpStatus.OK);			
+		try {		
 		} catch (Exception e) {
-//			responseEntity = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		} 
 		

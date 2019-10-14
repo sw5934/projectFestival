@@ -38,7 +38,7 @@
 			and (
 			r_title like '%'||#{keyword}||'%'
 			or
-			r_writer like '%'||#{keyword}||'%'
+			nickName like '%'||#{keyword}||'%'
 			or
 			r_content like '%'||#{keyword}||'%'						
 			)			

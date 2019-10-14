@@ -7,17 +7,24 @@
 <mapper namespace="Follow-Mapper">
 	
 	<!-- 특정 회원이 팔로우 한 목록 -->
+	<select id="selectFollowThis" resultType="int" >
+		select count(*)
+		from follow 
+		where id=#{me} and follow=#{follow}
+	</select>	
+	
+	<!-- 특정 회원이 팔로우 한 목록 -->
 	<select id="selectFollow" resultType="member" >
 		select m.*
 		from follow f, member m
-		where f.id='chun@naver.com' and f.follow=m.id
+		where f.id=#{str} and f.follow=m.id
 	</select>	
 	
 	<!-- 특정 회원을 팔로우 한 사람들 목록 -->
 	<select id="selectFollowed" resultType="member">
 		select m.*
 		from follow f, member m
-		where f.follow='chun@naver.com' and f.id=m.id
+		where f.follow=#{str} and f.id=m.id
 	</select>	
 	
 	
@@ -66,6 +73,10 @@
 	from follow
 	where id = #{myId}
    		  and follow = #{id}
+	</update>
+	<update id="insertFollow">
+	insert into follow
+	values (#{me},#{follow})
 	</update>
 </mapper>
     

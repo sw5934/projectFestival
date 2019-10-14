@@ -4,13 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set value="${dataMap.pageMaker }" var="pageMaker"/>
-<c:set value="${dataMap.cmtMap }" var="cmtMap"/>
-<c:set value="${dataMap.tagMap }" var="tagMap"/>
-<c:set value="${dataMap.myHoldingList }" var="myHoldingList"/>
-<c:set value="${myHoldingList.holdingList }" var="holdingList"/>
-<c:set var="listSort" value="${dataMap.listSort }" />
-<c:set var="page" value="${dataMap.page }" />
-
+<c:set value="${dataMap.holdingList }" var="holdingList"/>
+<c:set value="${dataMap.page }" var="page" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,7 +14,6 @@
 <title>개최자의 게시글 페이지</title>
 </head>
 <body>
-<div class="wrapper" style="margin-left: 15px; margin-right: 15px;">
 	<div class="col-11 mt-3" style="padding: 0px; overflow:hidden; width: 100%; height:40px;"> 
 	<div class="float-sm-left" style="padding: 0px; top: 0px; width: 100%;">
 	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em;background: #E4E4E4;">
@@ -31,7 +25,7 @@
 	<div class="col-3 float-sm-left" style="padding: 0px; text-align:center; font-size:1.4em">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/comments" style="color: black;">댓글</a></div></div>
 	</div>
-	<div class="" style="border: 1px solid #D8D8D8; height: 327px;">
+	<div class="" style="border: 1px solid #D8D8D8; height: 327px; margin:0 auto">
 		<div class="" style="margin:0px 15px 5px 15px;height:290px;">
             <div class="" style="height:290px;">
 				<table class="" style="width: 100%;"> <!-- border="solid 1px black" -->
@@ -51,11 +45,15 @@
 						</tr>
 					</c:if>
 					<c:if test="${!empty holdingList }">
-						<c:forEach items="${holdingList }" var="hList"> <!--  begin="0" end="10" step="1" -->
+						<c:forEach items="${holdingList }" var="hList">
 	                    <tr align="center" style="border-bottom:1px solid lightgrey; height: 62px;">
-	                    	<td width="150px" style="text-align: center;margin: 5px;padding: 0;"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${hList.id }/${hList.unq_id }.jpg" style="width:auto;height:40px;"></td>
-	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/festival/detail/?fno=${hList.fno }')"><u>${hList.title}</u>(${hList.comments })</a></td>
-	                      	<td width="150px" style="margin: 5px;padding: 0;"></td>
+	                    	<td width="150px" style="text-align: center;margin: 5px;padding: 0;"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${hList.f_writer }/${hList.unq_Id }.jpg" style="width:auto;height:40px;"></td>
+	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;">
+	                      		<a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/festival/detail/?fno=${hList.fno }')">
+	                      		<u>${hList.f_title}</u><c:if test="${hList.commentCount !=0}">(${hList.commentCount })</c:if></a><br>
+                   				<a>${hList.hashTagString }</a>
+	                      	</td>
+	                      	<td width="150px" style="margin: 5px;padding: 0;"><fmt:formatDate value="${hList.f_regDate }"/></td>
 	                    </tr>
 		    			</c:forEach>
 		    		</c:if>
@@ -106,37 +104,18 @@
 		</div>
 	</div>
 
-<%-- a : ${tagMap }<br/>
-b : ${tagMap.size() }<br/>
-c : ${tagMap.get("서울 억새 축제") }<br/><br/>
-
-
-e : ${cmtMap }<br/>
-f : ${cmtMap.size() }<br/>
-g : ${cmtMap.get(1) }<br/><br/>
-
-h : ${holdingMap.holdingTitle }<br/>
-i : ${holdingMap.size() }<br/><br/>
-
-	<table>
+    <div class="card-body">
+	<table class="table table-condensed">
 		<tr>
-			<th>축제 ㅋㅋ제목</th>
+			<th colspan="2" class="text-center">축제 제목</th>
 		</tr>
 		
-		<tr>
-			<td>
-				<c:forEach begin="0" end="${holdingMap.size()-1 }" var="num" items="${holdingMap }">
-				${num }(${cmtMap.get(num) })<br/>
-				TAG : 
-					<c:forEach items="${tagMap.get(num) }" var="tag">　${tag},
-					</c:forEach><br/>
-				</c:forEach>
-			</td>
-		</tr>
-
-	</table> --%>
+		
+		<c:if test="${holdingList.size() <= 0}">
+			반환 값이 없어 예외 처리 되었습니다.
+		</c:if>
+	</table>
 </div>
-
 
 <script>
 </script>

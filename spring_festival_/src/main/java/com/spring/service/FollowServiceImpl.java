@@ -76,4 +76,12 @@ public class FollowServiceImpl implements FollowService {
 		System.out.println("FollowService.unFollow() - followDAO.unFollow() 호출");
 		followDAO.unFollow(nickName, myId);
 	}
+	
+	public int checkFollow(String me, String follow) throws SQLException{
+		return followDAO.selectFollowThis(me,follow);
+	}
+
+	public void doFollow(String me, String follow) throws SQLException{
+		followDAO.insertFollow(me, follow);
+	}
 }

@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="together" value="${dataMap.together }" />
+<c:set var="festival" value="${dataMap.festival }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <!DOCTYPE html>
 <html>
@@ -66,11 +67,12 @@
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
 	    <div class="float-sm-left col-3">${together.tno}</div>
 	    <div class="float-sm-left col-6">${together.t_title }</div>
-	    <div class="float-sm-left col-3">${together.t_writer }</div>
+	    <div class="float-sm-left col-3">작성자 : ${together.nickname }</div>
     </div>
     <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-9">${together.t_title }</div>
-	    <div class="float-sm-left col-3">${together.t_regDate }</div>
+	     <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
+	    <div class="float-sm-left col-3">
+	    <fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>   
     
     <div class="col-12 pl-5 pr-5">
@@ -83,7 +85,7 @@
 		</c:if>
 	 </c:if>  
 	  
-	    <div>${together.t_content }</div>
+	    <div class="col-12 pl-5 pr-5" style="min-height: 200px; margin-top: 15px;">${together.t_content }</div>
     </div>
     
     

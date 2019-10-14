@@ -44,7 +44,7 @@
             text-decoration: none;
         }
 
-        .reviewRegist {
+        .regist {
             font-family: bamin-hanna-Pro;
             font-size: 1.2em;
             line-height: inherit;
@@ -52,8 +52,8 @@
             border: 1px solid darkslategrey;
             border-radius: 3%;
         }
-
-        table {
+        
+         table {
             border-collapse: separate;
             border-spacing: 0 10px;
         }
@@ -111,9 +111,11 @@
     <div class="col-10 mb-3 pb-3" style="margin:0 auto;overflow:hidden">
 	    <div class="col-6 p-0 float-left" align="center">
 	    	<label id="reviewLabel" class="baminfont-Pro" style="width:85%; font-size:1.4em;" onclick="loadReview()">후기</label>
+	    	<button id="reviewBtn" hidden="true" class="regist ml-2" onclick="location.href='<%=request.getContextPath()%>/review/reviewRegist?fno=${festival.fno}&f_name=${festival.f_name}'">글 작성</button>
 	    </div>
 	    <div class="col-6 p-0 float-left" align="center">
 	    	<label id="togetherLabel" class="baminfont-Pro" style="width:85%; font-size:1.4em;" onclick="loadTogether()">같이 가요</label>
+	    	<button id="togetherBtn" hidden="true" class="regist ml-2" onclick="location.href='<%=request.getContextPath()%>/together/togetherRegist?fno=${festival.fno}&f_name=${festival.f_name}'">글 작성</button>
 	    </div>
     </div>
     	<div id="relateBrd">

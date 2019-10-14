@@ -14,7 +14,6 @@ public interface FollowDAO {
 	public void unFollow(String nickName, String myId) throws SQLException;
 	public int f_WriteTotalCount(Criteria cri) throws SQLException;
 	public int f_WantGoTotalCount(Criteria cri) throws SQLException;
-	
-	
-	
+	public int selectFollowThis(String me, String follow) throws SQLException;	
+	public void insertFollow(String me, String follow) throws SQLException;
 }

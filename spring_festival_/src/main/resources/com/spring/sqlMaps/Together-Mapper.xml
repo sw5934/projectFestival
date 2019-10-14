@@ -39,7 +39,7 @@
 			or
 			t_content like '%' ||#{keyword}|| '%'
 			or
-			t_writer like '%' ||#{keyword}|| '%'
+			nickName like '%' ||#{keyword}|| '%'
 			)			
 		</if>
 		

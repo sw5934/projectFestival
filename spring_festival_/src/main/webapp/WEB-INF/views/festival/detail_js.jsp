@@ -194,7 +194,10 @@ function onSubmit(category, form, url, method) {
 			success:function(data){
 
 				$('#reviewLabel').css("border-bottom","5px solid #65ddda");
+				$('#reviewBtn').attr("hidden", false);
+				
 				$('#togetherLabel').css("border-bottom","0px solid #65ddda");
+				$('#togetherBtn').attr("hidden", true);
 				
 				var loop = data.size;
 				
@@ -231,7 +234,10 @@ function onSubmit(category, form, url, method) {
 			type:"GET",
 			success:function(data){
 				$('#togetherLabel').css("border-bottom","5px solid #65ddda");
+				$('#togetherBtn').attr("hidden", false);
+				
 				$('#reviewLabel').css("border-bottom","0px solid #65ddda");
+				$('#reviewBtn').attr("hidden", true);
 				var loop = data.size;
 				
 				if(data.size==0){

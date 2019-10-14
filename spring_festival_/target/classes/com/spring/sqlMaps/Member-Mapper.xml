@@ -5,7 +5,6 @@
     
     
     <mapper namespace="Member">
-    
     	<select id="selectMemberAuthority" resultType="int">
     		select auth_no
     		from has_authority
@@ -14,6 +13,7 @@
     
     	<select id="selectMemberList" resultType="member">
     		select id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern as prtPattern, info_Status as infoStatus 
+
     		from member
 		</select>
 		
@@ -86,6 +86,7 @@
     		insert
     		into member(id, pwd, name, nickName, tel, email, birth, sex, location1, location2, prt_Pattern, info_Status)
     		values(#{id}, #{pwd}, #{name}, #{nickName}, #{tel}, #{email}, #{birth}, #{sex}, #{location1}, #{location2}, #{prtPattern}, #{infoStatus})
+
     	</update>	<!-- 세개는  결국 익스큐트업데이트로 가기때문에 구분이없다 -->
     
     	<update id="updateMember">
@@ -104,6 +105,22 @@
     		delete 
     		from member
     		where id=#{id}
+    	</update>
+    	
+    	
+    	<update id="deleteBlackList">
+    	<![CDATA[
+    		delete 
+    		from blacklist
+			where id = #{id}
+			and bk_enddate < sysdate
+		]]>
+    	</update>
+    	
+    	<update id="deleteBlackList2">
+    		update has_authority
+    		set auth_no = 2
+			where id = #{id}
     	</update>
     
     </mapper>
