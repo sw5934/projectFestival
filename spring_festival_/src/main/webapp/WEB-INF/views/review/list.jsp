@@ -66,7 +66,7 @@
     
     
     <div class="box pt-3 col-10" style="left: 0px; right: 0px; margin-left:auto; margin-right:auto;">
-        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; padding: 0px">후기 게시판
+        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; margin-left: 20px; padding: 0px">후기 게시판
         
         ${Date}
 
@@ -74,8 +74,7 @@
     </div>
     <div class="col-10 mt-3 reviewHeader" style="overflow: hidden; margin: 0 auto;"> 
         <!-- 정렬 이벤트, 글 작성 이벤트 넣기 -->
-         <div class="float-sm-left col-6 mt-1 p-0">
-            <button id="newBtn" class="reviewRegist ml-2" onclick="location.href='reviewRegist'">글 작성</button></div>
+        <div class="float-sm-left col-6 mt-1 p-0"></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=rno">최신 일자</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort"><a href="?listSort=r_viewcnt">조회 수</a></div>
         <div class="float-sm-left col-2 reviewHeaderSort" style="border: 0"><a href="?listSort=r_like">좋아요</a></div>

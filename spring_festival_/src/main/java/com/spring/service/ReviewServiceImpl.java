@@ -82,7 +82,7 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		review.setR_regDate(r_regDate);
 		
-		reviewDAO.insertReview(review);		
+		reviewDAO.insertReview(review);
 		
 	}
 

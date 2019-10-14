@@ -40,12 +40,24 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 					</div><!--end card-header  -->
 					<div class="card-body">
 						<form role="form" method="post" action="reviewRegist" name="registForm">
+							<%
+								int f_no = Integer.parseInt(request.getParameter("fno"));
+								String f_name = request.getParameter("f_name");
+							%>
 							<input type="hidden" name="id" id="writer" value="${loginUser.id}">		
 							<input type="hidden" name="unq_Id" value="${review.unq_Id}">
+							<input type="hidden" name="f_no" value="<%=f_no %>">
 								<div class="form-group row">
 									<label class="col-sm-2 control-label" for="title">제 목</label> 
 									<input class="col-sm-10 form-control" type="text" id="r_title"
 										name='r_title' placeholder="제목을 쓰세요">
+								</div>
+								<div class="form-group row">
+									
+									
+									<label class="col-sm-2 control-label" for="title">축제명</label>
+									<input class="col-sm-10 form-control" type="text" id="f_name"
+										name='f_name' value="<%=f_name %>" disabled="disabled">
 								</div>
 								<div class="col-md-12">
 									<textarea name="r_content" id="r_content"

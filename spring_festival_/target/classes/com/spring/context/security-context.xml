@@ -43,7 +43,7 @@
 		<intercept-url pattern="/follow/**" access="hasAuthority('1')" />
 		<intercept-url pattern="/vote/**" access="hasAuthority('1')" />
 		<intercept-url pattern="/myPage/**" access="hasAuthority('1')" />
-		<intercept-url pattern="/message/**" access="hasAuthority('2')" />
+		<intercept-url pattern="/message/**" access="hasAuthority('1')" />
 		
 		<!-- 관리자페이지 -->
 		<intercept-url pattern="/manage/**" access="hasAuthority('4')" />

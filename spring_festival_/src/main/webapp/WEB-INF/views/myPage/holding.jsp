@@ -25,7 +25,7 @@
 	<div class="col-3 float-sm-left" style="padding: 0px; text-align:center; font-size:1.4em">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/comments" style="color: black;">댓글</a></div></div>
 	</div>
-	<div class="col-11" style="border: 1px solid #D8D8D8; height: 327px; margin:0 auto">
+	<div class="" style="border: 1px solid #D8D8D8; height: 327px; margin:0 auto">
 		<div class="" style="margin:0px 15px 5px 15px;height:290px;">
             <div class="" style="height:290px;">
 				<table class="" style="width: 100%;"> <!-- border="solid 1px black" -->

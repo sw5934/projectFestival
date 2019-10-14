@@ -61,6 +61,7 @@
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="togetherService" class="com.spring.service.TogetherServiceImpl"
 		p:togetherDAO-ref="togetherDAO"
+		p:festivalDAO-ref="festivalDAO"
 		p:commentsDAO-ref="commentsDAO"/>
 	<bean id="commentsService" class="com.spring.service.CommentsServiceImpl"
 		p:commentsDAO-ref="commentsDAO"/>

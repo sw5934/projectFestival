@@ -66,18 +66,17 @@
     
     
     <div class="box pt-3 col-10" style="left: 0px; right: 0px; margin-left:auto; margin-right:auto;">
-        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; padding: 0px">같이가요 게시판</a>
+        <a class="col-10 baminfont-Pro mt-1" style="font-size: 1.6em; margin-left: 20px; padding: 0px">같이가요 게시판</a>
     </div>
     <div class="col-10 mt-3 togetherHeader" style="overflow: hidden; margin: 0 auto;">
         <!-- 정렬 이벤트, 글 작성 이벤트 넣기 -->
-         <div class="float-sm-left col-8 mt-1 p-0">
-            <button id="newBtn" class="togetherRegist ml-2" onclick="location.href='togetherRegist'">글 작성</button></div>
+         <div class="float-sm-left col-8 mt-1 p-0"></div>
         <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=tno">최신 일자</a></div>
-        <div class="float-sm-left col-2 togetherHeaderSort"><a href="?listSort=t_viewcnt">조회 수</a></div>
+        <div class="float-sm-left col-2 togetherHeaderSort" style="border: 0"><a href="?listSort=t_viewcnt">조회 수</a></div>
     </div>
     
-    
-    <form class="col-12" id="listForm" action="<%=request.getContextPath() %>/together/list" method="get">
+    <div style="width: 100%; margin-top: 10px;">
+    <form class="col-12" style="width: 400px;float: right; margin-right: 80px;" id="listForm" action="<%=request.getContextPath() %>/together/list" method="get">
 	    <select name="searchType">
 	    	<option value="tcw" <c:if test='${cri.searchType =="tcw"}'>selected</c:if> >전체 </option>
 	    	<option value="title" <c:if test='${cri.searchType =="title"}'>selected</c:if> >제목 </option>
@@ -89,6 +88,7 @@
     	<input type="text" name="keyword" value="${cri.keyword }">
     	<button type="button" onclick="$('#listForm').submit()">검색</button>
     </form>
+    </div>
     
     <table class="mt-5 col-10" style=" margin: 0 auto;">
         <c:if test="${empty togetherList }">

@@ -11,8 +11,10 @@ import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.SearchCriteria;
 import com.spring.dao.AttachDAO;
 import com.spring.dao.CommentsDAO;
+import com.spring.dao.FestivalDAO;
 import com.spring.dao.TogetherDAO;
 import com.spring.dto.AttachVO;
+import com.spring.dto.FestivalVO;
 import com.spring.dto.MemberVO;
 import com.spring.dto.ReviewVO;
 import com.spring.dto.TogetherVO;
@@ -22,6 +24,11 @@ public class TogetherServiceImpl implements TogetherService{
 	private TogetherDAO togetherDAO;
 	public void setTogetherDAO(TogetherDAO togetherDAO) {
 		this.togetherDAO = togetherDAO;
+	}
+	
+	private FestivalDAO festivalDAO;
+	public void setFestivalDAO(FestivalDAO festivalDAO) {
+		this.festivalDAO = festivalDAO;
 	}
 	
 	private CommentsDAO commentsDAO;
@@ -99,12 +106,16 @@ public class TogetherServiceImpl implements TogetherService{
 		
 		together.setCommentsList(commentsDAO.selectCommentsListPage(together.getUnq_Id(), cri));
 		
+		FestivalVO festival = festivalDAO.selectFestival(together.getF_no());
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(commentsDAO.countComments(together.getUnq_Id()));
 		
 		togetherDAO.increaseViewCnt(tno);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		dataMap.put("festival", festival);
 		dataMap.put("together", together);
 		dataMap.put("pageMaker", pageMaker);
 		return dataMap;
