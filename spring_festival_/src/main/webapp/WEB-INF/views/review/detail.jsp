@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="review" value="${dataMap.review }" />
+<c:set var="festival" value="${dataMap.festival }" />
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <!DOCTYPE html>
 <html>
@@ -63,14 +64,14 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.2em">
 	    <div class="float-sm-left col-3">${review.rno}</div>
 	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3">${review.id }</div>
+	    <div class="float-sm-left col-3">작성자 : ${review.nickname }</div>
 	    	
     </div>
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <div class="float-sm-left col-9">${review.r_title }</div>
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
+	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_title }</div>
 	    <div class="float-sm-left col-3">
 	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>
@@ -80,7 +81,7 @@
     </div>
     
     
-    <div class="col-12 pl-5 pr-5">
+    <div class="col-12 pl-5 pr-5" style="min-height: 200px;">
 	    <div>${review.r_content }</div>
     </div>
     

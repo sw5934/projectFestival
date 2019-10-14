@@ -100,7 +100,7 @@ public class MyPageController {
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		cri.setStr(loginUser.getId());
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(4);
 		
 		Map<String, Object> dataMap = ms.holdingList(cri); 
 		// dataMap = { "holdingList", "pageMaker" }

@@ -10,7 +10,9 @@ import java.util.Map;
 import com.spring.controller.board.PageMaker;
 import com.spring.controller.board.SearchCriteria;
 import com.spring.dao.CommentsDAO;
+import com.spring.dao.FestivalDAO;
 import com.spring.dao.ReviewDAO;
+import com.spring.dto.FestivalVO;
 import com.spring.dto.ReviewVO;
 
 public class ReviewServiceImpl implements ReviewService{
@@ -18,6 +20,11 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewDAO reviewDAO;
 	public void setReviewDAO(ReviewDAO reviewDAO) {
 		this.reviewDAO = reviewDAO;
+	}
+	
+	private FestivalDAO festivalDAO;
+	public void setFestivalDAO(FestivalDAO festivalDAO) {
+		this.festivalDAO = festivalDAO;
 	}
 	
 	
@@ -96,6 +103,8 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		review.setCommentsList(commentsDAO.selectCommentsListPage(review.getUnq_Id(), cri));
 		
+		FestivalVO festival = festivalDAO.selectFestival(review.getF_no());
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(commentsDAO.countComments(review.getUnq_Id()));
@@ -104,6 +113,8 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		reviewDAO.increaseViewCnt(rno);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		dataMap.put("festival", festival);
 		dataMap.put("review", review);
 		dataMap.put("pageMaker", pageMaker);
 		return dataMap;

@@ -94,12 +94,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 		int totalCount = session.selectOne("MyPage-Mapper.myTogetherTotalCount", cri);
 		return totalCount;
 	}
-	
-	
-	
-	
-	
-	
+		
 	@Override
 	public List<CommentsBoardVO> commentsBoard(Criteria cri) throws SQLException {
 		int offset = cri.getPageStartRowNum();
@@ -120,7 +115,11 @@ public class MyPageDAOImpl implements MyPageDAO {
 		return totalCount;
 	}
 	
-	
+	@Override
+	public int holdingCommentsCount(Criteria cri) throws SQLException {
+		int totalCount = session.selectOne("MyPage-Mapper.holdingCommentsCount", cri);
+		return totalCount;
+	}
 	
 	@Override
 	public Map<String, Object> holdingList(Criteria cri) throws SQLException {
@@ -164,8 +163,10 @@ public class MyPageDAOImpl implements MyPageDAO {
 			}
 		}
 		
+		
 		resultMap.put("cmtMap", cmtMap); // Map
 		resultMap.put("holdingMap", holdingTitle); // List<String>
+		resultMap.put("holdingList", holdingList);
 		resultMap.put("tagMap", tagMap); // Map
 		
 		return resultMap;

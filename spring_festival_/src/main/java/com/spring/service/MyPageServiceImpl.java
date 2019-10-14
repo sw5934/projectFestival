@@ -82,7 +82,9 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public Map<String, Object> holdingList(Second_Criteria cri) throws SQLException {
-		Map<String, Object> dataMap = myPageDAO.holdingList(cri);
+		Map<String, Object> myHoldingList = new HashMap<String, Object>();
+		myHoldingList = myPageDAO.holdingList(cri);
+		
 		
 		int totalCount = myPageDAO.holdingTotalCount(cri);
 		
@@ -90,6 +92,8 @@ public class MyPageServiceImpl implements MyPageService {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("myHoldingList", myHoldingList);
 		dataMap.put("pageMaker", pageMaker);
 		
 		

@@ -25,6 +25,7 @@
   		<typeAlias type="com.spring.dto.HoldingVO" alias="holding"/>
   		<typeAlias type="com.spring.dto.FestivalVO" alias="festival"/>
   		<typeAlias type="com.spring.dto.HashTagVO" alias="hashTag"/>
+  		<typeAlias type="com.spring.dto.AttachVO" alias="attach"/>
   	</typeAliases>
   	
   </configuration>

@@ -19,6 +19,8 @@
 	<div class="col-11 mt-3" style="padding: 0px; overflow:hidden; width: 100%; height:40px;"> 
 	<div class="float-sm-left" style="padding: 0px; top: 0px; width: 100%;">
 	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
+	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/holding" style="color: black;">축제</a></div>
+	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/review" style="color: black;">후기</a></div>
 	<div class="col-3 float-sm-left" style="padding: 0px; border-right:3px solid black; text-align:center; font-size:1.4em">
 	<a class="baminfont-Pro" href="<%=request.getContextPath()%>/myPage/together" style="color: black;">같이가요</a></div>
@@ -50,12 +52,12 @@
 							<tr align="center" style="border-bottom:1px solid lightgrey;">
 								<td width="20%" style="margin: 5px;padding: 0;">${tuple.category }</td>
 								<td width="30%" style="margin: 5px;padding: 0;">
-									<a href="
+									<a style="cursor: pointer;" onclick="window.open('
 										<c:if test="${tuple.category == '후기' }">
 											<%= request.getContextPath()%>/review/detail/?rno=${tuple.bno }
 										</c:if>
-										<c:if test="${tuple.category != '후기' }">#</c:if>">
-										${tuple.title }
+										<c:if test="${tuple.category != '후기' }">#</c:if>')">
+										<u>${tuple.title }</u>
 									</a>
 								</td>
 								<td width="30%" style="margin: 5px;padding: 0;">${tuple.comment }</td>

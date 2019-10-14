@@ -14,6 +14,7 @@ public interface MyPageDAO {
 	public int myReviewTotalCount(Criteria cri) throws SQLException;
 	public int myTogetherTotalCount(Criteria cri) throws SQLException;
 	public int myCommentsTotalCount(Criteria cri) throws SQLException;
+	public int holdingCommentsCount(Criteria cri) throws SQLException;
 	public List<CommentsBoardVO> commentsBoard(Criteria cri) throws SQLException;
 	public Map<String, Object> holdingList(Criteria cri) throws SQLException;
 	public int holdingTotalCount(Criteria cri) throws SQLException;
