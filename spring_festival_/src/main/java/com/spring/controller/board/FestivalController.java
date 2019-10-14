@@ -130,7 +130,12 @@ public class FestivalController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public void detail(int fno, Model model, String page, String listSort,SearchCriteria cri) throws Exception {
-
+		
+		if(listSort==null)
+			listSort="fno";
+		if(page==null)
+			page="1";
+		
 		Map<String, Object> dataMap = festivalService.read(fno, cri);
 		dataMap.put("listSort",listSort);
 		dataMap.put("page",page);

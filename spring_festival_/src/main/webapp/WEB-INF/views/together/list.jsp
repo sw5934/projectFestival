@@ -117,9 +117,10 @@
                     		<c:if test="${together.newCount != 2}"><span>${together.t_title }</span></c:if>
                     	
                         <c:if test="${together.commentcount>0}">[${together.commentcount }]</c:if></a>
-                        <p><fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;</p>
+                        <p><fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;
+                        <a class="user_Box" onclick="userBox($(this))">${together.nickname }</a></p>
                         <div style="position:relative;">
-                         <a class="user_Box" onclick="userBox($(this))">${together.nickname }</a>
+                         
                          </div>
                     </td>
                     <td style=";width: 25%">

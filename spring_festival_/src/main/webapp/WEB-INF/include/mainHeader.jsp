@@ -31,28 +31,33 @@
                         <div>
                             <div class="float-sm-left col-12">
                                 <!-- SEARCH FORM -->
-                                <form class="form-inline  float-sm-right mr-5">
+                                <div class="form-inline  float-sm-right mr-5"> 
                                     <div class="input-group input-group-sm">
-                                        <select name="searchOption" class="mr-3">
-                                            <option value="tcw">통합검색</option>
-                                            <option value="t">제목</option>
-                                            <option value="c">내용</option>
-                                            <option value="w">작성자</option>
-                                            <option value="tc">제목+내용</option>
+                                    <form  id="searchForm" action="<%=request.getContextPath()%>/totalSearch" method="get">
+                                        <select name="searchType" class="mr-3">
+                                            <option value="tcw" <c:if test='${searchCri.searchType =="tcw"}'>selected</c:if> >통합검색</option>
+                                            <option value="title" <c:if test='${searchCri.searchType =="title"}'>selected</c:if> >제목</option>
+                                            <option value="content" <c:if test='${searchCri.searchType =="content"}'>selected</c:if> >내용</option>
+                                            <option value="writer" <c:if test='${searchCri.searchType =="writer"}'>selected</c:if> >작성자</option>
+                                            <option value="tc" <c:if test='${searchCri.searchType =="tc"}'>selected</c:if> >제목+내용</option>
                                         </select>
-                                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" style="border:0; border-bottom:solid #65ddda">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-navbar" type="submit">
+                                        <input class="form-control form-control-navbar" name="keyword" type="search" placeholder="Search" aria-label="Search" style="border:0; border-bottom:solid #65ddda" value="${searchCri.keyword }">
+                                     </form>
+                                     <div class="input-group-append">
+                                            <button class="btn btn-navbar" type="button" onclick="$('#searchForm').submit();">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             <div class="float-sm-left col-12 pb-3">
                                 <nav class="navbar navbar-expand navbar-white navbar-light float-sm-right mr-5">
                                     <!-- Left navbar links -->
                                     <ul class="nav navbar-nav">
+                                        <li class="nav-item d-none d-sm-inline-block">
+                                            <a href="<%=request.getContextPath() %>/manage/authoritySet" class="nav-link">회원 관리</a>
+                                        </li>
                                         <li class="nav-item d-none d-sm-inline-block">
                                             <a href="<%=request.getContextPath() %>/manage/reportList" class="nav-link">신고게시판</a>
                                         </li>

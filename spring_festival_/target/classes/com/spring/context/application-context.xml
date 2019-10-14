@@ -42,6 +42,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="attachDAO" class="com.spring.dao.AttachDAOImpl"
 		p:session-ref="sqlSession"/>
+	<bean id="mainDAO" class="com.spring.dao.MainDAOImpl"
+		p:session-ref="sqlSession"/>
 		  
 		  
 	<!-- service -->	
@@ -86,5 +88,12 @@
 		  p:festivalDAO-ref="festivalDAO"
 		  p:commentsDAO-ref="commentsDAO"
 		  p:reportDAO-ref="reportDAO"
+		  />
+	<bean id="mainService"
+		  class="com.spring.service.MainServiceImpl"
+		  p:mainDAO-ref="mainDAO"
+		  p:commentsDAO-ref="commentsDAO"
+		  p:festivalDAO-ref="festivalDAO"
+		  p:reviewDAO-ref="reviewDAO"
 		  />
 </beans>

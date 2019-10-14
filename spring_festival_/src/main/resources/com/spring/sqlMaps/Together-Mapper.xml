@@ -92,7 +92,7 @@
 		into
 		brd_together(unq_Id, tno, t_title, t_writer, t_content, t_regDate, t_state, t_viewcnt, f_no, nickname, articleStatus)
 		values
-		(#{unq_Id}, #{tno}, #{t_title}, #{t_writer}, #{t_content}, #{t_regDate}, 1, 0, null, #{nickname}, #{articleStatus})
+		(#{unq_Id}, #{tno}, #{t_title}, #{t_writer}, #{t_content}, #{t_regDate}, 1, 0, #{f_no}, #{nickname}, #{articleStatus})
 	</update>
 	
 	<update id="updateTogether" parameterType="together">

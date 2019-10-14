@@ -105,6 +105,9 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		FestivalVO festival = festivalDAO.selectFestival(review.getF_no());
 		
+		System.out.println("review.getF_no() : "+review.getF_no());
+		System.out.println("festival : "+festival);
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(commentsDAO.countComments(review.getUnq_Id()));

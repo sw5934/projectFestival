@@ -107,20 +107,31 @@
     		where id=#{id}
     	</update>
     	
+    	<select id="checkBlackList" resultType="int">
+    		select count(*)
+    		from blacklist
+    		where id=#{id}    	
+    	</select>
+    	
+    	<select id="checkBlackListEndDate" resultType="date">
+    		select BK_ENDDATE as endDate
+    		from blacklist
+    		where id=#{id}
+    	</select>
     	
     	<update id="deleteBlackList">
-    	<![CDATA[
     		delete 
     		from blacklist
 			where id = #{id}
-			and bk_enddate < sysdate
-		]]>
     	</update>
     	
-    	<update id="deleteBlackList2">
-    		update has_authority
-    		set auth_no = 2
-			where id = #{id}
+    	<update id="deleteAuthority">
+    		delete from has_authority
+    		where id=#{id}
+    	</update>
+    	<update id="insertAuthority">
+    		insert into has_authority
+			values(#{id},2)
     	</update>
     
     </mapper>
