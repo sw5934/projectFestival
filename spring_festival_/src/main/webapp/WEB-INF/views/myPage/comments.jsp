@@ -57,7 +57,7 @@
 											<%= request.getContextPath()%>/review/detail/?rno=${tuple.bno }
 										</c:if>
 										<c:if test="${tuple.category != '후기' }">#</c:if>')">
-										<u>${tuple.title }</u>
+										${tuple.title }
 									</a>
 								</td>
 								<td width="30%" style="margin: 5px;padding: 0;">${tuple.comment }</td>

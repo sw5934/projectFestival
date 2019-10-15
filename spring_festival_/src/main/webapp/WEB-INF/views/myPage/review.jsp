@@ -64,7 +64,10 @@
 						<c:forEach items="${reviewList }" var="rList"> <!--  begin="0" end="10" step="1" -->
 	                    <tr  align="center" style="border-bottom:1px solid lightgrey;">
 	                      	<td width="150px" style="margin: 5px;padding: 0;" >${rList.bno}</td>
-	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/review/detail/?rno=${rList.bno }')"><u>${rList.title}</u>(${rList.comments })</a></td>
+	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/review/detail/?rno=${rList.bno }')">${rList.title}
+	                      	<c:if test="${rList.comments!=0}">
+	                      	(${rList.comments })
+	                      	</c:if></a></td>
 	                      	<td width="150px" style="margin: 5px;padding: 0;">${rList.regDate}</td>
 	                    </tr>
 		    			</c:forEach>

@@ -21,11 +21,11 @@
 	
 	<!-- dao -->
 	<bean id="memberDAO" class="com.spring.dao.MemberDAOImpl"
-		p:session-ref="sqlSession"/>
+		p:session-ref="sqlSession"/> 
 	<bean id="reviewDAO" class="com.spring.dao.ReviewDAOImpl"
 		p:session-ref="sqlSession"/>
 	<bean id="togetherDAO" class="com.spring.dao.TogetherDAOImpl"
-		p:session-ref="sqlSession"/>		
+		p:session-ref="sqlSession"/>
 	<bean id="commentsDAO" class="com.spring.dao.CommentsDAOImpl"
 		p:session-ref="sqlSession"/>	
 	<bean id="messageDAO" class="com.spring.dao.MessageDAOImpl"
@@ -43,6 +43,8 @@
 	<bean id="attachDAO" class="com.spring.dao.AttachDAOImpl"
 		p:session-ref="sqlSession"/>
 	<bean id="mainDAO" class="com.spring.dao.MainDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="mainPageDAO" class="com.spring.dao.MainPageDAOImpl"
 		p:session-ref="sqlSession"/>
 		  
 		  
@@ -95,5 +97,9 @@
 		  p:commentsDAO-ref="commentsDAO"
 		  p:festivalDAO-ref="festivalDAO"
 		  p:reviewDAO-ref="reviewDAO"
+		  />
+	<bean id="mainPageService"
+		  class="com.spring.service.MainPageServiceImpl"
+		  p:mainPageDAO-ref="mainPageDAO"
 		  />
 </beans>

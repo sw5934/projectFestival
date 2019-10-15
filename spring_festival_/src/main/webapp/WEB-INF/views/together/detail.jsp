@@ -64,13 +64,14 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
+    <div class="col-12" style="border-bottom: 3px solid black; font-family: bamin-hanna-Pro; font-size: 1.2em;"> 
 	    <div class="float-sm-left col-3">${together.tno}</div>
 	    <div class="float-sm-left col-6">${together.t_title }</div>
-	    <div class="float-sm-left col-3">작성자 : ${together.nickname }</div>
+	    <div class="float-sm-left col-3"><a class="user_Box" onclick="userBox($(this))">작성자 : ${together.nickname }</a></div>
+	     
     </div>
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;">
-	     <div class="float-sm-left col-9"> 축제명 : ${together.f_no }</div>
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden; font-family: bamin-hanna-Pro; font-size: 1.1em;">
+	     <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
 	    <div class="float-sm-left col-3">
 	    <fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>   
@@ -89,17 +90,17 @@
     </div>
     
     
-    <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<c:if test="${loginUser.id eq together.t_writer }">
-	   			<a class="float-sm-left col-1" id="deadlineBtn" style="cursor: pointer;" onclick="onDeadline()"
-	   			 href="<%=request.getContextPath()%>/together/deadLine?t_state=${together.t_state}&tno=${together.tno}&listSort=${dataMap.listSort}&page=${dataMap.page}"
-	   			><img src="<%=request.getContextPath()%>/resources/images/deadLine${together.t_state}.png"></a>
-	   		</c:if>
-	   		
-	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${together.unq_Id}&no=${together.tno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	    	  		
-	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
-	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
+    <div class="col-12 mb-2" style="height: 40px; border-bottom: 3px solid black; justify-content: space-around;">
+	    <a class="" style="width: 20%; float: left; text-align: center; cursor: pointer;" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}"><img src="<%=request.getContextPath()%>/resources/images/document.png" style="width:20px;">&nbsp;목록</a>	    
+   		<c:if test="${loginUser.id eq together.t_writer }">
+   			<a class="" id="deadlineBtn" style="width: 20%; float: left; text-align: center; cursor: pointer; margin-top: -5px;" onclick="onDeadline()"
+   			 href="<%=request.getContextPath()%>/together/deadLine?t_state=${together.t_state}&tno=${together.tno}&listSort=${dataMap.listSort}&page=${dataMap.page}">
+   			 <img style="width:auto; height: 40px;" src="<%=request.getContextPath()%>/resources/images/deadLine${together.t_state}.png"></a>
+   		</c:if>
+   		
+  		<div class="" style="width: 20%; float: left; text-align: center; cursor: pointer;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${together.unq_Id}&no=${together.tno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:25px;">신고</a></div>	    	  		
+   	 	<div class="" id="modifyContentBtn" style="width: 20%; float: left; text-align: center; cursor: pointer;" onclick="onModify();"><img src="<%=request.getContextPath()%>/resources/images/modify.png" style="width:30px;">수정</div> 
+   		<div class="" id="deleteContentBtn" style="width: 20%; float: left; text-align: center; cursor: pointer;" onclick="onRemove();"><img src="<%=request.getContextPath()%>/resources/images/delete.png" style="width:20px;">삭제</div>
     	
     </div>
     

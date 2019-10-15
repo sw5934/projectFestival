@@ -105,7 +105,7 @@
                     <td style="width: 7%;  text-align: center">${together.tno }</td>
                     
                    <c:if test="${together.t_state == 1 }">
-                    	<td style="width: 16%;  text-align: center; font-weight: bold">[모집중]</td>
+                    	<td style="width: 16%;  text-align: center;">[모집중]</td> 
                    </c:if>
                    <c:if test="${together.t_state == 2 }">
                    	 <td style="width: 16%;  text-align: center; font-weight: bold; color: red;">[마감]</td>
@@ -117,6 +117,7 @@
                     		<c:if test="${together.newCount != 2}"><span>${together.t_title }</span></c:if>
                     	
                         <c:if test="${together.commentcount>0}">[${together.commentcount }]</c:if></a>
+
                         <p><fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;
                         <a class="user_Box" onclick="userBox($(this))">${together.nickname }</a></p>
                         <div style="position:relative;">

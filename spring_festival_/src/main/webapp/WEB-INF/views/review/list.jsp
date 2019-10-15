@@ -114,9 +114,10 @@
                     		<c:if test="${review.newCount != 2}"><span>${review.r_title }</span></c:if>
                     	                        
                         <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
-                        <p>
                            <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/>&emsp;
-                         ${review.nickname }</p>
+                         <div style="position:relative;">
+                         <a class="user_Box" onclick="userBox($(this))">${review.nickname }</a>
+                         </div>
                     </td>
                     <td style=";width: 25%">
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">

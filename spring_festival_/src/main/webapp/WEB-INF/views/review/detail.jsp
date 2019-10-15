@@ -64,13 +64,13 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.2em">
+    <div class="col-12" style="border-bottom: 3px solid black; font-family: bamin-hanna-Pro; font-size: 1.2em;">
 	    <div class="float-sm-left col-3">${review.rno}</div>
 	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3">작성자 : ${review.nickname }</div>
+	    <div class="float-sm-left col-3">작성자 : <a class="user_Box" onclick="userBox($(this))">작성자 : ${review.nickname }</a></div>
 	    	
     </div>
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden; font-family: bamin-hanna-Pro; font-size: 1.1em;">
 	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
 	    <div class="float-sm-left col-3">
 	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
@@ -81,27 +81,28 @@
     </div>
     
     
-    <div class="col-12 pl-5 pr-5" style="min-height: 200px;">
-	    <div>${review.r_content }</div>
+    <div class="col-12 pl-5 pr-5" style="">
+	    <div style="font-size:1.2em; padding: 10px;min-height: 200px; margin-top: 15px;">${review.r_content }</div>
     </div>
     
     
-    <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-1">
-	   			<c:if test="${review.id != null }">
-	   				<c:if test="${dataMap.history==0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/unlike1.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<c:if test="${dataMap.history!=0}">
-	   				<img src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<button id="r_LikeCnt" onclick="like_update()">${review.r_like }</button>
-	   			</c:if>
-	   		</div>	   		
-	  		<div class="float-sm-left col-1"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
-	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
-	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
+    <div class="col-12 mb-2" style="height: 40px; border-bottom: 3px solid black; overflow:hidden; justify-content: space-around;">
+	    <a class="" style="width: 25%; float: left; text-align: center; cursor: pointer;" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}"><img src="<%=request.getContextPath()%>/resources/images/document.png" style="width:20px;">&nbsp;목록</a>	    
+   		<div class="" style="width: 25%; float: left; text-align: center;"> 
+   			<c:if test="${loginUser.id != null }">
+   				<c:if test="${dataMap.history==0}">
+   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/unlike.png" style="width: 20px; float: left" id="like_update">
+   				</c:if>
+   				<c:if test="${dataMap.history!=0}">
+   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
+   				</c:if>
+   				<a onclick="like_update()"> 좋아요! </a>
+   				<a id="r_LikeCnt" onclick="like_update()">${review.r_like }</a>
+   			</c:if>
+   		</div>	   		
+  		<div class="" style="width: 25%; float: left; text-align: center;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:25px;">신고</a></div>	     	  		
+   	 	<div class="" id="modifyContentBtn" style="width: 25%; float: left; text-align: center; cursor: pointer;" onclick="onModify();"><img src="<%=request.getContextPath()%>/resources/images/modify.png" style="width:30px;">수정</div> 
+   		<div class="" id="deleteContentBtn" style="width: 25%; float: left; text-align: center; cursor: pointer;" onclick="onRemove();"><img src="<%=request.getContextPath()%>/resources/images/delete.png" style="width:20px;">삭제</div>
     	
     </div>
     

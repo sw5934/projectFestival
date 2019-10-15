@@ -70,7 +70,11 @@
 						<c:forEach items="${togetherList }" var="tList"> <!--  begin="0" end="10" step="1" -->
 	                    <tr  align="center" style="border-bottom:1px solid lightgrey;">
 	                      	<td width="150px" style="margin: 5px;padding: 0;">${tList.bno}</td>
-	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/together/detail/?tno=${tList.bno }')"><u>${tList.title}</u>(${tList.comments })</a></td>
+	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;"><a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/together/detail/?tno=${tList.bno }')">${tList.title}
+	                      	<c:if test="${tList.comments!=0}">
+	                      	(${tList.comments })
+	                      	</c:if>
+	                      	</a></td>
 	                      	<td width="150px" style="margin: 5px;padding: 0;">${tList.regDate}</td>
 						</tr>
 						</c:forEach>

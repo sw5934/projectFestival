@@ -21,7 +21,7 @@
 <a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
   
   </span>
-  <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong>{{c_writer}}</h3>
+  <h3 class="timeline-header"><strong style="display:none;">{{c_no}}</strong><a class="user_Box" onclick="userBox($(this))">{{c_writer}}</a></h3>
   <div class="timeline-body">{{c_content}}</div>
 </li>
 {{/each}}	
@@ -39,14 +39,14 @@ function like_update(){
 				alert("좋아요가 반영되었습니다.");
 
 				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)+1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like1.png');
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/like.png');
 				
 			}else{
 
 				alert("좋아요가 취소되었습니다.");
 
 				$('#r_LikeCnt').html(($('#r_LikeCnt').html()*1)-1);
-				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike1.png');
+				$('#like_update').attr('src','/festival/resources/bootstrap/plugins/cm/unlike.png');
 				
 			}
 		},

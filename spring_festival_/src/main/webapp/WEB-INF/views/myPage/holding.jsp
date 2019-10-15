@@ -50,7 +50,7 @@
 	                    	<td width="150px" style="text-align: center;margin: 5px;padding: 0;"><img src="<%=request.getContextPath()%>/resources/uploadImg/festival/${hList.f_writer }/${hList.unq_Id }.jpg" style="width:auto;height:40px;"></td>
 	                      	<td width="400px" align="left" style="margin: 5px;padding: 0;">
 	                      		<a style="cursor: pointer;" onclick="window.open('<%= request.getContextPath()%>/festival/detail/?fno=${hList.fno }')">
-	                      		<u>${hList.f_title}</u><c:if test="${hList.commentCount !=0}">(${hList.commentCount })</c:if></a><br>
+	                      		${hList.f_title}<c:if test="${hList.commentCount !=0}">(${hList.commentCount })</c:if></a><br>
                    				<a>${hList.hashTagString }</a>
 	                      	</td>
 	                      	<td width="150px" style="margin: 5px;padding: 0;"><fmt:formatDate value="${hList.f_regDate }"/></td>
