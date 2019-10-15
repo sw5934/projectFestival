@@ -19,14 +19,14 @@
                     </c:if>
                     <c:if test="${loginUser!=null}">                    
                         <a class="nav-link float-sm-right" onClick="window.open('<%=request.getContextPath()%>/member/myInfo?id=${loginUser.id}', '마이 페이지', 'height=700,width=1000,resizable=0');" style="cursor:pointer;color:blue;">마이페이지</a>
-                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logOut">로그아웃</a>
+                        <a class="nav-link float-sm-right" href="<%=request.getContextPath()%>/logout">로그아웃</a>
                         <a class="nav-link float-sm-right"><b>${loginUser.nickName }</b>&nbsp;<span>님 어서 오세요</span></a>
                     </c:if>
                     </div>
                 </div>
                 <div class="float-sm-left col-12">
                     <!-- Navbar -->
-                    <div class="float-sm-left col-3 pl-5"><a href="<%=request.getContextPath()%>/login"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" width="200px" class=" ml-5"></a></div>
+                    <div class="float-sm-left col-3 pl-5"><a href="<%=request.getContextPath()%>/main.htm"><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/logo.png" width="200px" class=" ml-5"></a></div>
                     <div class="float-sm-left col-9 pr-5">
                         <div>
                             <div class="float-sm-left col-12">

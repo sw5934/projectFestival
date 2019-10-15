@@ -90,20 +90,20 @@
                     <td style="width: 8%;  text-align: center">${report.type}</td>
                     <td style="width: 40%;">
 	                     <c:if test="${report.type=='후기'}">
-	                    <a href="<%=request.getContextPath()%>/review/detail?rno=${report.bno } ">
+	                    <a style="text-overflow: ellipsis;overflow:hidden;display:block;white-space: nowrap;"  href="<%=request.getContextPath()%>/review/detail?rno=${report.bno } ">
 	                    </c:if>
 	                    <c:if test="${report.type=='같이가요'}">
-	                    <a href="<%=request.getContextPath()%>/together/detail?tno=${report.bno } ">
+	                    <a style="text-overflow: ellipsis;overflow:hidden;display:block;white-space: nowrap;"  href="<%=request.getContextPath()%>/together/detail?tno=${report.bno } ">
 	                    </c:if>
 	                    <c:if test="${report.type=='축제'}">
-	                    <a href="<%=request.getContextPath()%>/festival/detail?fno=${report.bno } ">
+	                    <a style="text-overflow: ellipsis;overflow:hidden;display:block;white-space: nowrap;"  href="<%=request.getContextPath()%>/festival/detail?fno=${report.bno } ">
 	                    </c:if>
 	                    ${report.title}
 	                    </a>
                     </td> 
-                    <td style="width: 12%;">${report.nickName}</td>
-                    <td style="width: 12%;">${report.reporterNick}</td>
-                    <td style="width: 20%;"><fmt:formatDate value="${report.rpt_date}"/></td>
+                    <td style="width: 12%;text-overflow: ellipsis;overflow:hidden;white-space: nowrap;">${report.nickName}</td>
+                    <td style="width: 12%;text-overflow: ellipsis;overflow:hidden;white-space: nowrap;">${report.reporterNick}</td>
+                    <td style="width: 20%;text-overflow: ellipsis;overflow:hidden;white-space: nowrap;"><fmt:formatDate value="${report.rpt_date}"/></td>
                 </tr>
             </c:forEach>
         </c:if>

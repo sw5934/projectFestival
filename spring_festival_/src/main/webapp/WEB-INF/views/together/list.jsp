@@ -118,10 +118,10 @@
                     	
                         <c:if test="${together.commentcount>0}">[${together.commentcount }]</c:if></a>
 
-                        <p><fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;
-                        <a class="user_Box" onclick="userBox($(this))">${together.nickname }</a></p>
-                        <div style="position:relative;">
-                         
+                        <fmt:formatDate value="${together.t_regDate }" pattern="MM-dd HH:mm"/>&emsp;
+                        
+                        <div class=" baminfont-Air" style="font-size:1.2em; position:relative;">
+                        <a class="user_Box" onclick="userBox($(this))">${together.nickname }</a></p> 
                          </div>
                     </td>
                     <td style=";width: 25%">

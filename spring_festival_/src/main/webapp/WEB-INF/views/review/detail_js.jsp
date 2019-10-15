@@ -13,10 +13,9 @@
 {{#each .}}
 <li class="commentsLi" data-c_no={{c_no}}>
 <i class="fa fa-comments bg-blue"></i>
- <div class="timeline-item" >
-  <span class="time">
-    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
-	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
+ <div class="timeline-item" >  
+  <span class="time"> <a  data-c_regDate={{c_regdate}}>{{c_regdate}}</a>
+	 <a class="mr-3" id="DeleteCommentsBtn" style="color:#444444; cursor:pointer;"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
 <a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
   
@@ -263,7 +262,7 @@ function onSubmit(category, form, url, method) {
 			},
 			success:function(result){
 				if(result=="SUCCESS"){
-					alert("삭제되었읍니다.");
+					alert("삭제되었습니다.");
 					getPage("<%=request.getContextPath()%>/comments/${review.unq_Id}/"+commentsPage);
 				}
 			},

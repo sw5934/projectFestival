@@ -21,10 +21,10 @@
             <div class="float-sm-left col-12">
                 <div class="float-sm-left col-9">
                     <div class="mb-3">
-                        <input type="email" class="form-control" placeholder="ID" id="id" name="id" value="chun@naver.com">
+                        <input type="email" class="form-control" placeholder="ID" id="id" name="id" value="">
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" placeholder="PASSWORD" id="pwd" name="pwd" value="chun">
+                        <input type="password" class="form-control" placeholder="PASSWORD" id="pwd" name="pwd" value="">
                     </div>
                 </div>
                 <div class="float-sm-left col-3">

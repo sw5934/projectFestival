@@ -24,13 +24,17 @@
 </head>
 <body onload="startSet()">
 <a id="hlist" href=""></a>
-									<div class="input-group input-group-sm">
-                                        <select name="searchOption" id="sltMem" class="mr-3">
+									
+
+<div class="col-11" style="border:solid 1px #EEEEEE; margin: 0 auto;"> 
+
+<div class="input-group input-group-sm float-sm-right p-3">
+                                        <select name="searchOption" id="sltMem" class="mr-3" style="border: 1px solid #BCBCBC">
                                             <option value="i_id">아이디</option>
                                             <option value="i_name">이름</option>
                                             <option value="i_nName">닉네임</option>
                                         </select>
-                                        <input class="form-control form-control-navbar" id="inputVal" type="search" placeholder="Search" aria-label="Search" style="border:0; border-bottom:solid #65ddda">
+                                        <input class="form-control form-control-navbar col-2" id="inputVal" type="search" placeholder="Search" aria-label="Search" style="border:0; border-bottom:solid #65ddda">
                                         <div class="input-group-append">
                                             <button class="btn btn-navbar" onclick="memSearch(inputVal)">
                                                 <i class="fas fa-search"></i>
@@ -38,17 +42,17 @@
                                         </div>
                                     </div>
 
-<div class="row" style="width:900px" border="solid 1px black">
-<br/>
-  <table class="table table-condensed" width="800px">
+
+
+  <table class="table table-condensed">
   	<tr>
-  		<th width="100px" align="center">아z이디</th>
-  		<th width="200px" align="center">이메일</th>
-  		<th width="100px" align="center">닉네임</th>
-  		<th width="" align="center">이름</th>
-  		<th width="100px" align="center">권한 설정</th>
-  		<th width="100px" align="center">제재기간</th>
-  		<th width="" align="center">수정</th>
+  		<th width="15%" align="center">아이디</th>
+  		<th width="18%" align="center">이메일</th>
+  		<th width="22%" align="center">닉네임</th>
+  		<th width="13%" align="center">이름</th>
+  		<th width="14%" align="center">권한 설정</th>
+  		<th width="10%" align="center">제재기간</th>
+  		<th width="8%" align="center">수정</th>
   	</tr>
 
 	<c:forEach items="${authSetList }" var="tuple" begin="0" step="1" varStatus="num">
@@ -65,35 +69,24 @@
 			                   <option>개최자</option>
 			                   <option>일반회원</option>
 			                   <option>제재회원</option>
-			                   <option>비회원</option>
                    		</c:when>
 						<c:when test="${tuple.auth_no==3 }">
                    			<option>개최자</option>
 			                   <option>관리자</option>
 			                   <option>일반회원</option>
 			                   <option>제재회원</option>
-			                   <option>비회원</option>
                    		</c:when>
 						<c:when test="${tuple.auth_no==2 }">
                    			<option>일반회원</option>
 			                   <option>관리자</option>
 			                   <option>개최자</option>
 			                   <option>제재회원</option>
-			                   <option>비회원</option>
                    		</c:when>
 						<c:when test="${tuple.auth_no==1 }">
                    			<option>제재회원</option>
 			                   <option>관리자</option>
 			                   <option>개최자</option>
 			                   <option>일반회원</option>
-			                   <option>비회원</option>
-                   		</c:when>
-						<c:when test="${tuple.auth_no==0 }">
-                   			<option>비회원</option>
-			                   <option>관리자</option>
-			                   <option>개최자</option>
-			                   <option>일반회원</option>
-			                   <option>제재회원</option>
                    		</c:when>
 				   </c:choose>
               	</select>

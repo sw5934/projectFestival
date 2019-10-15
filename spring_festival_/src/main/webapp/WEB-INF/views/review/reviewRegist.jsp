@@ -52,7 +52,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 								<div class="form-group row">
 									<label class="col-sm-2 control-label" for="title">제 목</label> 
 									<input class="col-sm-10 form-control" type="text" id="r_title"
-										name='r_title' placeholder="제목을 쓰세요">
+										name='r_title' placeholder="제목을 입력하세요.">
 								</div>
 								<div class="form-group row">
 									

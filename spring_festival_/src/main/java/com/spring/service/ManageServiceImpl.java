@@ -65,7 +65,7 @@ public class ManageServiceImpl implements ManageService{
 		List<Report_CVO> reportList = reportDAO.selectReportCommentList(cri);
 
 		for(Report_CVO report:reportList) {
-			report.setNickName(memberDAO.selectMemberByID(report.getId()).getNickName());
+			report.setNickName(memberDAO.selectMemberByNickName(report.getId()).getNickName());
 			report.setReporterNick(memberDAO.selectMemberByID(report.getReporter()).getNickName());
 		}
 		

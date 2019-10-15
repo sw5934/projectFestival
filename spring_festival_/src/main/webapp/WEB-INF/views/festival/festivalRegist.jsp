@@ -24,7 +24,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">제 목</label> 
 								<input class="col-sm-10 form-control" type="text" id="title"
-									name='f_title' placeholder="제목을 쓰세요">
+									name='f_title' placeholder="제목을 입력하세요.">
 							</div>
 							<div class="col-md-12">
 								<textarea name="f_content" id="content"

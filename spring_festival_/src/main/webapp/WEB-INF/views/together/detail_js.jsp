@@ -16,7 +16,7 @@
  <div class="timeline-item" >
   <span class="time">
     <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
-	 <a class="btn btn-primary btn-xs" id="DeleteCommentsBtn"
+	 <a class="" id="DeleteCommentsBtn"
 	    data-c_writer={{c_writer}}  data-c_no={{c_no}} data-toggle="modal" data-target="#modifyModal">삭제</a>
 <a href="<%=request.getContextPath()%>/manage/doReportComment?c_no={{c_no}}&no=${together.tno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a>
   </span>

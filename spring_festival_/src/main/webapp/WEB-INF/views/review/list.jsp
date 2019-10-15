@@ -115,8 +115,8 @@
                     	                        
                         <c:if test="${review.commentcount>0}">[${review.commentcount }]</c:if></a>
                            <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/>&emsp;
-                         <div style="position:relative;">
-                         <a class="user_Box" onclick="userBox($(this))">${review.nickname }</a>
+                        <div class=" baminfont-Air" style="font-size:1.2em; position:relative;">
+                        <a class="user_Box" onclick="userBox($(this))">${review.nickname }</a></p> 
                          </div>
                     </td>
                     <td style=";width: 25%">

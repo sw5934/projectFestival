@@ -30,7 +30,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">제 목</label> 
 								<input class="col-sm-10 form-control" type="text" id="t_title"
-									name='t_title' placeholder="제목을 쓰세요">
+									name='t_title' placeholder="제목을 입력하세요.">
 							</div>	
 							<div class="form-group row">
 								<label class="col-sm-2 control-label" for="title">축제명</label>

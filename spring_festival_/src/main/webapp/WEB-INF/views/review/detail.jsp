@@ -64,15 +64,21 @@
     
    
     <div class="mt-3 col-10" style="margin:0 auto">
-    <div class="col-12" style="border-bottom: 3px solid black;font-family: bamin-hanna-Pro; font-size: 1.2em">
+    <div class="col-12" style="border-bottom: 3px solid black; font-family: bamin-hanna-Pro; font-size: 1.2em;">
 	    <div class="float-sm-left col-3">${review.rno}</div>
 	    <div class="float-sm-left col-6">${review.r_title }</div>
-	    <div class="float-sm-left col-3"><a class="user_Box" onclick="userBox($(this))">작성자 : ${review.nickname }</a></div>
+	    <div class="float-sm-left col-3" style="">
+	    	<a class="float-sm-left" style="width:30%;">작성자 :</a>
+	        <div class="baminfont-Air float-sm-left" style="font-size:1em; position:relative;width:70%;">
+		    	<a class="user_Box" onclick="userBox($(this))">${review.nickname }</a>
+		    </div>
+        </div>
+	     
 	    	
     </div>
-    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden;font-family: bamin-hanna-Pro; font-size: 1.1em">
-	    <div class="float-sm-left col-9"> 축제명 : ${festival.f_name }</div>
-	    <div class="float-sm-left col-3">
+    <div class="col-12" style="border-bottom: 3px solid black; overflow:hidden; font-family: bamin-hanna-Pro; font-size: 1.1em;">
+	    <div class="float-sm-left col-9"> 축제명 : <a href="<%=request.getContextPath()%>/festival/detail?fno=${festival.fno }">${festival.f_name }</a></div>
+	    <div class="float-sm-left col-3"> 
 	    <fmt:formatDate value="${review.r_regDate }" pattern="MM-dd HH:mm"/></div>
     </div>
     
@@ -81,50 +87,57 @@
     </div>
     
     
-    <div class="col-12 pl-5 pr-5" style="min-height: 200px;">
-	    <div>${review.r_content }</div>
+    <div class="col-12 pl-2 pr-2" style="">
+	    <div style="font-size:1.2em; padding: 10px;min-height: 200px; margin-top: 15px;">${review.r_content }</div>
+    </div>
+    
+    <div class="col-12" align="center" style="overflow:hidden">
+    	<div class="col-6" style="float: left; text-align: center; cursor:pointer; margin:0 auto;"> 		
+<div class="float-sm-right">
+    <c:if test="${loginUser.id != null }">
+   				<a class="baminfont-Air float-sm-right m-1" id="r_LikeCnt" onclick="like_update()" style="font-size:1.2em">${review.r_like }</a>
+   				<a class="baminfont-Air float-sm-right m-1" style="font-size:1.2em" onclick="like_update()"> 좋아요 </a>
+   				<c:if test="${dataMap.history==0}">
+   				<img class="float-sm-right m-1" onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/unlike.png" style="width: 20px; float: left" id="like_update">
+   				</c:if>
+   				<c:if test="${dataMap.history!=0}">
+   				<img class="float-sm-right m-1" onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
+   				</c:if>
+   				
+   			</c:if> 
+   		</div>	</div>
     </div>
     
     
-    <div class="col-12 mb-5" style="border-bottom: 3px solid black; overflow:hidden;">
-	    <a class="float-sm-left col-4" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}" style="cursor: pointer;">목록</a>	    
-	   		<div class="float-sm-left col-3"> 
-	   			<c:if test="${loginUser.id != null }">
-	   				<c:if test="${dataMap.history==0}">
-	   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/unlike.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<c:if test="${dataMap.history!=0}">
-	   				<img  onclick="like_update()" src="/festival/resources/bootstrap/plugins/cm/like.png" style="width: 20px; float: left" id="like_update">
-	   				</c:if>
-	   				<a onclick="like_update()"> 좋아요! </a>
-	   				<a id="r_LikeCnt" onclick="like_update()">${review.r_like }</a>
-	   			</c:if>
-	   		</div>	   		
-	  		<div class="float-sm-left col-2"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:26px;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}">신고</a></div>	     	  		
-	   	 	<div class="float-sm-left col-3" id="modifyContentBtn" style="cursor: pointer;" onclick="onModify();">수정</div> 
-	   		<div class="float-sm-left col-1" id="deleteContentBtn" style="cursor: pointer;" onclick="onRemove();">삭제</div>
+    <div class="col-12 mb-2" style="height: 40px; border-bottom: 3px solid black; overflow:hidden; justify-content: space-around;">
+	    <a class="" style="width: 25%; float: left; text-align: center; cursor: pointer;" href="list?page=${dataMap.page}&listSort=${dataMap.listSort}"><img src="<%=request.getContextPath()%>/resources/images/document.png" style="width:20px;">&nbsp;목록</a>	    
+   	   		
+  		<div class="" style="width: 25%; float: left; text-align: center;"><a href="<%=request.getContextPath()%>/manage/doReport?unq_id=${review.unq_Id}&no=${review.rno}&page=${dataMap.page}&listSort=${dataMap.listSort}&originCategory=${category}"><img src="<%=request.getContextPath()%>/resources/images/reportIcon.png" style="width:25px;">신고</a></div>	     	  		
+   	 	<div class="" id="modifyContentBtn" style="width: 25%; float: left; text-align: center; cursor: pointer;" onclick="onModify();"><img src="<%=request.getContextPath()%>/resources/images/modify.png" style="width:30px;">수정</div> 
+   		<div class="" id="deleteContentBtn" style="width: 25%; float: left; text-align: center; cursor: pointer;" onclick="onRemove();"><img src="<%=request.getContextPath()%>/resources/images/delete.png" style="width:20px;">삭제</div>
     	
     </div>
     
     </div>
     <!-- 댓글달기 -->
-<div class="card">
+<div class="card col-10" style="margin:0 auto">
 					<div class="card-header">
 						<div class="box box-success">
 							<div class="box-header">
-								<h3 class="box-title">ADD NEW REPLY</h3>
+								<h4 class="box-title">댓글 작성</h4>
 							</div>
 							<div class="box-body">
 								<input class="form-control" type="hidden"
-										id="newC_Writer" value="chun@naver.com">
-								<label for="newC_Content">Comments Text</label>
-								<input class="form-control" type="text" placeholder="COMMENTS TEXT"
+										id="newC_Writer" value="${loginUser.id }">
+								<input class="form-control" type="hidden"
+										id="newC_Id" value="${loginUser.nickName}">
+								<input class="form-control" type="text" placeholder="댓글을 입력하세요."
 										id="newC_Content">
 							</div>
 							<div class="box-footer">
 								<br/>
 								<button type="button" class="btn btn-primary"
-										id="commentsAddBtn">ADD REPLY</button>
+										id="commentsAddBtn">댓글 작성</button>
 							</div>
 						</div>
 					</div>
@@ -133,7 +146,7 @@
 						<ul class="timeline color-palette-set">
 							<!-- timeline time label -->
 							<li class="bg-green color-palette row" id="commentsDiv">
-								<span class="col-sm-12">Comments List</span>
+								<span class="col-sm-12">댓글 목록</span>
 							</li>
 
 						</ul>

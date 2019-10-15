@@ -123,9 +123,6 @@ public class TogetherController {
 	
 	@RequestMapping("/detail")
 	public void detail(HttpServletRequest request, TogetherVO together, int tno, Model model, String page, String listSort, SearchCriteria cri) throws Exception{
-	
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
 		if(listSort==null)
 			listSort="tno";

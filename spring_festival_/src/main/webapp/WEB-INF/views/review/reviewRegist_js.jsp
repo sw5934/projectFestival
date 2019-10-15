@@ -9,7 +9,7 @@
 <!-- 글등록 내용 스마트에디터 적용 -->
 $('#r_content').summernote({	
 	height:200,
-	placeholder:"내용을 작성하세요",
+	placeholder:"1000자 이내로 내용을 입력해 주세요.",
 	tabsize:'1',
 	fontNames:['궁서', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',],
 	fontNamesIgnoreCheck : ['궁서'],
@@ -20,13 +20,13 @@ $('#r_content').summernote({
 		onImageUpload : function(files, editor, welEditable){
 			for (var i = files.length - 1; i >= 0; i--) {
 				if(files[i].name.substring(files[i].name.lastIndexOf(".")+1).toLowerCase() != "jpg"){
-					alert("jpg 확장자만 가능");
+					alert("jpg 확장자만 가능합니다.");
 					return;
 				}
 				//독립된 if문은 or의 의미
 				//alert(files[i].name);
-				if(files[i].size > 1024*1024*1){
-					alert("이미지는 1MB 미만입니다.");
+				if(files[i].size > 1024*1024*10){
+					alert("이미지는 10MB 미만으로 업로드 해 주세요.");
 					return;
 				}
 			
@@ -94,7 +94,6 @@ function sendFile(file, el){
 
 
 $('#registBtn').on('click',function(e){
-	alert("등록버튼 클릭");
 	var form = document.registForm;
 	
 	
@@ -111,7 +110,7 @@ $('#registBtn').on('click',function(e){
 		}
 		
 		if(form.content.value.length>1000){
-			alert("글자수가 1000자를 초과할 수 없업");
+			alert("글자수는 1000자를 초과할 수 없습니다.");
 			return;
 		}
 		

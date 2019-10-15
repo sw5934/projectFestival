@@ -95,7 +95,7 @@
 					</div>
 					
 					<div class="card-footer">
-						<button type="button" class="btn btn-primary" id="registBtn">등 록</button>
+						<button type="button" class="btn btn-primary" id="modifyBtn">등 록</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-warning" id="cancelBtn">취 소</button>
 					</div><!--end card-footer  -->
