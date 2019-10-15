@@ -187,10 +187,10 @@
                          
                     </td>
                     <td style="width: 25%; border-bottom:1px solid #B9B9B9">
-                        <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
+                        <span><img src="<%=request.getContextPath()%>/resources/images/willgo.png" style="width: 10%; height: 25px; float: left">
                             <p>　가고싶어요　${festival.vote1 }</p>
                         </span>
-                        <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/like.png" style="width: 10%; float: left">
+                        <span><img src="<%=request.getContextPath()%>/resources/images/visit.png" style="width: 10%; height: 20px; float: left">
                             <p>　다녀왔어요　${festival.vote2 }</p>
                         </span>
                         <span><img src="<%=request.getContextPath()%>/resources/bootstrap/plugins/cm/view.png" style="width: 10%; float: left">
